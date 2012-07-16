@@ -91,10 +91,10 @@
 <STRING>\\f			{ *s++ = '\f'; }
 <STRING>\\q			{ *s++ = '"'; }
 <STRING>\\[0-9]		{ 
-					*yytext++;
+				/* FIXME No funcionando! */
 					int _ii;
 					/* Caracteres de escape numéricos para saltos de línea */
-					for(_ii = 0; _ii < (*yytext - '0'); _ii++) 
+					for(_ii = 0; _ii < (*(yytext + 1) - '0'); _ii++) 
 						*s++ = '\n';	
 }
 <STRING>\"			{

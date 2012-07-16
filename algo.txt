@@ -1,0 +1,2 @@
+printn(const.pi);
+.

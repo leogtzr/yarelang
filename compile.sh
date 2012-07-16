@@ -10,4 +10,4 @@ lex ./lexico.l || {
 	exit 1;
 }
 
-gcc lex.yy.c y.tab.c interprete.c -o yare -ll -lm && echo -e "Done! :)"
+gcc lex.yy.c y.tab.c interprete.c -o yare -lm && echo -e "Done! :)"

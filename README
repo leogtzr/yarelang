@@ -1,0 +1,152 @@
+Author: Leonardo Gutiérrez Ramírez, leorocko13@hotmail.com
+
+yare es un lenguaje de programación bastante limitado, sin embargo tiene
+algunas características propias de cualquier otro lenguaje de programación
+maduro, por lo cual puede servir para aquella persona que busque realizar
+su propio lenguaje de programación o un simple intérprete. 
+
+Características como:
+
+Ciclos: for, while, do-while, unless(tipo Perl), foreach en la forma:
+
+foreach(1...100, k) {
+	printn(k);
+}
+
+Procedimientos:
+
+# Procedimiento suma, el resultado del procedimiento(o función) es el de la última sentencia ejecutada.
+proc $suma$ {
+	a += b;
+	# Demás sentencias ...
+}
+# Llamando a la función $suma$;
+printn(call $suma$);
+
+Caracteres de escape:
+\n, \r, \f, \t, \s, \b, \q (inserta una doble comilla)
+\[0-9], inserta n número de saltos.
+
+Identificadores:
+:ID: = expr;
+
+Algunas expresiones se pueden procesar así:
+Código
+expresion == expression && sentencia;
+
+
+Un ejemplo:
+Código
+
+1 == 1 && "Ok\n";
+
+-Sentencia tipo "read(var)"
+-Inicialización con valor aleatorio, ejemplo:
+Código
+
+x = ?;
+
+- Lo he hecho bastante "rico" en comentarios, es decir, se admiten comentarios de la forma
+Código
+/* hjkhjkasd
+asdasd
+*/
+
+Código
+rem Comentario de una sóla línea
+
+Código
+# Comentario de una sóla línea
+
+Código
+-- Comentario de una sóla línea
+
+Código
+// Comentario de una sóla línea
+
+Código
+:: Comentario de una sóla línea
+
+- Caracteres especiales en la sentencia "puts(string)", los mismos que en C:
+\n, \t, \s(este es de Perl), \b, \r, \f.
+Añadí uno propio así:
+\q el cuál inserta una doble comilla '"'.
+
+- Además añadí unos caracteres de escape de nueva línea numéricos, es decir.
+
+Código
+
+puts("Hola\1mundo") <- Haría que se insertara un \n
+puts("Hola\2mundo") <- Haría que se insertara dos \n
+puts("Hola\3mundo") <- Haría que se insertara tres \n
+ 
+
+y así hasta el 9.
+
+No hay tipos de datos por ahora, el tipo de dato que manejo es "double".
+
+Hay 26 variables por default, las variables son de la "a" a la "z" y no es sensible a mayúsculas y minúsculas. Estas variables siempre están ahí disponibles.
+
+-Se pueden definir variables propias de este modo:
+Código
+
+:suma: = 2^3;
+
+ó así:
+Código
+
+declare(:suma:, 2^3);
+
+Código
+declare(:suma:);
+
+
+Los identificadores pueden ser bastante flexibles, ejemplo:
+Código
+
+: _Hola mundo # 123342432 : = 123;
+printn(: _Hola mundo # 123342432 :);
+
+
+Se pueden definir bloques de código, pero..., no hay ámbito :p
+Código
+{
+   sentencias...
+}
+
+-Constantes numéricas:
+número pi, número e, logaritmo en base 2 de el número e, y varias más, se pueden utilizar así:
+printn(cos(const.pi^2));
+Para ver otras constantes ver el archivo constantes.h.
+
+Operadores de posincremento y posdecremento:
+a+@;
+a-@;
+:id:+@;
+:id:-@;
+
+Operador variable, lo que llamé operador variable no es más que un operador global que puede ser modificado, algo así:
+
+_@_= *;
+_@_ = /;
+_@_ = -;
+etc...
+
+Y que luego pueda ser usado de esta manera:
+_@_ = *;
+printn(1 + 2 _@_ 3);
+
+Asignaciones:
+
+let x to 1+2;
+set x to 1+2;
+move 1+2 to x;
+x = 1+2;
+mov x, 1+2;
+x <- 1+2;
+let x = 1+2;
+set x = 1+2;
+x := 1+2;
+
+
+Under construction...
