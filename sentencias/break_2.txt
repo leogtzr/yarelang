@@ -1,0 +1,18 @@
+puts("Inicio...\n");
+while(a <= 10) {
+	printn(a);
+	if(a -eq 5) {
+		for i = 50, i <= 55, +1 {
+			if(i -eq 53) {
+				puts("Rompiendo el ciclo del for...\n");
+				break;
+			}
+			printn(i);
+		}
+		puts("Rompiendo el ciclo\n");
+		break;
+	}
+	a = a + 1;	
+}
+puts("Final...\n");
+.

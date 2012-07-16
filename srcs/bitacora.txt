@@ -1,0 +1,20 @@
+Añadir la cabecera symbols.h al proyecto.
+Añadida función para buscar un string en la lista. (symbols.h)
+Los identificadores podrán contener $ y @, pero solo después de un a-zA-Z_.
+Smileys para ID's.
+swap entre variables e identificadores.
+Variables e ids no sensibles a mayúsculas y minúsculas.
+Ahora se puede poner (if|while)(expr) then stmt end|done, también para do-while.
+Acumulamiento de digitos con operador .= listo.
+Operadores shell añadidos {
+	-lt, -le, -gt, -ge, -eq, -ne
+}
+Comienzos con el break.
+Break funcionando ya. En ciclo while y do-while.
+Bucle FOR cuasi funcionando.
+Trabajando en cambiar tipos de datos.
+Hexadecimal values - Listo.
+Agregada la función printn.
+Funciones decremento e incremento, decr(var|id) incr(var|id).
+Función system() añadida.
+assign añadido, hace lo mismo que el move.

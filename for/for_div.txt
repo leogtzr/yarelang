@@ -1,0 +1,14 @@
+for i = 1000000, i > 0, /2 {
+	printn(i);
+	if(i -eq 7812) {
+		puts("Iniciando ciclo interno\n");
+		while(k <= 5) {
+			puts("\t");
+			printn(k);
+			k+@;
+		}
+		break;	
+	}
+}
+.
+

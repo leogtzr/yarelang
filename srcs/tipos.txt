@@ -1,0 +1,20 @@
+function $pedos$(int :a:, decimal :b:, bool :c:) {
+	puts("Bye...");
+}
+
+int :leix: = 1+2+3+4+5;
+
+while(i <= 10) {
+	printn(i);
+	i+@;
+}
+
+move 1+2*3 to a;
+puts("Probando push\n");
+push(a);
+push(1+2);
+:popis: = 657;
+push(:popis:);
+
+
+.

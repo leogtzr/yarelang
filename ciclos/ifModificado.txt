@@ -1,0 +1,5 @@
+x = 0;
+unless(x == a) {
+	puts("Simón\n");
+}
+.

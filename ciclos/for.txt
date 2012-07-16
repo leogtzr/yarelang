@@ -1,0 +1,33 @@
+puts("Probando solo con incremento\n");
+move 0 to i;
+: : = 1;
+for i = 0, i <= 5,+: : 
+	printn(i);
+
+puts("Probando solo con decremento\n");
+: : = 0;
+for i = 5, i >= 0, -~: :
+	printn(i);
+
+puts("Probando cocn pow ^\n");
+move 0 to i;
+for i = 2, i <= 10000, ^(1+~0)
+	printn(i);
+
+puts("Probando con corrimiento a la izquierda\n");
+for i = 1, i <= 100000, <<1
+	printn(i);
+
+puts("Probando con corrimiento a la derecha\n");
+for i = 1000000, i > 0,>>~0 {
+	print(i);
+	puts("\n");
+}
+
+puts("Probando con * \n");
+for i = 1, i <= 1000, *2 printn(i);
+
+puts("Probando con foreach ...\n");
+foreach(1...10,k) printn(k);
+
+.

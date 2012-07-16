@@ -1,0 +1,17 @@
+for i = 2, i <= 10000, *2 {
+	printn(i);
+	if(i -eq 128) {
+		puts("Iniciando otro ciclo\n");
+		while(x <= 10) {
+			puts("\t");
+			printn(x);
+			if(x == 6) {
+				break;
+				puts("Jijiji\n");
+			}
+			incr(x);
+		}
+	}
+}
+
+.

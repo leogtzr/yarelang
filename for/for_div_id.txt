@@ -1,0 +1,22 @@
+:var: = 1223;
+
+for :var: = 100000, :var: > 0, >>1 {
+	printn(:var:);
+	if(:var: -eq 3125) {
+		"Iniciando ciclo interno...\n";
+		:pedos: = ?;
+		for :pedos: = 2, :pedos: <= 10000, *2 {
+			"\t\t\t";
+			printn(:pedos:);
+			if(:pedos: == 128) {
+				"Romper el ciclo interno\n";
+				break;
+				"Jiji";
+			}
+		}
+		"bye...\1";
+		break;
+	}
+}
+
+.

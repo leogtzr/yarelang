@@ -1,0 +1,12 @@
+proc $pedos$ {
+	puts("Chingon yo");
+}
+
+function $pedo$(int :a:, decimal :b:) {
+	;
+}
+
+call $pedos$;
+"\1";
+
+.

@@ -1,0 +1,21 @@
+puts("\qBye :)\q\3");
+
+for i = 10, i > 0, -1 {
+	printn(i);
+	
+	if(i -eq 7) {
+		while(incr(a) <= 5) {
+			puts("\t");
+			printn(a);
+			break;
+		}
+		break;
+		puts("Juaxixiixx\n");
+	}	
+}
+puts("final...\n");
+
+:edad: = strlen("123456789012345678901");
+printn(:edad:);
+
+.

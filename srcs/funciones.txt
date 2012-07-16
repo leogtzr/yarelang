@@ -1,0 +1,13 @@
+beginProgram
+	"Este...\n";
+x = 1 + strlen("Leonardo") + 1 + 10;
+read(x);
+puts("Veamos el valor de x\s=\s");
+print(x);
+h = :);
+print(h);
+h = :(;
+print(h);
+h = :|;
+print(h);
+.

@@ -1,0 +1,15 @@
+foreach(1...10, k) {
+	printn(k);
+	if(k == 5) {
+		while(i <= 10) {
+			puts("i = ");
+			printn(i);
+			if(i == 3) {
+				puts("Rompiendo el while\n");
+				break;
+			}
+			i+@;
+		}
+	}
+}
+.

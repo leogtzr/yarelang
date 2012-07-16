@@ -1,0 +1,18 @@
+puts("Inicio...\n");
+do {
+	printn(i);
+	if(i -eq 6) {
+		puts("i == 6 ..., break\n");
+		do {
+			puts("Dentro de do-while\n");
+			incr(a);
+		} while(a <= 3);
+		break;
+		puts("Juajix...\n");
+	}
+	incr(i);
+} while(i <= 10);
+
+puts("final...\n");
+
+.

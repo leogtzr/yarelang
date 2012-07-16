@@ -1,0 +1,15 @@
+for i = 0, i <= 10,+1 {
+	printn(i);
+	if(i == 5) {
+		while(x <= 10) {
+			puts("while interno\n");
+			move x + 1 to x;
+			if(x == 7) {
+				puts("Rompiendo el while\n");
+				break;
+			}
+		}
+		break;
+	}		
+}
+.

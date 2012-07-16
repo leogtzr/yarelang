@@ -1,0 +1,35 @@
+for i = 0,i <= 10 {
+	print(i);
+	puts("\n");
+}
+puts("Probando el ciclo for con decremento\n");
+move 0 to i;
+for i = 10, i >= 0,-~0 {
+	puts("Hola\n");
+}
+puts("Probando el ciclo for con incremento\n");
+move 0 to i;
+:aumento: = 2;
+for i = 10000, i > 0,/:aumento: {
+	print(i);
+	puts("\n");
+}
+puts("Probando el ciclo for con pow \n");
+move 0 to i;
+for i = 2, i <= 10000,^2 {
+	print(i);
+	puts("\n");
+} 
+puts("Probando el corrimiento a la izquierda\n");
+move 0 to i;
+for i = 1, i <= 1000000,<<1 {
+	print(i);
+	puts("\n");
+} 
+puts("Probando el corrimiento a la derecha\n");
+move 0 to i;
+for i = 1000000, i > 0,>>~0 {
+	print(i);
+	puts("\n");
+} 
+.

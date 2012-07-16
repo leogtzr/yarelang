@@ -1,0 +1,14 @@
+
+/* Se puede solo tener una sentencia en el while */
+
+/*while(i <= 10) 
+	print(i);*/
+
+move 0 to i;
+
+while(i <= 10) {
+puts("Infinito\n");
+;
+}
+
+.

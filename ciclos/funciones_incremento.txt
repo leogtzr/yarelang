@@ -1,0 +1,21 @@
+while(incr(x) <= 10) {
+	printn(x);
+}
+puts("Ahora con id's\n");
+:a: = 0;
+while(incr(:a:) <= 10) {
+	printn(:a:);
+}
+
+puts("Decremento con variables \n");
+move 10 to i;
+while(decr(i) >= 0) {
+	printn(i);
+}
+
+:a: = 10;
+puts("Decremento con id's\n");
+while(decr(:a:) >= 0) {
+	printn(:a:);
+}
+.

@@ -1,0 +1,10 @@
+x = :(;
+printn(x);
+x = :);
+printn(x);
+x = :|;
+printn(x);
+
+x = ?;
+printn(x);
+.

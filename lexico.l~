@@ -1,0 +1,113 @@
+%{
+	#include <stdlib.h>
+	#include "calc3.h"
+	#include "y.tab.h"
+	char *str;
+	extern char opVar[4];
+%}
+
+movAsm				[mM][oO][vV]
+
+%%
+
+%option yylineno;
+
+[a-z] 				{
+						yylval.sIndex = *yytext - 'a';
+						return VARIABLE;
+					}
+			
+[0-9]+ 				{
+						yylval.iValue = atoi(yytext);
+						return INTEGER;
+					}
+
+\"[^"\n]*["\n]		{
+						yylval.string = strdup(yytext + 1);
+						if(yylval.string[yyleng - 2] != '"')
+							puts("Improperly terminated string");
+						else
+							yylval.string[yyleng - 2] = 0;
+						/*printf("found '%s'\n", str);*/
+						return STRING;
+					}
+		
+
+"/*"				{comment();}	/* Comentarios */
+#.*\n				{;}		/* Comentarios tipo shell, perl, python, etc */
+\.\.\..*\n			{;}		/* Comentarios improvisados por mi :) */
+'.*\n				{;}		/* Comentarios estilo VB */
+\/\/.*\n			{;}		/* Comentarios estilo C++ */
+"rem".*\n			{;}		/* Comentarios estilo basic */
+"::".*\n			{;}		/* Comentarios estilo batch */
+"--".*\n			{;}		/* Comentarios estilo SQL */
+
+[-(*)<>=+/;{}.@?"^%!~,&] 	{
+						return *yytext;
+					}
+":="					return ASIGNACION_PASCAL;
+"<-"					return ASIGNACION_PASCAL;
+([lL][eE][tT])|([sS][eE][tT])				return LETSET;
+"->"					return EXPRTOVAR;
+">=" 					return GE;
+"<->"					return SWAP;
+"<=" 					return LE;
+"==" 					return EQ;
+"!=" 					return NE;
+"&&"					return AND;
+"||"					return OR;
+"+="					return ASIGN_ADD;
+"-="					return ASIGN_SUB;
+"*="					return ASIGN_MUL;
+"/="					return ASIGN_DIV;
+"%="					return ASIGN_MOD;
+"<<="					return ASIGN_SHIFTLEFT;
+">>="					return ASIGN_SHIFTRIGHT;
+"&="					return ASIGN_AND;
+"|="					return ASIGN_OR;
+[aA][nN][dD]			return AND;
+[oO][rR]				return OR;
+'!'						return ANDBITS;
+'|'						return ORBITS;
+"_@_"					return OPVAR;
+"while" 				return WHILE;
+"do"					return DO;
+"if" 					return IF;
+"else" 					return ELSE;
+"read"					return READ;
+"print" 				return PRINT;
+"rand"					return RAND;
+"nop"					return NOP;
+"puts"					return PUTS;
+[aA][dD][dD]			return ADDASM;
+[sS][uU][bB]			return SUBASM;
+[mM][oO][vV][eE]		return MOVE;
+[tT][oO]				return TO;
+[mM][oO][vV]			return MOVASM;
+"pendejo(@".*"@);"		{puts(yytext);}
+[ \t\n+] 				;
+.						yyerror("Unknown character");
+
+%%
+
+comment()
+{
+	char c, c1;
+
+loop:
+	while ((c = input()) != '*' && c != 0);
+/*		putchar(c);*/
+
+	if ((c1 = input()) != '/' && c != 0)
+	{
+		unput(c1);
+		goto loop;
+	}
+
+	/*if (c != 0)
+		putchar(c1);*/
+}
+
+int yywrap(void) {
+	return 1;
+}

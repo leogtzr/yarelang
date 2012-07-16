@@ -1,0 +1,6 @@
+function $pedos$() {
+;
+}
+decimal :pedos: = 123;
+printn(:pedos:);
+.

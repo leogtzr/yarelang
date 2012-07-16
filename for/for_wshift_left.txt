@@ -1,0 +1,17 @@
+for i = 1, i <= 100000, <<1 {
+	printn(i);
+	if(i -eq 256) {
+		puts("Iniciando el ciclo\n");
+		while(k <= 5) {	
+			"\t";
+			printn(k);
+			if(k == 3) {
+				puts("Rompiendo el ciclo interno\n");
+				break;
+			}
+			incr(k);
+		}
+		break;
+	}
+}
+.

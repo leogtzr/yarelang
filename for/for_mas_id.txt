@@ -1,0 +1,31 @@
+:for: = 0;
+
+for :for: = 0, :for: < 10, +1 {
+	printn(:for:);
+	if(:for: == 5) {
+		puts("Iniciando ciclo interno...\n");
+		while(i <= 5) {
+			"\t";
+			printn(i);
+			if(i -eq 3) {
+				"Rompiendo ciclo interno\n";
+				break;
+			}
+			let i to i + 1;
+		}
+		puts("Iniciando ciclo for interno\n");
+		for i = 1, i <= 5, +1 {
+			"\t\t";
+			printn(i);
+			if(i -eq 3) {
+				for h = 0, h < 20, +1 {
+					"\s";
+					print(h);
+				}
+				"\n";
+			}
+		}
+	}
+}
+
+.

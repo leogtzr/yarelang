@@ -1,0 +1,17 @@
+for i = 1000000, i > 0, >>1 {
+	printn(i);
+	if(i -eq 488) {
+		puts("Iniciando ciclo interno\n");
+		while(k <= 10) {
+			"\t";
+			printn(k);
+			if( k == 5 ) {
+				puts("fin del ciclo interno\n");
+				break;
+			}
+			move k + 1 to k;
+		}
+		break;
+	}
+}
+.

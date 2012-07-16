@@ -1,0 +1,12 @@
+for i = 2, i <= 1000000, ^2 {
+	printn(i);
+	if(i -eq 256) {
+		puts("Rompiendo ciclo\n");
+		while(x <= 5) {
+			printn(x);
+			x+@;
+		}
+		break;
+	}
+}
+.

@@ -1,0 +1,30 @@
+:a: = 0;
+:k: = 0;
+for :a: = 10, :a: > 0, -1 {
+	printn(:a:);
+	
+	if(:a: -eq 5) {
+		"Iniciando ciclo interno\n";
+		for :k: = 0, :k: <= 15, +1 {
+			"\t";
+			printn(:k:);
+			if(:k: -eq 10) {
+				"Rompiendo\n";
+				for t = 45, t < 100, +1 {
+					"\t\t\t\t";
+					printn(t);
+					break;
+					puts("Te chingas...\n");
+				}
+				break;
+				puts("Te jodes..\n");
+			}
+		}	
+		break;
+		"Mierda más acá...\n";
+	}
+	# break;
+	# "Mierda más acá...\n";
+
+}
+.

@@ -1,0 +1,16 @@
+# Intento de recursion
+proc $factorial$ {
+	if(a != 1) {
+		r *= a;
+		a-@;
+		call $factorial$;
+	}
+}
+
+# Calculando el factorial de 5:
+a = 5;
+r = 1;
+
+call $factorial$;
+
+.

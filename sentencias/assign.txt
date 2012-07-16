@@ -1,0 +1,3 @@
+assign 100+2+3+4 to x;
+printn(x);
+.
