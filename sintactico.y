@@ -20,7 +20,7 @@
 	#include	<stdio.h>
 	#include	<stdlib.h>
 	#include	<stdarg.h>
-	#include	"calc3.h"
+	#include	"estructuras.h"
 	#include 	<string.h>
 	#include 	"data_types.h"
 	#include 	"write_fun_strs.h"

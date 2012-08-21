@@ -3,9 +3,10 @@ Author: Leonardo Gutiérrez Ramírez, leorocko13@hotmail.com
 yare es un lenguaje de programación bastante limitado, sin embargo tiene
 algunas características propias de cualquier otro lenguaje de programación
 maduro, por lo cual puede servir para aquella persona que busque realizar
-su propio lenguaje de programación o un simple intérprete. 
+su propio lenguaje de programación o un simple intérprete para una tarea
+específica.
 
-Características como:
+Cuenta con características como:
 
 Ciclos: for, while, do-while, unless(tipo Perl), foreach en la forma:
 
@@ -29,6 +30,11 @@ Caracteres de escape:
 
 Identificadores:
 :ID: = expr;
+
+El identificador puede ser de cualquier longitud y contener tanto espacios como tabuladores
+pero siempre delimitado por el caracter ':'.
+La expresión regular que coincide identificadores es la siguiente:
+:[0-9 _#@a-zA-Z\t]:
 
 Algunas expresiones se pueden procesar así:
 Código

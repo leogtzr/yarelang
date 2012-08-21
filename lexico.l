@@ -1,7 +1,7 @@
 /* Leo Gutiérrez Ramírez, leorocko13@hotmail.com */
 %{
 	#include <stdlib.h>
-	#include "calc3.h"
+	#include "estructuras.h"
 	#include "constantes.h"
 	#include "y.tab.h"
 	extern char opVar[4];

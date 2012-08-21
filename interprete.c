@@ -1,6 +1,6 @@
 /* Leo Gutiérrez Ramírez */
 #include <stdio.h>
-#include "calc3.h"
+#include "estructuras.h"
 #include "y.tab.h"
 #include <time.h>
 #include <string.h>

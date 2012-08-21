@@ -738,10 +738,10 @@ int yy_flex_debug = 0;
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
 #line 1 "./lexico.l"
-/* Leo Gutiérrez Ramírez */
+/* Leo Gutiérrez Ramírez, leorocko13@hotmail.com */
 #line 3 "./lexico.l"
 	#include <stdlib.h>
-	#include "calc3.h"
+	#include "estructuras.h"
 	#include "constantes.h"
 	#include "y.tab.h"
 	extern char opVar[4];
