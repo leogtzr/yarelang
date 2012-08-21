@@ -1,3 +1,5 @@
+/* Leo Gutiérrez Ramírez, leorocko13@hotmail.com */
+
 /* Añadir números decimales */
 /* Variables de entorno */
 /* Función para resetear/eliminar una variable */
@@ -12,12 +14,6 @@
 /* Cambiar las tablas de símbolos a double
 	Tener cuidado con los operadores a nivel de bits */
 /* Más comentarios */
-/* "mas", "menos", "por" "entre" */
-/* Función write de la forma:
-	
-	write(expr[, expr]*);
-	writen(expr[, expr]*);
-*/
 /* PRINTASCII */
 
 %{
@@ -37,7 +33,7 @@
 	nodeType *idWithType(char *s, short type);
 	nodeType *con(double value);
 	/* FIXME, cambiar de int a short */
-	nodeType *conStr(char value[], int type);
+	nodeType *conStr(char value[], short type);
 	nodeType *idArray(char value[]);
 	void freeNode(nodeType *p);
 	void yyerror(char *s); 
@@ -233,6 +229,14 @@
 %token PUSH_VARS
 %token POP_VARS
 
+/* Expresiones aritméticas con palabras: */
+%token EXPR_MAS
+%token EXPR_MENOS
+%token EXPR_DIV
+%token EXPR_MUL
+%token EXPR_NOT
+%token EXPR_ELEVADO
+
 %nonassoc IFX
 %nonassoc ELSE
 
@@ -242,6 +246,7 @@
 %left '+' '-'
 %left '*' '/'
 %left '^'
+%left EXPR_ELEVADO
 %nonassoc UMINUS NEGACION 
 
 %type <nPtr> stmt 
@@ -407,6 +412,7 @@ stmt:
 	| OPVAR '=''*'';'					{ $$ = opr(OPVAR_MUL, 0); }
 	| OPVAR '=''/'';'					{ $$ = opr(OPVAR_DIV, 0); }
 	| OPVAR '=''^'';'					{ $$ = opr(OPVAR_POW, 0); }
+	| OPVAR '=' EXPR_ELEVADO ';'		{ $$ = opr(OPVAR_POW, 0); }
 	| VARIABLE '+''@'';'				{ $$ = opr(INCR, 1, id($1)); }
 	| VARIABLE '-''@'';'				{ $$ = opr(DECR, 1, id($1)); }
 /* Incrementos y decrementos */        
@@ -419,6 +425,7 @@ stmt:
 	| FOR VARIABLE '=' expr ',' expr ',''*'expr stmt { $$ = opr(FOR_MUL, 5, id($2), $4, $6, $9, $10); } 
 	| FOR VARIABLE '=' expr ',' expr ',''/'expr stmt { $$ = opr(FOR_DIV, 5, id($2), $4, $6, $9, $10); } 
 	| FOR VARIABLE '=' expr ',' expr ',''^'expr stmt { $$ = opr(FOR_POW, 5, id($2), $4, $6, $9, $10); } 
+	| FOR VARIABLE '=' expr ',' expr ',' EXPR_ELEVADO expr stmt { $$ = opr(FOR_POW, 5, id($2), $4, $6, $9, $10); } 
 	| FOR VARIABLE '=' expr ',' expr ',''%'expr stmt { $$ = opr(FOR_MOD, 5, id($2), $4, $6, $9, $10); } 
 	| FOR VARIABLE '=' expr ',' expr ','SHIFTLEFT expr stmt { $$ = opr(FOR_SHIFTLEFTF, 5, id($2), $4, $6, $9, $10); } 
 	| FOR VARIABLE '=' expr ',' expr ','SHIFTRIGHT expr stmt { $$ = opr(FOR_SHIFTRIGHT, 5, id($2), $4, $6, $9, $10); }
@@ -429,6 +436,7 @@ stmt:
 	| FOR ID '=' expr ',' expr ',''*'expr stmt { $$ = opr(FOR_MUL_ID, 5, idS($2), $4, $6, $9, $10); } 
 	| FOR ID '=' expr ',' expr ',''/'expr stmt { $$ = opr(FOR_DIV_ID, 5, idS($2), $4, $6, $9, $10); } 
 	| FOR ID '=' expr ',' expr ',''^'expr stmt { $$ = opr(FOR_POW_ID, 5, idS($2), $4, $6, $9, $10); } 
+	| FOR ID '=' expr ',' expr ',' EXPR_ELEVADO expr stmt { $$ = opr(FOR_POW_ID, 5, idS($2), $4, $6, $9, $10); } 
 	| FOR ID '=' expr ',' expr ',''%'expr stmt { $$ = opr(FOR_MOD_ID, 5, idS($2), $4, $6, $9, $10); } 
 	| FOR ID '=' expr ',' expr ','SHIFTLEFT expr stmt { $$ = opr(FOR_SHIFTLEFTF_ID, 5, idS($2), $4, $6, $9, $10); } 
 	| FOR ID '=' expr ',' expr ','SHIFTRIGHT expr stmt { $$ = opr(FOR_SHIFTRIGHT_ID, 5, idS($2), $4, $6, $9, $10); } 
@@ -479,15 +487,21 @@ expr:
 	| '-' expr %prec UMINUS				{ $$ = opr(UMINUS, 1, $2); }
 	| '!' expr %prec NEGACION			{ $$ = opr(NEGACION, 1, $2); }
 	| '~' expr %prec NEGACION			{ $$ = opr(NEGACION, 1, $2); }
+	| EXPR_NOT expr %prec NEGACION		{ $$ = opr(NEGACION, 1, $2); }
 	| expr '+' expr						{ $$ = opr('+', 2, $1, $3); }
+	| expr EXPR_MAS expr				{ $$ = opr('+', 2, $1, $3); }
 	| expr '-' expr						{ $$ = opr('-', 2, $1, $3); }
+	| expr EXPR_MENOS expr				{ $$ = opr('-', 2, $1, $3); }
 	| expr '*' expr						{ $$ = opr('*', 2, $1, $3); }
+	| expr EXPR_MUL expr				{ $$ = opr('*', 2, $1, $3); }
 	| expr '/' expr						{ $$ = opr('/', 2, $1, $3); }
+	| expr EXPR_DIV expr				{ $$ = opr('/', 2, $1, $3); }
 	| expr '<' expr						{ $$ = opr('<', 2, $1, $3); }
 	| expr _LT_ expr					{ $$ = opr('<', 2, $1, $3); }
 	| expr '>' expr						{ $$ = opr('>', 2, $1, $3); }
 	| expr _GT_ expr					{ $$ = opr('>', 2, $1, $3); }
 	| expr '^' expr						{ $$ = opr('^', 2, $1, $3); }
+	| expr EXPR_ELEVADO expr			{ $$ = opr('^', 2, $1, $3); }
 	| expr '%' expr						{ $$ = opr('%', 2, $1, $3); }
 	| expr GE expr						{ $$ = opr(GE, 2, $1, $3); }
 	| expr LE expr						{ $$ = opr(LE, 2, $1, $3); }
@@ -562,7 +576,7 @@ nodeType *con(double value) {
 	return p;
 }
 
-nodeType *conStr(char valueString[], int type) {
+nodeType *conStr(char valueString[], short type) {
 	nodeType *p;
 	if((p = malloc(sizeof(conNodeType))) == NULL) {
 		yyerror("Memoria insuficiente para este programa.");
@@ -656,16 +670,43 @@ void freeNode(nodeType *p) {
 	free (p);
 }
 
+char *getExtension(char s[]) {
+
+    char *respaldo = malloc(strlen(s) + 1);
+    char *elemento = strtok(s, ".");
+
+    while(elemento != NULL) {
+        strncpy(respaldo, elemento, strlen(elemento) + 1);
+        elemento = strtok(NULL, ".");
+    }
+
+    return respaldo;
+}
+
 void yyerror(char *s) {
 	fprintf(stdout, "%s, probable antes de la línea %d.\n", s, lineno + 1);
 }
 
 int main(int argc, char **argv) {
 
+	char *_respaldo = NULL;
 	if(argc > 1) {
+		
+		_respaldo = malloc(strlen(argv[1]) + 1);
+		strncpy(_respaldo, argv[1], strlen(argv[1]) + 1);
 		stdin = fopen(argv[1], "r");
+
+		if(strlen(argv[1]) <= 3) {
+			fprintf(stderr, "'%s' debe tener una extensión \"yar\"\n", argv[1]);
+			exit(EXIT_FAILURE);
+		} else if(strcmp(getExtension(argv[1]), "yar") != 0) {
+			fprintf(stderr, "'%s' debe tener una extensión \"yar\"\n", argv[1]);
+			exit(EXIT_FAILURE);
+		}	
+
 		if(stdin == NULL) {
-			fprintf(stderr, "Error abriendo archivo [%s]\n", argv[1]);
+			fprintf(stderr, "Error abriendo archivo [%s]\n", _respaldo);
+			free(_respaldo);
 			exit(EXIT_FAILURE);
 		}
 	} else {
@@ -673,8 +714,10 @@ int main(int argc, char **argv) {
 		printf("\nyare\tv1.0\n\n");
 		return EXIT_SUCCESS;
 	}
+
 	srand(time(NULL));
 	yyparse();
-	return 0;
+	free(_respaldo);
+	return EXIT_SUCCESS;
 }
 

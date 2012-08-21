@@ -1,0 +1,3 @@
+/* Test file for Yare */
+puts("Hola\6");
+.

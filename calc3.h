@@ -1,3 +1,4 @@
+/* Leo Gutiérrez Ramírez, leorocko13@hotmail.com */
 #ifndef CALC3_H_INCLUDED
 #define CALC3_H_INCLUDED
 

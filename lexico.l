@@ -1,4 +1,4 @@
-/* Leo Gutiérrez Ramírez */
+/* Leo Gutiérrez Ramírez, leorocko13@hotmail.com */
 %{
 	#include <stdlib.h>
 	#include "calc3.h"
@@ -139,6 +139,13 @@
 "||"								return OR;
 "<<"								return SHIFTLEFT;
 ">>" 								return SHIFTRIGHT; 
+[mM][aA][sS]						return EXPR_MAS;
+[mM][eE][nN][oO][sS]				return EXPR_MENOS;
+[eE][nN][tT][rR][eE]				return EXPR_DIV;
+[sS][oO][bB][rR][eE]				return EXPR_DIV;
+[pP][oO][rR]						return EXPR_MUL;
+[nN][oO][tT]?						return EXPR_NOT;
+[eE][lL][eE][vV][aA][dD][oO]		return EXPR_ELEVADO;
 [xX][oO][rR]						return XOROP;
 "+="								return ASIGN_ADD;
 "-="								return ASIGN_SUB;

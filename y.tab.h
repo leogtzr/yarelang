@@ -1,8 +1,8 @@
-/* A Bison parser, made by GNU Bison 2.5.1.  */
+/* A Bison parser, made by GNU Bison 2.5.  */
 
 /* Bison interface for Yacc-like parsers in C
    
-      Copyright (C) 1984, 1989-1990, 2000-2012 Free Software Foundation, Inc.
+      Copyright (C) 1984, 1989-1990, 2000-2011 Free Software Foundation, Inc.
    
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -197,18 +197,24 @@
      CLEAR_STACK = 415,
      PUSH_VARS = 416,
      POP_VARS = 417,
-     IFX = 418,
-     ELSE = 419,
-     OR = 420,
-     AND = 421,
-     ORBITS = 422,
-     ANDBITS = 423,
-     NE = 424,
-     EQ = 425,
-     LE = 426,
-     GE = 427,
-     NEGACION = 428,
-     UMINUS = 429
+     EXPR_MAS = 418,
+     EXPR_MENOS = 419,
+     EXPR_DIV = 420,
+     EXPR_MUL = 421,
+     EXPR_NOT = 422,
+     EXPR_ELEVADO = 423,
+     IFX = 424,
+     ELSE = 425,
+     OR = 426,
+     AND = 427,
+     ORBITS = 428,
+     ANDBITS = 429,
+     NE = 430,
+     EQ = 431,
+     LE = 432,
+     GE = 433,
+     NEGACION = 434,
+     UMINUS = 435
    };
 #endif
 /* Tokens.  */
@@ -372,18 +378,24 @@
 #define CLEAR_STACK 415
 #define PUSH_VARS 416
 #define POP_VARS 417
-#define IFX 418
-#define ELSE 419
-#define OR 420
-#define AND 421
-#define ORBITS 422
-#define ANDBITS 423
-#define NE 424
-#define EQ 425
-#define LE 426
-#define GE 427
-#define NEGACION 428
-#define UMINUS 429
+#define EXPR_MAS 418
+#define EXPR_MENOS 419
+#define EXPR_DIV 420
+#define EXPR_MUL 421
+#define EXPR_NOT 422
+#define EXPR_ELEVADO 423
+#define IFX 424
+#define ELSE 425
+#define OR 426
+#define AND 427
+#define ORBITS 428
+#define ANDBITS 429
+#define NE 430
+#define EQ 431
+#define LE 432
+#define GE 433
+#define NEGACION 434
+#define UMINUS 435
 
 
 
@@ -392,8 +404,8 @@
 typedef union YYSTYPE
 {
 
-/* Line 2072 of yacc.c  */
-#line 57 "./sintactico.y"
+/* Line 2068 of yacc.c  */
+#line 51 "./sintactico.y"
  
 	double iValue; 		/* integer value */
 	char sIndex;		/* symbol table index */ 
@@ -408,8 +420,8 @@ typedef union YYSTYPE
 
 
 
-/* Line 2072 of yacc.c  */
-#line 413 "y.tab.h"
+/* Line 2068 of yacc.c  */
+#line 425 "y.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

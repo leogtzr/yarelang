@@ -14,18 +14,13 @@
 void swap(nodeType *p);
 unsigned short int getAscii(long long);
 short __i__stack__;
-/* SHIT */
 double _temp_swap;
 double recibido;
-/* SHIT */
 double _temp_swap_id_var_;
-/* SHIT */
 double _temp_swap_var_id_;
-/* SHIT */
 double _temp_concatenate_digits;
 char str_concatena_[100];
 long _exit_return_;
-/* SHIT */
 /* La variable índice que controla la pila */
 short spLoop = -1;
 /* FIXME Ver si es conveniente una pila de 100 elementos o más */
@@ -40,9 +35,9 @@ long double check(char *s, char **end) {
     return temp;
 }
 
-/* SHIT */
 double ex(nodeType *p) {
-	if (!p) return 0;
+	if (!p) 
+		return 0.0f;
 	switch(p->type) {
 
 		case typeCon:
@@ -52,7 +47,7 @@ double ex(nodeType *p) {
 			if((spLoop < 0) || pilaLoop[spLoop]) {
 				printf("%s", p->con.cadena);
 			}
-			return strlen(p->con.cadena);
+			return (double)strlen(p->con.cadena);
 
 		case typeId:
 			return sym[p->id.i];
@@ -61,15 +56,15 @@ double ex(nodeType *p) {
 			if(buscar(identificadores, p->id.identificador))	
 				return getValue(identificadores, p->id.identificador);
 			else
-				return 0;
+				return 0.0f;
 		
 		case typeStrlen:
-			return strlen(p->con.cadena);
+			return (double)strlen(p->con.cadena);
 
 		case typeSystem:
 			if((spLoop < 0) || pilaLoop[spLoop])
 				system(p->con.cadena);
-			return 0;
+			return 0.0f;
 
 		case typeOpr:
 			switch(p->opr.oper) {
@@ -90,7 +85,7 @@ double ex(nodeType *p) {
 						pilaLoop[spLoop] = 0;
 						spLoop--;
 
-					return 0;
+					return 0.0f;
 				
 				case DO:
 					spLoop++;
@@ -107,7 +102,7 @@ double ex(nodeType *p) {
 					}
 					pilaLoop[spLoop] = 0;
 					spLoop--;
-					return 0;
+					return 0.0f;
 
 				case IF:
 					if(spLoop < 0) {
@@ -116,35 +111,34 @@ double ex(nodeType *p) {
 						else if (p->opr.nops > 2)
 							ex(p->opr.op[2]);
 					} else if(pilaLoop[spLoop]) {
-						
 						if(ex(p->opr.op[0]))
 							ex(p->opr.op[1]);
 						else if (p->opr.nops > 2)
 							ex(p->opr.op[2]);
 					}
-					return 0;
+					return 0.0f;
 
 				case PRINT: 
 					if((spLoop < 0) || pilaLoop[spLoop])
 						printf("%lf", ex(p->opr.op[0]));
-					return 0;
+					return 0.0f;
 
 				case PRINTN:
 					if((spLoop < 0) || pilaLoop[spLoop])
 						printf("%lf\n", ex(p->opr.op[0]));
-					return 0;
+					return 0.0f;
 
 				case PUTS:
 					if((spLoop < 0) || pilaLoop[spLoop])
 						ex(p->opr.op[0]);
-					return 0;
+					return 0.0f;
 
 				case RAND:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						srand((unsigned)time(NULL));
 						printf("%d\n", rand());
 					}
-					return 0;
+					return 0.0f;
 
 				case READ:
 					/* Try to open a file with "random" name :p */
@@ -172,328 +166,327 @@ double ex(nodeType *p) {
 							return (sym[p->opr.op[0]->id.i] = _resultado);
 						}
 					}
-					return 0;
+					return 0.0f;
 
 				case STRLEN:
 					if((spLoop < 0) || pilaLoop[spLoop]) 
 						return ex(p->opr.op[0]);
 					 else 
-						return 0;
+						return 0.0f;
 
 				case ';':
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						ex(p->opr.op[0]);
 						return ex(p->opr.op[1]);
 					} else 
-						return 0;
+						return 0.0f;
 
 				case '=':
 					/* TODO PENDIENTE */
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]);	/* PEDOS */
 					}
-					return 0;
+					return 0.0f;
 
 				case SWAP:
-					/*if(pilaLoop[spLoop]) */
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						swap(p);
 					}
-					return 0;
+					return 0.0f;
 
 				case LETSET:
 					/* TODO PENDIENTE */
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]);
 					} else {
-						return 0;
+						return 0.0f;
 					}
 
 				case ASIGNACION_PASCAL:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case MOVE:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sym[p->opr.op[1]->id.i] = ex(p->opr.op[0]);
 					}
-					return 0;
+					return 0.0f;
 
 				case MOVASM:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case ADDASM:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						sym[p->opr.op[0]->id.i] += ex(p->opr.op[1]);
 						return sym[p->opr.op[0]->id.i];
 					}
-					return 0;
+					return 0.0f;
 				
 				case SUBASM:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						sym[p->opr.op[0]->id.i] -= ex(p->opr.op[1]);
 						return sym[p->opr.op[0]->id.i];
 					}
-					return 0;
+					return 0.0f;
 				
 				case INITRAND:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sym[p->opr.op[0]->id.i] = rand() % 100; 
 					}
-					return 0;
+					return 0.0f;
 
 				case FACE_HAPPY:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sym[p->opr.op[0]->id.i] = 1; 
 					}
-					return 0;
+					return 0.0f;
 
 				case FACE_SAD:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sym[p->opr.op[0]->id.i] = -1;
 					}
-					return 0;
+					return 0.0f;
 				
 				case FACE_NO:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sym[p->opr.op[0]->id.i] = 0;
 					}
-					return 0;
+					return 0.0f;
 				
 				case INCR:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sym[p->opr.op[0]->id.i]++;
 					}
-					return 0;
+					return 0.0f;
 
 				case DECR:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sym[p->opr.op[0]->id.i]--;
 					}
-					return 0;
+					return 0.0f;
 
 				case UMINUS:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return -ex(p->opr.op[0]);
 					}
-					return 0;
+					return 0.0f;
 
 				case NEGACION:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return !ex(p->opr.op[0]);
 					}
-					return 0;
+					return 0.0f;
 
 				case '+':
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return ex(p->opr.op[0]) + ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case '-':
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return ex(p->opr.op[0]) - ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case '*':
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return ex(p->opr.op[0]) * ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case '/':
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return ex(p->opr.op[0]) / ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 				
 				case '^':
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return pow(ex(p->opr.op[0]), ex(p->opr.op[1]));
 					}
-					return 0;
+					return 0.0f;
 
 				case '%':
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return (long)ex(p->opr.op[0]) % (long)ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case '<':
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return ex(p->opr.op[0]) < ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case '>':
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return ex(p->opr.op[0]) > ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 				
 				case XOROP:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return (long)ex(p->opr.op[0]) ^ (long)ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case GE:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return ex(p->opr.op[0]) >= ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case LE:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return ex(p->opr.op[0]) <= ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case NE:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return ex(p->opr.op[0]) != ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case EQ:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return ex(p->opr.op[0]) == ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 				
 				case AND:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return ex(p->opr.op[0]) && ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case ANDBITS:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return (long)ex(p->opr.op[0]) & (long)ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case OR:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return ex(p->opr.op[0]) || ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case ORBITS:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return (long)ex(p->opr.op[0]) | (long)ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case SHIFTLEFT:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return (long)ex(p->opr.op[0]) << (long)ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case SHIFTRIGHT:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return (long)ex(p->opr.op[0]) >> (long)ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				/* Operadores de asignación */
 				case ASIGN_ADD:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sym[p->opr.op[0]->id.i] += ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 			
 				case ASIGN_SUB:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sym[p->opr.op[0]->id.i] -= ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case ASIGN_MUL:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sym[p->opr.op[0]->id.i] *= ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case ASIGN_DIV:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sym[p->opr.op[0]->id.i] /= ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case ASIGN_MOD:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] % (long)ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 				
 				case ASIGN_POW:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sym[p->opr.op[0]->id.i] = pow(sym[p->opr.op[0]->id.i], ex(p->opr.op[1]));
 					}
-					return 0;
+					return 0.0f;
 
 				case ASIGN_SHIFTLEFT:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] << (long)ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case ASIGN_SHIFTRIGHT:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] >> (long)ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case ASIGN_AND:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] & (long)ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				case ASIGN_OR:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] | (long)ex(p->opr.op[1]);
 					}
-					return 0;
+					return 0.0f;
 
 				/* Operadores variables */
 				case OPVAR_ADD:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						strcpy(opVar, "+");
 					}
-					return 0;
+					return 0.0f;
 
 				case OPVAR_SUB:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						strcpy(opVar, "-");
 					}
-					return 0;
+					return 0.0f;
 
 				case OPVAR_MUL:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						strcpy(opVar, "*");
 					}
-					return 0;
+					return 0.0f;
 
 				case OPVAR_DIV:	
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						strcpy(opVar, "/");
 					}
-					return 0;
+					return 0.0f;
 
 				case OPVAR_POW:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						strcpy(opVar, "^");
 					}
-					return 0;
+					return 0.0f;
 
 				case _ASIGNACION_:
 					/* Primero hay que buscar si el ID está, si sí está hay que modificar el valor
@@ -508,7 +501,7 @@ double ex(nodeType *p) {
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
 						}
 					}
-					return 0;
+					return 0.0f;
 
 				case _READ_:
 					/* Try to open a file with random name :p */
@@ -534,7 +527,7 @@ double ex(nodeType *p) {
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, (int)__resultado); 
 						}
 					}
-					return 0;
+					return 0.0f;
 
 				case _INITRAND_:
 					/* Si está solo asignamos: */
@@ -546,7 +539,7 @@ double ex(nodeType *p) {
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, rand() % 100);
 						}
 					}
-					return 0;
+					return 0.0f;
 				
 				/* Smileys con identificadores */
 				case _FACE_HAPPY_:
@@ -559,7 +552,7 @@ double ex(nodeType *p) {
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, 1);
 						}
 					}
-					return 0;
+					return 0.0f;
 	
 				case _FACE_SAD_:
 					/* Si está solo asignamos: */
@@ -571,7 +564,7 @@ double ex(nodeType *p) {
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, -1);
 						}
 					}
-					return 0;
+					return 0.0f;
 
 				case _FACE_NO_:
 					/* Si está solo asignamos: */
@@ -583,7 +576,7 @@ double ex(nodeType *p) {
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, 0);
 						}
 					}
-					return 0;
+					return 0.0f;
 				/* Asignaciones abreviadas para identificadores */
 				case _ASIGN_ADD_:
 					/* TODO Primero ver si se encuentra la variable, sino crearla y asignarle el valor */
@@ -597,7 +590,7 @@ double ex(nodeType *p) {
 								getValue(identificadores, p->opr.op[0]->id.identificador) + ex(p->opr.op[1]));
 						}
 					}
-					return 0;
+					return 0.0f;
 				
 				case _ASIGN_SUB_:
 					/* TODO Primero ver si se encuentra la variable, sino crearla y asignarle el valor */
@@ -611,7 +604,7 @@ double ex(nodeType *p) {
 								getValue(identificadores, p->opr.op[0]->id.identificador) - ex(p->opr.op[1]));
 						}
 					}
-					return 0;
+					return 0.0f;
 
 				case _ASIGN_MUL_:
 					/* TODO Primero ver si se encuentra la variable, sino crearla y asignarle el valor */
@@ -625,7 +618,7 @@ double ex(nodeType *p) {
 								getValue(identificadores, p->opr.op[0]->id.identificador) * ex(p->opr.op[1]));
 						}
 					}
-					return 0;
+					return 0.0f;
 					
 				case _ASIGN_DIV_:
 					/* TODO Primero ver si se encuentra la variable, sino crearla y asignarle el valor */
@@ -639,7 +632,7 @@ double ex(nodeType *p) {
 								getValue(identificadores, p->opr.op[0]->id.identificador) / ex(p->opr.op[1]));
 						}
 					}
-					return 0;
+					return 0.0f;
 
 				case _ASIGN_MOD_:
 					/* TODO Primero ver si se encuentra la variable, sino crearla y asignarle el valor */
@@ -653,7 +646,7 @@ double ex(nodeType *p) {
 								(long)getValue(identificadores, p->opr.op[0]->id.identificador) % (long)ex(p->opr.op[1]));
 						}
 					}
-					return 0;
+					return 0.0f;
 
 				case _ASIGN_SHIFTLEFT_:
 					/* TODO Primero ver si se encuentra la variable, sino crearla y asignarle el valor */
@@ -667,7 +660,7 @@ double ex(nodeType *p) {
 								(long)getValue(identificadores, p->opr.op[0]->id.identificador) << (long)ex(p->opr.op[1]));
 						}
 					}
-					return 0;
+					return 0.0f;
 
 				case _ASIGN_SHIFTRIGHT_:
 					/* TODO Primero ver si se encuentra la variable, sino crearla y asignarle el valor */
@@ -681,7 +674,7 @@ double ex(nodeType *p) {
 								(long)getValue(identificadores, p->opr.op[0]->id.identificador) >> (long)ex(p->opr.op[1]));
 						}
 					}
-					return 0;
+					return 0.0f;
 
 				case _ASIGN_AND_:
 					/* TODO Primero ver si se encuentra la variable, sino crearla y asignarle el valor */
@@ -695,7 +688,7 @@ double ex(nodeType *p) {
 								(long)getValue(identificadores, p->opr.op[0]->id.identificador) & (long)ex(p->opr.op[1]));
 						}
 					}
-					return 0;
+					return 0.0f;
 
 				case _ASIGN_OR_:
 					/* TODO Primero ver si se encuentra la variable, sino crearla y asignarle el valor */
@@ -709,7 +702,7 @@ double ex(nodeType *p) {
 								(long)getValue(identificadores, p->opr.op[0]->id.identificador) | (long)ex(p->opr.op[1]));
 						}
 					}
-					return 0;
+					return 0.0f;
 
 				case _ASIGN_PASCAL_:
 					/* Primero hay que buscar si el ID está, si sí está hay que modificar el valor
@@ -724,7 +717,7 @@ double ex(nodeType *p) {
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
 						}
 					}
-					return 0;
+					return 0.0f;
 					
 				case _LETSET_:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
@@ -735,7 +728,7 @@ double ex(nodeType *p) {
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
 						}
 					}
-					return 0;
+					return 0.0f;
 
 				case _MOVE_:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
@@ -746,7 +739,7 @@ double ex(nodeType *p) {
 							return asignar(&identificadores, p->opr.op[1]->id.identificador, ex(p->opr.op[0]));
 						}
 					}
-					return 0;
+					return 0.0f;
 
 				case _MOVASM_:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
@@ -757,7 +750,7 @@ double ex(nodeType *p) {
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
 						}
 					}
-					return 0;
+					return 0.0f;
 
 				case _ADDASM_:
 					/* TODO Primero ver si se encuentra la variable, sino crearla y asignarle el valor */
@@ -771,7 +764,7 @@ double ex(nodeType *p) {
 								getValue(identificadores, p->opr.op[0]->id.identificador) + ex(p->opr.op[1]));
 						}
 					}
-					return 0;
+					return 0.0f;
 
 				case _SUBASM_:
 					/* TODO Primero ver si se encuentra la variable, sino crearla y asignarle el valor */
@@ -785,7 +778,7 @@ double ex(nodeType *p) {
 								getValue(identificadores, p->opr.op[0]->id.identificador) - ex(p->opr.op[1]));
 						}
 					}
-					return 0;
+					return 0.0f;
 
 					case _SWAP_:	
 					if((spLoop < 0) || pilaLoop[spLoop]) {
@@ -794,7 +787,7 @@ double ex(nodeType *p) {
 							getValue(identificadores, p->opr.op[1]->id.identificador));
 						asignar(&identificadores, p->opr.op[1]->id.identificador, _temp_swap);
 					}
-						return 0;	
+						return 0.0f;	
 				
 					case _INCR_:
 						if((spLoop < 0) || pilaLoop[spLoop]) {
@@ -806,7 +799,7 @@ double ex(nodeType *p) {
 									getValue(identificadores, p->opr.op[0]->id.identificador) + 1); 
 							}	
 						}
-						return 0;
+						return 0.0f;
 
 					case _DECR_:
 						if((spLoop < 0) || pilaLoop[spLoop]) {
@@ -818,7 +811,7 @@ double ex(nodeType *p) {
 									getValue(identificadores, p->opr.op[0]->id.identificador) - 1); 
 							}
 						}
-						return 0;
+						return 0.0f;
 
 					case _ASIGN_POW_:	
 						/* TODO Primero ver si se encuentra la variable, sino crearla y asignarle el valor */
@@ -832,7 +825,7 @@ double ex(nodeType *p) {
 									pow(getValue(identificadores, p->opr.op[0]->id.identificador), ex(p->opr.op[1])));
 							}
 						}
-						return 0;
+						return 0.0f;
 
 					case _SWAP_ID_VAR_:
 						if((spLoop < 0) || pilaLoop[spLoop]) {
@@ -840,7 +833,7 @@ double ex(nodeType *p) {
 							asignar(&identificadores, p->opr.op[0]->id.identificador, sym[p->opr.op[1]->id.i]);
 							sym[p->opr.op[1]->id.i] = _temp_swap_id_var_;
 						}
-						return 0;
+						return 0.0f;
 					
 					case _SWAP_VAR_ID_:
 						if((spLoop < 0) || pilaLoop[spLoop]) {
@@ -848,7 +841,7 @@ double ex(nodeType *p) {
 							sym[p->opr.op[0]->id.i] = getValue(identificadores, p->opr.op[1]->id.identificador);
 							return asignar(&identificadores, p->opr.op[1]->id.identificador, _temp_swap_var_id_);
 						}
-						return 0;
+						return 0.0f;
 
 					case CONCATENATE_DIGITS_ID:
 						if((spLoop < 0) || pilaLoop[spLoop]) {
@@ -856,13 +849,13 @@ double ex(nodeType *p) {
 								getValue(identificadores, p->opr.op[0]->id.identificador), ex(p->opr.op[1]));
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, atoi(str_concatena_));
 						}
-						return 0;
+						return 0.0f;
 					
 					/* Sentencias */
 					case BREAK:
 						if(spLoop < 0)	{
 							puts("\nWarning: break fuera de ciclo");
-							return 0;
+							return 0.0f;
 						} else {
 							return (pilaLoop[spLoop] = 0);
 						}
@@ -884,7 +877,7 @@ double ex(nodeType *p) {
 						}
 						pilaLoop[spLoop] = 0;
 						spLoop--;
-						return 0;
+						return 0.0f;
 
 					case FOR_MAS:
 						spLoop++;
@@ -903,7 +896,7 @@ double ex(nodeType *p) {
 						}
 						pilaLoop[spLoop] = 0;
 						spLoop--;
-						return 0;
+						return 0.0f;
 
 					case FOR_MUL:
 						spLoop++;
@@ -922,7 +915,7 @@ double ex(nodeType *p) {
 						}
 						pilaLoop[spLoop] = 0;
 						spLoop--;
-						return 0;
+						return 0.0f;
 
 					case FOR_DIV:
 						spLoop++;
@@ -941,7 +934,7 @@ double ex(nodeType *p) {
 						}
 						pilaLoop[spLoop] = 0;
 						spLoop--;
-						return 0;
+						return 0.0f;
 
 					case FOR_POW:
 						spLoop++;
@@ -961,7 +954,7 @@ double ex(nodeType *p) {
 
 						pilaLoop[spLoop] = 0;
 						spLoop--;
-						return 0;
+						return 0.0f;
 
 					case FOR_MOD:
 						spLoop++;
@@ -980,7 +973,7 @@ double ex(nodeType *p) {
 						}
 						pilaLoop[spLoop] = 0;
 						spLoop--;
-						return 0;
+						return 0.0f;
 
 					case FOR_SHIFTLEFTF:
 						spLoop++;
@@ -999,7 +992,7 @@ double ex(nodeType *p) {
 						}
 						pilaLoop[spLoop] = 0;
 						spLoop--;
-						return 0;
+						return 0.0f;
 
 					case FOR_SHIFTRIGHT:
 						spLoop++;
@@ -1018,25 +1011,25 @@ double ex(nodeType *p) {
 						}
 						pilaLoop[spLoop] = 0;
 						spLoop--;
-						return 0;
+						return 0.0f;
 
 					case ABS:
 						if((spLoop < 0) || pilaLoop[spLoop]) {
 							return (long long)abs(ex(p->opr.op[0]));
 						}
-						return 0;
+						return 0.0f;
 
 					case FACTORIAL:
 						if((spLoop < 0) || pilaLoop[spLoop]) {
 							return (long long)factorial(ex(p->opr.op[0]));
 						}
-						return 0;
+						return 0.0f;
 
 					case SUMATORIA:
 						if((spLoop < 0) || pilaLoop[spLoop]) {
 							return (long long)sumatoria(ex(p->opr.op[0]), ex(p->opr.op[1]));
 						}
-						return 0;
+						return 0.0f;
 
 					case CALL:
 						/* Comprobar que exista yylval.nameFunction */
@@ -1047,7 +1040,7 @@ double ex(nodeType *p) {
 								fprintf(stderr, "Error, no existe una función [%s]\n", yylval.nameFunction);
 							}	
 						}
-						return 0;
+						return 0.0f;
 
 					case EXIT:
 						/* FIXME */
@@ -1058,7 +1051,7 @@ double ex(nodeType *p) {
 							freeNode(p);
 							exit(_exit_return_);
 						}
-						return 0;
+						return 0.0f;
 
 					case FOREACH:
 						spLoop++;
@@ -1079,7 +1072,7 @@ double ex(nodeType *p) {
 						}
 						pilaLoop[spLoop] = 0;
 						spLoop--;
-						return 0;
+						return 0.0f;
 
 					case FOR_MENOS_ID:						
 						/* TODO Primero ver si se encuentra la variable, sino crearla y asignarle el valor */
@@ -1088,7 +1081,7 @@ double ex(nodeType *p) {
 
 						if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 							fprintf(stderr, "\nError, identificador '%s' no encontrado.\n", p->opr.op[0]->id.identificador);
-							return 0;
+							return 0.0f;
 						} else {
 							/* Solo modificar el valor */
 							asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
@@ -1100,7 +1093,7 @@ double ex(nodeType *p) {
 						}
 						pilaLoop[spLoop] = 0;
 						spLoop--;
-						return 0;
+						return 0.0f;
 
 					case FOR_MAS_ID:
 						/* TODO Primero ver si se encuentra la variable, sino crearla y asignarle el valor */
@@ -1109,7 +1102,7 @@ double ex(nodeType *p) {
 
 						if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 							fprintf(stderr, "\nError, identificador '%s' no encontrado.\n", p->opr.op[0]->id.identificador);
-							return 0;
+							return 0.0f;
 						} else {
 							/* Solo modificar el valor */
 							asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
@@ -1121,7 +1114,7 @@ double ex(nodeType *p) {
 						}
 						pilaLoop[spLoop] = 0;
 						spLoop--;
-						return 0;
+						return 0.0f;
 					
 					case FOR_MUL_ID:
 						spLoop++;
@@ -1129,7 +1122,7 @@ double ex(nodeType *p) {
 						
 						if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 							fprintf(stderr, "\nError, identificador '%s' no encontrado.\n", p->opr.op[0]->id.identificador);
-							return 0;
+							return 0.0f;
 						} else {
 							/* Solo modificar el valor */
 							asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
@@ -1141,7 +1134,7 @@ double ex(nodeType *p) {
 						}
 						pilaLoop[spLoop] = 0;
 						spLoop--;
-						return 0;
+						return 0.0f;
 					
 					case FOR_DIV_ID:
 						spLoop++;
@@ -1149,7 +1142,7 @@ double ex(nodeType *p) {
 
 						if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 							fprintf(stderr, "\nError, identificador '%s' no encontrado.\n", p->opr.op[0]->id.identificador);
-							return 0;
+							return 0.0f;
 						} else {
 							/* Solo modificar el valor */
 							asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
@@ -1161,7 +1154,7 @@ double ex(nodeType *p) {
 						}
 						pilaLoop[spLoop] = 0;
 						spLoop--;
-						return 0;
+						return 0.0f;
 
 					case FOR_POW_ID:
 						spLoop++;
@@ -1169,7 +1162,7 @@ double ex(nodeType *p) {
 
 						if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 							fprintf(stderr, "\nError, identificador '%s' no encontrado.\n", p->opr.op[0]->id.identificador);
-							return 0;
+							return 0.0f;
 						} else {
 							/* Solo modificar el valor */
 							asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
@@ -1181,7 +1174,7 @@ double ex(nodeType *p) {
 						}
 						pilaLoop[spLoop] = 0;
 						spLoop--;
-						return 0;
+						return 0.0f;
 					
 					case FOR_MOD_ID:
 						spLoop++;
@@ -1189,7 +1182,7 @@ double ex(nodeType *p) {
 						
 						if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 							fprintf(stderr, "\nError, identificador '%s' no encontrado.\n", p->opr.op[0]->id.identificador);
-							return 0;
+							return 0.0f;
 						} else {
 							/* Solo modificar el valor */
 							asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
@@ -1202,7 +1195,7 @@ double ex(nodeType *p) {
 						pilaLoop[spLoop] = 0;
 						spLoop--;
 
-						return 0;
+						return 0.0f;
 
 					case FOR_SHIFTLEFTF_ID:
 						spLoop++;
@@ -1210,7 +1203,7 @@ double ex(nodeType *p) {
 
 						if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 							fprintf(stderr, "\nError, identificador '%s' no encontrado.\n", p->opr.op[0]->id.identificador);
-							return 0;
+							return 0.0f;
 						} else {
 							/* Solo modificar el valor */
 							asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
@@ -1222,7 +1215,7 @@ double ex(nodeType *p) {
 						}
 						pilaLoop[spLoop] = 0;
 						spLoop--;
-						return 0;
+						return 0.0f;
 
 					case FOR_SHIFTRIGHT_ID:
 						spLoop++;
@@ -1230,7 +1223,7 @@ double ex(nodeType *p) {
 
 						if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 							fprintf(stderr, "\nError, identificador '%s' no encontrado.\n", p->opr.op[0]->id.identificador);
-							return 0;
+							return 0.0f;
 						} else {
 							/* Solo modificar el valor */
 							asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
@@ -1242,67 +1235,67 @@ double ex(nodeType *p) {
 						}
 						pilaLoop[spLoop] = 0;
 						spLoop--;
-						return 0;
+						return 0.0f;
 					
 					case INCR_FUNC_VAR:
 						if((spLoop < 0) || pilaLoop[spLoop]) {
 							return ++sym[p->opr.op[0]->id.i];
 						}
-						return 0;
+						return 0.0f;
 
 					case INCR_FUNC_ID:
 						/* TODO Primero ver si se encuentra la variable, sino crearla y asignarle el valor */
 						if((spLoop < 0) || pilaLoop[spLoop]) {
 							if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 								fprintf(stderr, "\nError, identificador '%s' no encontrado.\n", p->opr.op[0]->id.identificador);
-								return 0;
+								return 0.0f;
 							} else {
 								/* Solo modificar el valor */
 								return asignar(&identificadores, p->opr.op[0]->id.identificador, 
 									getValue(identificadores, p->opr.op[0]->id.identificador) + 1);
 							}
 						}
-						return 0;
+						return 0.0f;
 
 					case DECR_FUNC_VAR:
 						if((spLoop < 0) || pilaLoop[spLoop]) {
 							return --sym[p->opr.op[0]->id.i];
 						}
-						return 0;
+						return 0.0f;
 
 					case DECR_FUNC_ID:
 						/* TODO Primero ver si se encuentra la variable, sino crearla y asignarle el valor */
 						if((spLoop < 0) || pilaLoop[spLoop]) {
 							if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 								fprintf(stderr, "\nError, identificador '%s' no encontrado.\n", p->opr.op[0]->id.identificador);
-								return 0;
+								return 0.0f;
 							} else {
 								/* Solo modificar el valor */
 								return asignar(&identificadores, p->opr.op[0]->id.identificador, 
 									getValue(identificadores, p->opr.op[0]->id.identificador) - 1);
 							}
 						}
-						return 0;
+						return 0.0f;
 
 				case UNLESS:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						if (!ex(p->opr.op[0]))
 							ex(p->opr.op[1]);
-						return 0;
+						return 0.0f;
 					}
-					return 0;
+					return 0.0f;
 
 				case SQRT:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return sqrt(ex(p->opr.op[0]));
 					}
-					return 0;
+					return 0.0f;
 
 				case SYSTEM:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						return ex(p->opr.op[0]);
 					}
-					return 0;
+					return 0.0f;
 
 				case DECLARE:
 					/* Primero hay que buscar si el ID está, si sí está hay que modificar el valor
@@ -1310,14 +1303,14 @@ double ex(nodeType *p) {
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						if(buscar(identificadores, p->opr.op[0]->id.identificador)) {
 							fprintf(stdout, "Aviso: variable ya declarada\n");	
-							return 0;
+							return 0.0f;
 						} else {
 							/* Sino está hay que crear la variable en la tabla de símbolos y ponerle un valor */
 							push_r(&identificadores, p->opr.op[0]->id.identificador);
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, 0);
 						}
 					}
-					return 0;
+					return 0.0f;
 
 				case DECLARE_AND_ASSIGN:	
 					/* Primero hay que buscar si el ID está, si sí está hay que modificar el valor
@@ -1325,7 +1318,7 @@ double ex(nodeType *p) {
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						if(buscar(identificadores, p->opr.op[0]->id.identificador)) {
 							fprintf(stdout, "\tError, redeclaración de la variable '%s'\n", p->opr.op[0]->id.identificador);
-							return 0;	
+							return 0.0f;	
 						} else {
 							/* Sino está hay que crear la variable en la tabla de símbolos y ponerle un valor */
 							push_r(&identificadores, p->opr.op[0]->id.identificador);
@@ -1337,7 +1330,7 @@ double ex(nodeType *p) {
 					if((spLoop < 0) || pilaLoop[spLoop]) { 
 						if(buscar(identificadores, p->opr.op[0]->id.identificador)) { 
 							fprintf(stdout, "\tError, redeclaración de la variable '%s'\n", p->opr.op[0]->id.identificador);
-							return 0;	
+							return 0.0f;	
 						} else {
 							push_r(&identificadores, p->opr.op[0]->id.identificador);
 
@@ -1347,30 +1340,30 @@ double ex(nodeType *p) {
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
 						}
 					}
-					return 0;
+					return 0.0f;
 
 				case PAR:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						/*return !(ex(p->opr.op[0]) & 1);*/
-						return 0;
+						return 0.0f;
 					}
-					return 0;
+					return 0.0f;
 				
 				case PUSH_VAR:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						/*push_r_element(&pila, sym[p->opr.op[0]->id.i]);
 						return sym[p->opr.op[0]->id.i];*/
-						return 0;
+						return 0.0f;
 					}
-					return 0;
+					return 0.0f;
 
 				case PUSH_CONST:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						/*push_r_element(&pila, ex(p->opr.op[0]));
 						return ex(p->opr.op[0]);*/
-						return 0;
+						return 0.0f;
 					}
-					return 0;
+					return 0.0f;
 	
 				case PUSH_ID:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
@@ -1380,16 +1373,16 @@ double ex(nodeType *p) {
 							fprintf(stdout, "\tError, Variable '%s' no existente\n", p->opr.op[0]->id.identificador);
 								return 0;
 						}*/
-						return 0;
+						return 0.0f;
 					}
-					return 0;
+					return 0.0f;
 				
 				case POP_VAR:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						/*sym[p->opr.op[0]->id.i] = pop_r_element(&pila);
 						return sym[p->opr.op[0]->id.i];*/
 					}
-					return 0;
+					return 0.0f;
 
 				case POP_ID:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
@@ -1399,51 +1392,51 @@ double ex(nodeType *p) {
 							fprintf(stdout, "\tError, Variable '%s' no existente\n", p->opr.op[0]->id.identificador);
 							return 0;
 						}	*/
-						return 0;
+						return 0.0f;
 					}
-					return 0;
+					return 0.0f;
 
 				case POP:	
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						/*return pop_r_element(&pila);*/
-						return 0;
+						return 0.0f;
 					}
-					return 0;
+					return 0.0f;
 
 				case PRASCII:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						switch(p->opr.op[0]->type) {
 							case typeCon:
 								putchar(getAscii(p->opr.op[0]->con.value));
-								return 0;
+								return 0.0f;
 							case typeId:
 								putchar(getAscii(sym[p->opr.op[0]->id.i]));
-								return 0;
+								return 0.0f;
 							case typeId2:
 								if(buscar(identificadores, p->opr.op[0]->id.identificador))	
 									putchar(getAscii(getValue(identificadores, p->opr.op[0]->id.identificador)));
 								else
 									{
 										fprintf(stderr, "Error, variable '%s' no encontrada.\n", p->opr.op[0]->id.identificador);
-										return 0;
+										return 0.0f;
 									}
 
 							case typeOpr:
 								putchar(getAscii(ex(p->opr.op[0])));
-								return 0;
+								return 0.0f;
 							case typeCadena:
 								putchar(getAscii(strlen(p->opr.op[0]->con.cadena)));
-								return 0;
+								return 0.0f;
 						}
 					}
-					return 0;
+					return 0.0f;
 
 				case CLEAR_STACK:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 					/*	liberar_stack(&pila);*/
-						return 0;
+						return 0.0f;
 					}
-					return 0;
+					return 0.0f;
 
 				case PUSH_VARS:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
@@ -1453,17 +1446,17 @@ double ex(nodeType *p) {
 							push_r_element(&pila, sym[__i__stack__]);
 						*/
 					}
-					return 0;
+					return 0.0f;
 
 				case POP_VARS:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						/*__i__stack__ = 25;	
 						for(; __i__stack__ >= 0; __i__stack__--)
 							sym[__i__stack__] = pop_r_element(&pila);*/
-						return 0;
+						return 0.0f;
 	
 					}
-					return 0;
+					return 0.0f;
 
 				case ACOS:
 					return acos(ex(p->opr.op[0]));
@@ -1517,7 +1510,7 @@ double ex(nodeType *p) {
 					/*printf("array(%s,%ld)\n", p->opr.op[0]->id.idArray, (long)ex(p->opr.op[1]));*/
 					create_array(&arreglos, p->opr.op[0]->id.idArray, (long)ex(p->opr.op[1]));
 					/*ver_arreglos(arreglos);*/
-					return 0;
+					return 0.0f;
 
 				case ARRAY_POS:
 					/*printf("Dicho array tiene una longitud de %d\n", 
@@ -1551,7 +1544,6 @@ double ex(nodeType *p) {
 					double *_mierda_2 = (double *)asign_array(&arreglos, p->opr.op[0]->id.idArray, (unsigned)ex(p->opr.op[1]), 123);	
 					((double *)asign_array(&arreglos, p->opr.op[0]->id.idArray, (unsigned)ex(p->opr.op[1]), 123))[0] = 13;
 					_mierda_2[(unsigned)ex(p->opr.op[1])] = ex(p->opr.op[2]);
-					
 
 					return 0.0f;
 			}
@@ -1565,6 +1557,7 @@ void swap(nodeType *p) {
 }
 
 unsigned short int getAscii(long long valor) {
+	/* PENDIENTE Ponerlo en forma sexy: */
 	if((valor >= 0) && (valor <= 255))
 		return valor;
 	else
