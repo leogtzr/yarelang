@@ -63,7 +63,7 @@
 						return FUNCNAME;
 					}
 
-:[0-9 _#@a-zA-Z\t]+: 	{
+:["'0-9 _#@a-zA-Z\t]+: 	{
 							unsigned _i_;
 							strcpy(yylval.identificador, yytext);
 							for(_i_ = 0; _i_ < strlen(yylval.identificador); _i_++)

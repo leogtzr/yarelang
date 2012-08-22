@@ -473,11 +473,12 @@ stmt_list:
 expr:
 	INTEGER								{ $$ = con($1); }
 	| ID								{ 
-		
+	
+		/*ver_palabras(identificadores);	*/
 		$$ = idS($1); 
-		if(!buscar(identificadores, $1)) {
+		/*if(!buscar(identificadores, $1)) {
 			fprintf(stdout, "Error, variable '%s' no declarada\n", $1);
-		}		
+		}*/		
 
 	 }
 	| CADENA							{ $$ = conStr($1, typeCadena); }

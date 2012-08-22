@@ -18,6 +18,16 @@ struct palabras {
 
 };
 
+void ver_palabras(struct palabras *inicio) {
+	struct palabras *aux = inicio;
+	putchar('{');
+	while(aux != NULL) {
+		printf("[%s]", aux->id);
+		aux = aux->sig;
+	}
+	putchar('}');	
+}
+
 struct palabras *new(void) {
     return malloc(sizeof(struct palabras));
 }

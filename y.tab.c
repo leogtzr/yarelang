@@ -968,14 +968,14 @@ static const yytype_uint16 yyrline[] =
      428,   429,   430,   431,   432,   434,   435,   436,   437,   438,
      439,   440,   441,   442,   443,   444,   445,   446,   447,   448,
      449,   450,   451,   453,   454,   455,   456,   457,   458,   462,
-     469,   470,   474,   475,   483,   484,   485,   486,   487,   488,
-     489,   490,   491,   492,   493,   494,   495,   496,   497,   498,
-     499,   500,   501,   502,   503,   504,   505,   506,   507,   508,
-     509,   510,   511,   512,   513,   514,   515,   516,   517,   518,
-     519,   520,   521,   522,   523,   524,   525,   526,   527,   528,
-     529,   530,   531,   532,   533,   534,   535,   536,   537,   538,
-     539,   540,   541,   542,   543,   544,   545,   546,   547,   548,
-     549,   550,   564
+     469,   470,   474,   475,   484,   485,   486,   487,   488,   489,
+     490,   491,   492,   493,   494,   495,   496,   497,   498,   499,
+     500,   501,   502,   503,   504,   505,   506,   507,   508,   509,
+     510,   511,   512,   513,   514,   515,   516,   517,   518,   519,
+     520,   521,   522,   523,   524,   525,   526,   527,   528,   529,
+     530,   531,   532,   533,   534,   535,   536,   537,   538,   539,
+     540,   541,   542,   543,   544,   545,   546,   547,   548,   549,
+     550,   551,   565
 };
 #endif
 
@@ -4676,11 +4676,12 @@ yyreduce:
 /* Line 1806 of yacc.c  */
 #line 475 "./sintactico.y"
     { 
-		
+	
+		ver_palabras(identificadores);	
 		(yyval.nPtr) = idS((yyvsp[(1) - (1)].identificador)); 
-		if(!buscar(identificadores, (yyvsp[(1) - (1)].identificador))) {
-			fprintf(stdout, "Error, variable '%s' no declarada\n", (yyvsp[(1) - (1)].identificador));
-		}		
+		/*if(!buscar(identificadores, $1)) {
+			fprintf(stdout, "Error, variable '%s' no declarada\n", $1);
+		}*/		
 
 	 }
     break;
@@ -4688,476 +4689,476 @@ yyreduce:
   case 134:
 
 /* Line 1806 of yacc.c  */
-#line 483 "./sintactico.y"
+#line 484 "./sintactico.y"
     { (yyval.nPtr) = conStr((yyvsp[(1) - (1)].cadena), typeCadena); }
     break;
 
   case 135:
 
 /* Line 1806 of yacc.c  */
-#line 484 "./sintactico.y"
+#line 485 "./sintactico.y"
     { (yyval.nPtr) = opr(ARRAY_POS, 2, idArray((yyvsp[(1) - (4)].idArray)), (yyvsp[(3) - (4)].nPtr)); }
     break;
 
   case 136:
 
 /* Line 1806 of yacc.c  */
-#line 485 "./sintactico.y"
+#line 486 "./sintactico.y"
     { (yyval.nPtr) = opr(PAR, 1, (yyvsp[(3) - (4)].nPtr)); }
     break;
 
   case 137:
 
 /* Line 1806 of yacc.c  */
-#line 486 "./sintactico.y"
+#line 487 "./sintactico.y"
     { (yyval.nPtr) = id((yyvsp[(1) - (1)].sIndex)); }
     break;
 
   case 138:
 
 /* Line 1806 of yacc.c  */
-#line 487 "./sintactico.y"
+#line 488 "./sintactico.y"
     { (yyval.nPtr) = opr(UMINUS, 1, (yyvsp[(2) - (2)].nPtr)); }
     break;
 
   case 139:
 
 /* Line 1806 of yacc.c  */
-#line 488 "./sintactico.y"
+#line 489 "./sintactico.y"
     { (yyval.nPtr) = opr(NEGACION, 1, (yyvsp[(2) - (2)].nPtr)); }
     break;
 
   case 140:
 
 /* Line 1806 of yacc.c  */
-#line 489 "./sintactico.y"
+#line 490 "./sintactico.y"
     { (yyval.nPtr) = opr(NEGACION, 1, (yyvsp[(2) - (2)].nPtr)); }
     break;
 
   case 141:
 
 /* Line 1806 of yacc.c  */
-#line 490 "./sintactico.y"
+#line 491 "./sintactico.y"
     { (yyval.nPtr) = opr(NEGACION, 1, (yyvsp[(2) - (2)].nPtr)); }
     break;
 
   case 142:
 
 /* Line 1806 of yacc.c  */
-#line 491 "./sintactico.y"
+#line 492 "./sintactico.y"
     { (yyval.nPtr) = opr('+', 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 143:
 
 /* Line 1806 of yacc.c  */
-#line 492 "./sintactico.y"
+#line 493 "./sintactico.y"
     { (yyval.nPtr) = opr('+', 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 144:
 
 /* Line 1806 of yacc.c  */
-#line 493 "./sintactico.y"
+#line 494 "./sintactico.y"
     { (yyval.nPtr) = opr('-', 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 145:
 
 /* Line 1806 of yacc.c  */
-#line 494 "./sintactico.y"
+#line 495 "./sintactico.y"
     { (yyval.nPtr) = opr('-', 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 146:
 
 /* Line 1806 of yacc.c  */
-#line 495 "./sintactico.y"
+#line 496 "./sintactico.y"
     { (yyval.nPtr) = opr('*', 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 147:
 
 /* Line 1806 of yacc.c  */
-#line 496 "./sintactico.y"
+#line 497 "./sintactico.y"
     { (yyval.nPtr) = opr('*', 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 148:
 
 /* Line 1806 of yacc.c  */
-#line 497 "./sintactico.y"
+#line 498 "./sintactico.y"
     { (yyval.nPtr) = opr('/', 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 149:
 
 /* Line 1806 of yacc.c  */
-#line 498 "./sintactico.y"
+#line 499 "./sintactico.y"
     { (yyval.nPtr) = opr('/', 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 150:
 
 /* Line 1806 of yacc.c  */
-#line 499 "./sintactico.y"
+#line 500 "./sintactico.y"
     { (yyval.nPtr) = opr('<', 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 151:
 
 /* Line 1806 of yacc.c  */
-#line 500 "./sintactico.y"
+#line 501 "./sintactico.y"
     { (yyval.nPtr) = opr('<', 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 152:
 
 /* Line 1806 of yacc.c  */
-#line 501 "./sintactico.y"
+#line 502 "./sintactico.y"
     { (yyval.nPtr) = opr('>', 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 153:
 
 /* Line 1806 of yacc.c  */
-#line 502 "./sintactico.y"
+#line 503 "./sintactico.y"
     { (yyval.nPtr) = opr('>', 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 154:
 
 /* Line 1806 of yacc.c  */
-#line 503 "./sintactico.y"
+#line 504 "./sintactico.y"
     { (yyval.nPtr) = opr('^', 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 155:
 
 /* Line 1806 of yacc.c  */
-#line 504 "./sintactico.y"
+#line 505 "./sintactico.y"
     { (yyval.nPtr) = opr('^', 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 156:
 
 /* Line 1806 of yacc.c  */
-#line 505 "./sintactico.y"
+#line 506 "./sintactico.y"
     { (yyval.nPtr) = opr('%', 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 157:
 
 /* Line 1806 of yacc.c  */
-#line 506 "./sintactico.y"
+#line 507 "./sintactico.y"
     { (yyval.nPtr) = opr(GE, 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 158:
 
 /* Line 1806 of yacc.c  */
-#line 507 "./sintactico.y"
+#line 508 "./sintactico.y"
     { (yyval.nPtr) = opr(LE, 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 159:
 
 /* Line 1806 of yacc.c  */
-#line 508 "./sintactico.y"
+#line 509 "./sintactico.y"
     { (yyval.nPtr) = opr(NE, 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 160:
 
 /* Line 1806 of yacc.c  */
-#line 509 "./sintactico.y"
+#line 510 "./sintactico.y"
     { (yyval.nPtr) = opr(EQ, 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 161:
 
 /* Line 1806 of yacc.c  */
-#line 510 "./sintactico.y"
+#line 511 "./sintactico.y"
     { (yyval.nPtr) = opr(AND, 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 162:
 
 /* Line 1806 of yacc.c  */
-#line 511 "./sintactico.y"
+#line 512 "./sintactico.y"
     { (yyval.nPtr) = opr(OR, 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 163:
 
 /* Line 1806 of yacc.c  */
-#line 512 "./sintactico.y"
+#line 513 "./sintactico.y"
     { (yyval.nPtr) = opr(ANDBITS, 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 164:
 
 /* Line 1806 of yacc.c  */
-#line 513 "./sintactico.y"
+#line 514 "./sintactico.y"
     { (yyval.nPtr) = opr(ORBITS, 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 165:
 
 /* Line 1806 of yacc.c  */
-#line 514 "./sintactico.y"
+#line 515 "./sintactico.y"
     { (yyval.nPtr) = opr(XOROP, 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 166:
 
 /* Line 1806 of yacc.c  */
-#line 515 "./sintactico.y"
+#line 516 "./sintactico.y"
     { (yyval.nPtr) = opr(SHIFTLEFT, 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 167:
 
 /* Line 1806 of yacc.c  */
-#line 516 "./sintactico.y"
+#line 517 "./sintactico.y"
     { (yyval.nPtr) = opr(SHIFTRIGHT, 2, (yyvsp[(1) - (3)].nPtr), (yyvsp[(3) - (3)].nPtr)); }
     break;
 
   case 168:
 
 /* Line 1806 of yacc.c  */
-#line 517 "./sintactico.y"
+#line 518 "./sintactico.y"
     { (yyval.nPtr) = opr(STRLEN, 1, conStr((yyvsp[(3) - (4)].cadena), typeStrlen)); }
     break;
 
   case 169:
 
 /* Line 1806 of yacc.c  */
-#line 518 "./sintactico.y"
+#line 519 "./sintactico.y"
     { (yyval.nPtr) = opr(ABS, 1, (yyvsp[(3) - (4)].nPtr)); }
     break;
 
   case 170:
 
 /* Line 1806 of yacc.c  */
-#line 519 "./sintactico.y"
+#line 520 "./sintactico.y"
     { (yyval.nPtr) = opr(FACTORIAL, 1, (yyvsp[(3) - (4)].nPtr)); }
     break;
 
   case 171:
 
 /* Line 1806 of yacc.c  */
-#line 520 "./sintactico.y"
+#line 521 "./sintactico.y"
     { (yyval.nPtr) = opr(SUMATORIA, 2, (yyvsp[(3) - (6)].nPtr), (yyvsp[(5) - (6)].nPtr)); }
     break;
 
   case 172:
 
 /* Line 1806 of yacc.c  */
-#line 521 "./sintactico.y"
+#line 522 "./sintactico.y"
     { (yyval.nPtr) = opr(SQRT, 1, (yyvsp[(3) - (4)].nPtr)); }
     break;
 
   case 173:
 
 /* Line 1806 of yacc.c  */
-#line 522 "./sintactico.y"
+#line 523 "./sintactico.y"
     { (yyval.nPtr) = opr(ACOS, 1, (yyvsp[(3) - (4)].nPtr)); }
     break;
 
   case 174:
 
 /* Line 1806 of yacc.c  */
-#line 523 "./sintactico.y"
+#line 524 "./sintactico.y"
     { (yyval.nPtr) = opr(ASIN, 1, (yyvsp[(3) - (4)].nPtr)); }
     break;
 
   case 175:
 
 /* Line 1806 of yacc.c  */
-#line 524 "./sintactico.y"
+#line 525 "./sintactico.y"
     { (yyval.nPtr) = opr(ATAN, 1, (yyvsp[(3) - (4)].nPtr)); }
     break;
 
   case 176:
 
 /* Line 1806 of yacc.c  */
-#line 525 "./sintactico.y"
+#line 526 "./sintactico.y"
     { (yyval.nPtr) = opr(CEIL, 1, (yyvsp[(3) - (4)].nPtr)); }
     break;
 
   case 177:
 
 /* Line 1806 of yacc.c  */
-#line 526 "./sintactico.y"
+#line 527 "./sintactico.y"
     { (yyval.nPtr) = opr(COS, 1, (yyvsp[(3) - (4)].nPtr)); }
     break;
 
   case 178:
 
 /* Line 1806 of yacc.c  */
-#line 527 "./sintactico.y"
+#line 528 "./sintactico.y"
     { (yyval.nPtr) = opr(COSH, 1, (yyvsp[(3) - (4)].nPtr)); }
     break;
 
   case 179:
 
 /* Line 1806 of yacc.c  */
-#line 528 "./sintactico.y"
+#line 529 "./sintactico.y"
     { (yyval.nPtr) = opr(EXP, 1, (yyvsp[(3) - (4)].nPtr)); }
     break;
 
   case 180:
 
 /* Line 1806 of yacc.c  */
-#line 529 "./sintactico.y"
+#line 530 "./sintactico.y"
     { (yyval.nPtr) = opr(LN, 1, (yyvsp[(3) - (4)].nPtr)); }
     break;
 
   case 181:
 
 /* Line 1806 of yacc.c  */
-#line 530 "./sintactico.y"
+#line 531 "./sintactico.y"
     { (yyval.nPtr) = opr(FLOOR, 1, (yyvsp[(3) - (4)].nPtr)); }
     break;
 
   case 182:
 
 /* Line 1806 of yacc.c  */
-#line 531 "./sintactico.y"
+#line 532 "./sintactico.y"
     { (yyval.nPtr) = opr(SIN, 1, (yyvsp[(3) - (4)].nPtr)); }
     break;
 
   case 183:
 
 /* Line 1806 of yacc.c  */
-#line 532 "./sintactico.y"
+#line 533 "./sintactico.y"
     { (yyval.nPtr) = opr(SINH, 1, (yyvsp[(3) - (4)].nPtr)); }
     break;
 
   case 184:
 
 /* Line 1806 of yacc.c  */
-#line 533 "./sintactico.y"
+#line 534 "./sintactico.y"
     { (yyval.nPtr) = opr(TAN, 1, (yyvsp[(3) - (4)].nPtr)); }
     break;
 
   case 185:
 
 /* Line 1806 of yacc.c  */
-#line 534 "./sintactico.y"
+#line 535 "./sintactico.y"
     { (yyval.nPtr) = opr(TANH, 1, (yyvsp[(3) - (4)].nPtr)); }
     break;
 
   case 186:
 
 /* Line 1806 of yacc.c  */
-#line 535 "./sintactico.y"
+#line 536 "./sintactico.y"
     { (yyval.nPtr) = opr(CALL, 0); }
     break;
 
   case 187:
 
 /* Line 1806 of yacc.c  */
-#line 536 "./sintactico.y"
+#line 537 "./sintactico.y"
     { (yyval.nPtr) = opr(INCR_FUNC_VAR, 1, id((yyvsp[(3) - (4)].sIndex))); }
     break;
 
   case 188:
 
 /* Line 1806 of yacc.c  */
-#line 537 "./sintactico.y"
+#line 538 "./sintactico.y"
     { (yyval.nPtr) = opr(INCR_FUNC_ID, 1, idS((yyvsp[(3) - (4)].identificador))); }
     break;
 
   case 189:
 
 /* Line 1806 of yacc.c  */
-#line 538 "./sintactico.y"
+#line 539 "./sintactico.y"
     { (yyval.nPtr) = opr(DECR_FUNC_VAR, 1, id((yyvsp[(3) - (4)].sIndex))); }
     break;
 
   case 190:
 
 /* Line 1806 of yacc.c  */
-#line 539 "./sintactico.y"
+#line 540 "./sintactico.y"
     { (yyval.nPtr) = opr(DECR_FUNC_ID, 1, idS((yyvsp[(3) - (4)].identificador))); }
     break;
 
   case 191:
 
 /* Line 1806 of yacc.c  */
-#line 540 "./sintactico.y"
+#line 541 "./sintactico.y"
     { (yyval.nPtr) = opr(PUSH_VAR, 1, id((yyvsp[(3) - (4)].sIndex))); }
     break;
 
   case 192:
 
 /* Line 1806 of yacc.c  */
-#line 541 "./sintactico.y"
+#line 542 "./sintactico.y"
     { (yyval.nPtr) = opr(PUSH_VAR, 1, id((yyvsp[(2) - (2)].sIndex))); }
     break;
 
   case 193:
 
 /* Line 1806 of yacc.c  */
-#line 542 "./sintactico.y"
+#line 543 "./sintactico.y"
     { (yyval.nPtr) = opr(PUSH_CONST, 1, (yyvsp[(3) - (4)].nPtr)); }
     break;
 
   case 194:
 
 /* Line 1806 of yacc.c  */
-#line 543 "./sintactico.y"
+#line 544 "./sintactico.y"
     { (yyval.nPtr) = opr(PUSH_ID, 1, idS((yyvsp[(2) - (2)].identificador))); }
     break;
 
   case 195:
 
 /* Line 1806 of yacc.c  */
-#line 544 "./sintactico.y"
+#line 545 "./sintactico.y"
     { (yyval.nPtr) = opr(POP_VAR, 1, id((yyvsp[(3) - (4)].sIndex))); }
     break;
 
   case 196:
 
 /* Line 1806 of yacc.c  */
-#line 545 "./sintactico.y"
+#line 546 "./sintactico.y"
     { (yyval.nPtr) = opr(POP_VAR, 1, id((yyvsp[(2) - (2)].sIndex))); }
     break;
 
   case 197:
 
 /* Line 1806 of yacc.c  */
-#line 546 "./sintactico.y"
+#line 547 "./sintactico.y"
     { (yyval.nPtr) = opr(POP_ID, 1, idS((yyvsp[(3) - (4)].identificador))); }
     break;
 
   case 198:
 
 /* Line 1806 of yacc.c  */
-#line 547 "./sintactico.y"
+#line 548 "./sintactico.y"
     { (yyval.nPtr) = opr(POP_ID, 1, idS((yyvsp[(2) - (2)].identificador))); }
     break;
 
   case 199:
 
 /* Line 1806 of yacc.c  */
-#line 548 "./sintactico.y"
+#line 549 "./sintactico.y"
     { (yyval.nPtr) = opr(POP, 0); }
     break;
 
   case 200:
 
 /* Line 1806 of yacc.c  */
-#line 549 "./sintactico.y"
+#line 550 "./sintactico.y"
     { (yyval.nPtr) = opr(POP, 0); }
     break;
 
   case 201:
 
 /* Line 1806 of yacc.c  */
-#line 550 "./sintactico.y"
+#line 551 "./sintactico.y"
     { 
 					/* Comparaciones de operadores */
 					if(strcmp(opVar, "+") == 0) {
@@ -5177,14 +5178,14 @@ yyreduce:
   case 202:
 
 /* Line 1806 of yacc.c  */
-#line 564 "./sintactico.y"
+#line 565 "./sintactico.y"
     { (yyval.nPtr) = (yyvsp[(2) - (3)].nPtr); }
     break;
 
 
 
 /* Line 1806 of yacc.c  */
-#line 5188 "y.tab.c"
+#line 5189 "y.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -5415,7 +5416,7 @@ yyreturn:
 
 
 /* Line 2067 of yacc.c  */
-#line 566 "./sintactico.y"
+#line 567 "./sintactico.y"
 
 /* SHIT */
 nodeType *con(double value) {

@@ -1,17 +1,67 @@
 \documentclass[11pt]{article}
+\usepackage[spanish,activeacute]{babel}
 %Gummi|061|=)
-\title{\textbf{Welcome to Gummi 0.6.1}}
-\author{Alexander van der Mey\\
-		Wei-Ning Huang\\
-		Dion Timmermann}
-\date{}
+\title{\textbf{Lenguaje de programaci\'on Yare 0.0.1}}
+\author{Leonardo Gutiérrez Ramírez\\
+		\\
+		Instituto Tecnológico de Chihuahua II}
+\date{17 de Junio del 2012}
+\setcounter{page}{1}
 \begin{document}
 
 \maketitle
+\section{?`Por qu\'e otro lenguaje de programaci\'on?}
 
-\section{Before you start}
+Mi gusto por la programaci\'on comenz\'o con la lectura de algunos art\'iculos que curioseando en Internet me llegu\'e a topar.\\
+\\Dichos art\'iculos trataban sobre un "lenguaje" que interpretaba archivos en donde se pon\'ia una serie de c\'odigos 'extra\~nos' y la
+m\'aquina interpertaba, este lenguaje es {\bf Batch}. Un lenguaje arcaico bastante limitado (con tan solo decir que no tiene soporte para 
+n\'umeros decimales) pero en el que era o es divertido para los principiantes realizar peque\~nos c\'odigos y tener resultados sobre el Sistema Operativo
+relativamente r\'apidos. Programando en Batch me divert\'ia y esto cultiv\'o en m\'i un amor hac\'ia la programaci\'on. Sin embargo, siempre
+me sent\'i limitado por dicho lenguaje, por eso he decidido intentar crear mi propio lenguaje de programaci\'on.\\
 
-You are now using Gummi 0.6.1. Many new exciting features have been added to the 0.6 series. The document editor is now a tabbed instance, allowing multiple documents to be worked on simultaneously. Using the new projects menu, you can group files together for easy access. 
+No espero competir con los dem\'as lenguajes de programaci\'on, ser\'ia una tonter\'ia, lo que s\'i espero es que los que est\'en intentando
+crear algo parecido a un lenguaje, encuentren un camino m\'as f\'acil con el que yo me top\'e. Es por eso que el c\'odigo de {\bf Yare} est\'a
+disponible para modificarlo y claro si ustedes gustan contribuir, pues !`adelante!\\
+
+Programar un lenguaje es una tarea bastante dif\'icil(por lo menos as\'i me ha parecido) y agotadora, requiere de an\'alisis y sobre todo de 
+mucho tiempo. Sin embargo, pienso que es una de las tareas que como programador te deja m\'as experiencias.
+
+\section{Sobre los errores ...}
+No dudo que el c\'odigo contenga errores y d\'e resultados inesperados, por lo que agradecer\'ia que me lo hicieran saber por medio de mi
+correo electr\'onico.
+
+{\bf leorocko13@hotmail.com} \'o {\bf leogutierrezramirez@gmail.com}\\
+
+\newpage
+\begin{center}{\bf \LARGE Caracter\'isticas del lenguaje}\end{center}
+\section{Tipos de datos}
+
+Por ahora no hay varios tipos de datos, el \'unico tipo de dato soportado es {\bf double} de $(8 bytes )$
+\linebreak {\bf A}unque se asignen variables con un tipo entero:\\
+$x = -4536;$ /* Omitiendo el punto decimal */ \\
+{\bf E}sta se asigna internamente como:\\
+$x = -4536{.}0000;$ .\\
+
+\section{Variables y su declaraci\'on}
+
+{\bf Yare} posee por defecto $26$ variables, estas son las variables $a\ ...\ z$, las cuales tambi\'en son de tipo $double$.\\
+Estas variables pueden utilizarse en cualquier parte del programa, siempre estar\'an disponibles.
+
+Es indistinto utilizar la variable '$a$' \ o '$A$', estas variables no son sensibles a may\'usculas y min\'usculas.\\
+
+$a = 1 + 2 * 3;$\\
+$a = b;$\\
+$A = z + c * 4.5;$\\
+$A = A - 1.0$\\
+
+{\bf Declaraci\'on de variables}\\
+
+Los identificadores de las variables deben estar delimitados por los caracteres '$:$' de la siguiente manera:\\
+
+${\bf :mi\ variable:\ } =\ 23.235;$\\
+${\bf :mi\ variable:\ } =\ {\bf:ok:}\ *\ -5.67;$
+
+Los identificadores pueden ser de cualquier longitud.
 
 Support for two high-level {\LaTeX} building systems, \emph{rubber}\footnote{https://launchpad.net/rubber/} \& \emph{latexmk}\footnote{http://www.phys.psu.edu/{\textasciitilde}collins/software/latexmk-jcc/} has been added to this release as well. Your preferred typesetter can be configured through the Compilation tab in the Preferences menu. Typesetters that are not installed on your system will not be selectable. 
 

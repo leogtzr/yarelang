@@ -42,35 +42,20 @@ expresion == expression && sentencia;
 
 
 Un ejemplo:
-Código
-
 1 == 1 && "Ok\n";
 
 -Sentencia tipo "read(var)"
 -Inicialización con valor aleatorio, ejemplo:
-Código
-
 x = ?;
 
 - Lo he hecho bastante "rico" en comentarios, es decir, se admiten comentarios de la forma
-Código
 /* hjkhjkasd
 asdasd
 */
-
-Código
 rem Comentario de una sóla línea
-
-Código
 # Comentario de una sóla línea
-
-Código
 -- Comentario de una sóla línea
-
-Código
 // Comentario de una sóla línea
-
-Código
 :: Comentario de una sóla línea
 
 - Caracteres especiales en la sentencia "puts(string)", los mismos que en C:
@@ -80,14 +65,10 @@ Añadí uno propio así:
 
 - Además añadí unos caracteres de escape de nueva línea numéricos, es decir.
 
-Código
-
 puts("Hola\1mundo") <- Haría que se insertara un \n
 puts("Hola\2mundo") <- Haría que se insertara dos \n
 puts("Hola\3mundo") <- Haría que se insertara tres \n
- 
-
-y así hasta el 9.
+ y así sucesivamente hasta el 9.
 
 No hay tipos de datos por ahora, el tipo de dato que manejo es "double".
 
@@ -97,25 +78,15 @@ Hay 26 variables por default, las variables son de la "a" a la "z" y no es sensi
 Código
 
 :suma: = 2^3;
-
 ó así:
-Código
-
 declare(:suma:, 2^3);
-
-Código
 declare(:suma:);
 
-
 Los identificadores pueden ser bastante flexibles, ejemplo:
-Código
-
 : _Hola mundo # 123342432 : = 123;
 printn(: _Hola mundo # 123342432 :);
 
-
 Se pueden definir bloques de código, pero..., no hay ámbito :p
-Código
 {
    sentencias...
 }
@@ -153,6 +124,5 @@ x <- 1+2;
 let x = 1+2;
 set x = 1+2;
 x := 1+2;
-
 
 Under construction...
