@@ -56,12 +56,27 @@ $A = A - 1.0$\\
 
 {\bf Declaraci\'on de variables}\\
 
-Los identificadores de las variables deben estar delimitados por los caracteres '$:$' de la siguiente manera:\\
+Los identificadores de las variables deben estar delimitados por los caracteres '$:$'\ de la siguiente manera:\\
 
 ${\bf :mi\ variable:\ } =\ 23.235;$\\
-${\bf :mi\ variable:\ } =\ {\bf:ok:}\ *\ -5.67;$
+${\bf :mi\ variable:\ } =\ {\bf:ok:}\ *\ -5.67;$\\
+${\bf : +-\:\ .\_01293 :}\ =\ {\bf:ok:}\ *\ -5.67;$
 
-Los identificadores pueden ser de cualquier longitud.
+Los identificadores pueden ser lo suficiente flexibles y pueden ser de cualquier longitud.\\
+
+{\bf O}tra manera de declarar variables es utilizar la sentencia $declare()$ de la siguiente manera:\\
+{\bf $declare(:id:, expr)$}\\
+
+{\bf Ejemplos:}\\
+
+{\bf $declare(:resultados:,\ 1\ +\ 2\ +\ 3);$}\\
+{\bf $declare(:resultados:);$}\\
+
+El {\bf primer} ejemplo inicializa la variable '${\bf resultado}$' al valor de la expresión especificada después de la coma.
+
+El {\bf segundo} ejemplo inicializa la variable '${\bf resultado}$'\ a $0$.
+\newpage
+
 
 Support for two high-level {\LaTeX} building systems, \emph{rubber}\footnote{https://launchpad.net/rubber/} \& \emph{latexmk}\footnote{http://www.phys.psu.edu/{\textasciitilde}collins/software/latexmk-jcc/} has been added to this release as well. Your preferred typesetter can be configured through the Compilation tab in the Preferences menu. Typesetters that are not installed on your system will not be selectable. 
 

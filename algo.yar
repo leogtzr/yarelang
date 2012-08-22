@@ -1,6 +1,5 @@
-:hola: = 12;
-:bye: = :hola:;
-printn(:hola:);
-printn(:bye:^3);
+:ok: = 1+2;
+declare(:hola mundo:, :ok:);
+printn(:hola mundo:);
 .
 

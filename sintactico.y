@@ -1,5 +1,9 @@
 /* Leo Gutiérrez Ramírez, leorocko13@hotmail.com */
 
+/* PENDIENTES:
+	Códigos de errores (Quizás ... )
+*/
+
 /* Añadir números decimales */
 /* Variables de entorno */
 /* Función para resetear/eliminar una variable */
@@ -32,13 +36,12 @@
 	nodeType *idS(char *s);
 	nodeType *idWithType(char *s, short type);
 	nodeType *con(double value);
-	/* FIXME, cambiar de int a short */
 	nodeType *conStr(char value[], short type);
 	nodeType *idArray(char value[]);
 	void freeNode(nodeType *p);
 	void yyerror(char *s); 
 	/* TODO Cambiar por una lista de identificadores */
-	double sym[26]; /* symbol table */
+	double sym[26]; /* symbol table for virtual vars */
 	char opVar[4];
 	struct palabras *identificadores = NULL;
 	struct funciones *idFunciones = NULL;

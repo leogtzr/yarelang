@@ -405,7 +405,7 @@ typedef union YYSTYPE
 {
 
 /* Line 2068 of yacc.c  */
-#line 53 "./sintactico.y"
+#line 56 "./sintactico.y"
  
 	double iValue; 		/* integer value */
 	char sIndex;		/* symbol table index */ 
