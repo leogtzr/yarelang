@@ -4677,11 +4677,11 @@ yyreduce:
 #line 475 "./sintactico.y"
     { 
 	
-		ver_palabras(identificadores);	
+		/*ver_palabras(identificadores);	*/
 		(yyval.nPtr) = idS((yyvsp[(1) - (1)].identificador)); 
-		/*if(!buscar(identificadores, $1)) {
-			fprintf(stdout, "Error, variable '%s' no declarada\n", $1);
-		}*/		
+		if(!buscar(identificadores, (yyvsp[(1) - (1)].identificador))) {
+			fprintf(stdout, "Error, variable '%s' no declarada\n", (yyvsp[(1) - (1)].identificador));
+		}		
 
 	 }
     break;
