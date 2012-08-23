@@ -82,6 +82,11 @@
 
 }
 
+[gG][.][0-9]+([.][0-9]+)?[.][gG] {
+	/* Detección de gigantes */
+	printf("Gigante detectado '%s'\n", yytext);
+}
+
 \"					{ BEGIN	STRING; s = buf; }
 <STRING>\\n			{ *s++ = '\n'; }
 <STRING>\\t			{ *s++ = '\t'; }
@@ -104,7 +109,7 @@
 						strcpy(yylval.cadena, buf);
 						return CADENA;
 					}
-<STRING>\n			{ printf("Error, Invalid string"); exit(EXIT_FAILURE);	}
+<STRING>\n			{ printf("Error, Invalid string at line: %d\n", lineno + 1); exit(EXIT_FAILURE);	}
 <STRING>.			{ *s++ = *yytext; }
 
 "/*"				{comment();}	/* Comentarios */
