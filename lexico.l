@@ -146,6 +146,10 @@
 [pP][oO][rR]						return EXPR_MUL;
 [nN][oO][tT]?						return EXPR_NOT;
 [eE][lL][eE][vV][aA][dD][oO]		return EXPR_ELEVADO;
+[mM][eE][nN][oO][rR]				return EXPR_MENOR;
+[mM][aA][yY][oO][rR]				return EXPR_MAYOR;
+[mM][eE][nN][oO][rR][qQ][uU][eE]	return EXPR_MENORQUE;
+[mM][aA][yY][oO][rR][qQ][uU][eE]	return EXPR_MAYORQUE;
 [xX][oO][rR]						return XOROP;
 "+="								return ASIGN_ADD;
 "-="								return ASIGN_SUB;

@@ -72,11 +72,39 @@ Los identificadores pueden ser lo suficiente flexibles y pueden ser de cualquier
 {\bf $declare(:resultados:,\ 1\ +\ 2\ +\ 3);$}\\
 {\bf $declare(:resultados:);$}\\
 
-El {\bf primer} ejemplo inicializa la variable '${\bf resultado}$' al valor de la expresión especificada después de la coma.
+El {\bf primer} ejemplo inicializa la variable '${\bf resultado}$'\ al valor de la expresión especificada después de la coma.
 
-El {\bf segundo} ejemplo inicializa la variable '${\bf resultado}$'\ a $0$.
+El {\bf segundo} ejemplo inicializa la variable '${\bf resultado}$'\ a $0$.\\
+
+{\bf H}ay otras maneras de declarar e inicializar variables, con valores aleatorios:\\
+${\bf :ok:}\ =\ {\bf ?};$  /* Inicializa la variable {\bf :ok:} a un valor aleatorio entre 0 y 100 (excluyendo el 100)\ */\\
+{\large {\bf P}or medio de inicializadores '{\bf smileys}':}\\\\
+${\bf :ok:}\ =\ :);$\ \ \ /* Inicializa la variable a $1$ */\\
+${\bf :ok:}\ =\ :|;$\ \ \ /* Inicializa la variable a $0$ */\\
+${\bf :ok:}\ =\ :(;$\ \ \ /* Inicializa la variable a $-1$ */
+
+\section{Operadores}
+
+\large{\bf Operadores aritm\'eticos:}\\
+
+\large{+}, Operador de suma\\
+\large{mas}, Operador de suma con palabras\\
+\large{-}, Operador de resta\\
+\large{menos}, Operador de resta con palabras\\
+\large{*}, Operador de multiplicaci\'on\\
+\large{por}, Operador de multiplicaci\'on con palabras\\
+\large{/}, Operador de divisi\'on\\
+\large{entre}, Operador de divisi\'on con palabras\\
+\large{sobre}, Operador de divisi\'on con palabras\\
+\large{\^\ }, Operador de exponenciaci\'on\\
+\large{elevado}, Operador de divisi\'on con palabras\\
+
+\large{\bf Operadores l\'ogicos:}\\
+
+\large{\bf menor }, Operador menor que con palabras\\
+\large{\bf mayor }, Operador mayor que con palabras\\
+
 \newpage
-
 
 Support for two high-level {\LaTeX} building systems, \emph{rubber}\footnote{https://launchpad.net/rubber/} \& \emph{latexmk}\footnote{http://www.phys.psu.edu/{\textasciitilde}collins/software/latexmk-jcc/} has been added to this release as well. Your preferred typesetter can be configured through the Compilation tab in the Preferences menu. Typesetters that are not installed on your system will not be selectable. 
 

@@ -1,5 +1,7 @@
-:ok: = 1+2;
-declare(:hola mundo:, :ok:);
-printn(:hola mundo:);
+if(4mayor5) {
+	puts("ok\1");
+} else {
+	puts("Valió madres....\1");
+}
 .
 

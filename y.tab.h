@@ -203,18 +203,22 @@
      EXPR_MUL = 421,
      EXPR_NOT = 422,
      EXPR_ELEVADO = 423,
-     IFX = 424,
-     ELSE = 425,
-     OR = 426,
-     AND = 427,
-     ORBITS = 428,
-     ANDBITS = 429,
-     NE = 430,
-     EQ = 431,
-     LE = 432,
-     GE = 433,
-     NEGACION = 434,
-     UMINUS = 435
+     EXPR_MENOR = 424,
+     EXPR_MAYOR = 425,
+     EXPR_MENORQUE = 426,
+     EXPR_MAYORQUE = 427,
+     IFX = 428,
+     ELSE = 429,
+     OR = 430,
+     AND = 431,
+     ORBITS = 432,
+     ANDBITS = 433,
+     NE = 434,
+     EQ = 435,
+     LE = 436,
+     GE = 437,
+     NEGACION = 438,
+     UMINUS = 439
    };
 #endif
 /* Tokens.  */
@@ -384,18 +388,22 @@
 #define EXPR_MUL 421
 #define EXPR_NOT 422
 #define EXPR_ELEVADO 423
-#define IFX 424
-#define ELSE 425
-#define OR 426
-#define AND 427
-#define ORBITS 428
-#define ANDBITS 429
-#define NE 430
-#define EQ 431
-#define LE 432
-#define GE 433
-#define NEGACION 434
-#define UMINUS 435
+#define EXPR_MENOR 424
+#define EXPR_MAYOR 425
+#define EXPR_MENORQUE 426
+#define EXPR_MAYORQUE 427
+#define IFX 428
+#define ELSE 429
+#define OR 430
+#define AND 431
+#define ORBITS 432
+#define ANDBITS 433
+#define NE 434
+#define EQ 435
+#define LE 436
+#define GE 437
+#define NEGACION 438
+#define UMINUS 439
 
 
 
@@ -421,7 +429,7 @@ typedef union YYSTYPE
 
 
 /* Line 2068 of yacc.c  */
-#line 425 "y.tab.h"
+#line 433 "y.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
