@@ -10,6 +10,8 @@
 #include "mymath.h"
 #include "funciones.h"
 #include "data_types.h"
+#include "giantslist.h"
+#include "gigantesops.h"
 
 void swap(nodeType *p);
 unsigned short int getAscii(long long);

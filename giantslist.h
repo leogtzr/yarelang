@@ -2,14 +2,16 @@
 #define _GIANGLIST_H
 
 #include <string.h>
+#include <gmp.h>
+#include <stdbool.h>
 
 struct gigante {
-        char *id;
-        mpf_t gig;
-        struct gigante *sig;
+	char *id;
+	mpf_t gig;
+	struct gigante *sig;
 };
 
-struct gigante *new(void) {
+struct gigante *new_giant(void) {
     return malloc(sizeof(struct gigante));
 }
 
@@ -36,12 +38,12 @@ struct gigante *get_gigante(struct gigante **inicio, char *str_id) {
     return NULL;
 }
 
-_Bool isEmpty(struct gigante *inicio) {
+_Bool isEmpty_g(struct gigante *inicio) {
     return (inicio == NULL);
 }
 
-void pop_l(struct gigante **inicio) {
-    struct gigante *nuevo = new();
+void pop_l_g(struct gigante **inicio) {
+    struct gigante *nuevo = new_giant();
     nuevo = *inicio;
     *inicio = (*inicio)->sig;
 	free(nuevo->id);
@@ -52,16 +54,16 @@ void pop_l(struct gigante **inicio) {
 
 void liberar_gigantes(struct gigante **inicio) {
     /* Primero checar que la pila no esté vacía */
-    if(isEmpty(*inicio))
+    if(isEmpty_g(*inicio))
         return;
     /* Si no está vacía, utilizar un método para eliminar cada nodo */
     /* Eliminamos por la izquierda todos los nodos */
-    while(!isEmpty(*inicio))
-        pop_l(&*inicio);
+    while(!isEmpty_g(*inicio))
+        pop_l_g(&*inicio);
 }
 
-void push_l(struct gigante **inicio, char *str_id, char *str_valor) {
-    struct gigante *nuevo = new();
+void push_l_g(struct gigante **inicio, char *str_id, char *str_valor) {
+    struct gigante *nuevo = new_giant();
     nuevo->id = malloc(strlen(str_id) + 1);
     strcpy(nuevo->id, str_id);
 
@@ -71,10 +73,10 @@ void push_l(struct gigante **inicio, char *str_id, char *str_valor) {
     *inicio = nuevo;
 }
 
-void push_r(struct gigante **inicio, char *str_id, char *str_valor) {
+void push_r_g(struct gigante **inicio, char *str_id, char *str_valor) {
     /* Si la pila está vacía usamos el otro método que es más sencillo */
     if(*inicio == NULL) {
-        push_l(&*inicio, str_id, str_valor);
+        push_l_g(&*inicio, str_id, str_valor);
         return;
     }
     struct gigante *aux = *inicio;
@@ -82,7 +84,7 @@ void push_r(struct gigante **inicio, char *str_id, char *str_valor) {
     while(aux->sig != NULL)
         aux = aux->sig;
 
-    aux->sig = new();
+    aux->sig = new_giant();
     aux->sig->id = malloc(strlen(str_id) + 1);
     strcpy(aux->sig->id, str_id);
 
@@ -90,7 +92,7 @@ void push_r(struct gigante **inicio, char *str_id, char *str_valor) {
     mpf_set_str(aux->sig->gig, str_valor, 10);
 }
 
-_Bool buscar(struct gigante *inicio, char *s) {
+_Bool buscar_gigante(struct gigante *inicio, char *s) {
     struct gigante *aux = inicio;
     while(aux != NULL) {
         if(strcmp(aux->id, s) == 0)

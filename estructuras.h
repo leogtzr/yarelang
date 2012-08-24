@@ -58,5 +58,7 @@ extern struct cadenas *writeStrings;
 extern struct stack *pila;
 extern struct _arrays *arreglos;
 extern double val_temp;
+/* Gigantes: */
+extern struct gigante *gigantes;
 
 #endif

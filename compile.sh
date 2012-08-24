@@ -14,7 +14,7 @@ lex ./lexico.l &> /dev/null || {
 	exit 1;
 }
 
-gcc lex.yy.c y.tab.c interprete.c -o yare -lm && {
+gcc lex.yy.c y.tab.c interprete.c -o yare -lm -lgmp && {
 	echo -e "\n${_blue}yare binary generated in '$PWD'${_reset}\n";
 	exit 0;
 }

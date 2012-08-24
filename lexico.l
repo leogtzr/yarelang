@@ -7,7 +7,7 @@
 	extern char opVar[4];
 	extern unsigned int lineno;
 	char buf[100];
-	char *s;			/* Puntero para ir acumulando caracteres de escape */
+	char *str_scapes;			/* Puntero para ir acumulando caracteres de escape */
 %}
 %x STRING
 
@@ -28,6 +28,13 @@
 						yylval.iValue = atof(yytext);
 						return INTEGER;
 					}
+
+[0-9]+([.][0-9]+)?[gG]	 {
+		/* Cortar la 'g' */
+		yytext[strlen(yytext) - 1] = '\0';		
+		strcpy(yylval.cadena_gigante, yytext);
+		return GIGANTE;
+}
 
 [cC][oO][nN][sS][tT][.][a-zA-Z]+ {	
 									char *__elemento = strtok(yytext, ".");
@@ -94,34 +101,34 @@
 	for(_i_ = 0; _i_ < strlen(yylval.idgigante); _i_++)
 		if(isalpha(yylval.idgigante[_i_]) && isupper(yylval.idgigante[_i_]))
 			yylval.idgigante[_i_] = tolower(yylval.idgigante[_i_]);
-	printf("Gigante detectado '%s'-'%d'\n", yylval.idgigante, strlen(yylval.idgigante));
+	/*printf("Gigante detectado '%s'-'%d'\n", yylval.idgigante, strlen(yylval.idgigante));*/
 	return ID_GIGANTE;
 }
 
-\"					{ BEGIN	STRING; s = buf; }
-<STRING>\\n			{ *s++ = '\n'; }
-<STRING>\\t			{ *s++ = '\t'; }
-<STRING>\\s			{ *s++ = ' ';  }
-<STRING>\\b			{ *s++ = '\b'; }
-<STRING>\\r			{ *s++ = '\r'; }
-<STRING>\\f			{ *s++ = '\f'; }
-<STRING>\\q			{ *s++ = '"'; }
+\"					{ BEGIN	STRING; str_scapes = buf; }
+<STRING>\\n			{ *str_scapes++ = '\n'; }
+<STRING>\\t			{ *str_scapes++ = '\t'; }
+<STRING>\\s			{ *str_scapes++ = ' ';  }
+<STRING>\\b			{ *str_scapes++ = '\b'; }
+<STRING>\\r			{ *str_scapes++ = '\r'; }
+<STRING>\\f			{ *str_scapes++ = '\f'; }
+<STRING>\\q			{ *str_scapes++ = '"'; }
 <STRING>\\[0-9]		{ 
 				/* FIXME No funcionando! */
 					int _ii;
 					/* Caracteres de escape numéricos para saltos de línea */
 					for(_ii = 0; _ii < (*(yytext + 1) - '0'); _ii++) 
-						*s++ = '\n';	
+						*str_scapes++ = '\n';	
 }
 <STRING>\"			{
-						*s = 0;
+						*str_scapes = 0;
 						BEGIN 0; 
 						/* REGRESAR EL STRING Y ASIGNARLO AQUÍ */
 						strcpy(yylval.cadena, buf);
 						return CADENA;
 					}
 <STRING>\n			{ printf("Error, Invalid string at line: %d\n", lineno + 1); exit(EXIT_FAILURE);	}
-<STRING>.			{ *s++ = *yytext; }
+<STRING>.			{ *str_scapes++ = *yytext; }
 
 "/*"				{comment();}	/* Comentarios */
 #.*\n				{;}		/* Comentarios tipo shell, perl, python, etc */
@@ -232,6 +239,7 @@
 [aA][sS][sS][iI][gG][nN]			return MOVE;
 [tT][oO]							return TO;
 [mM][oO][vV]						return MOVASM;
+
 [sS][qQ][rR][tT]					return SQRT;
 [aA][cC][oO][sS]					return ACOS;
 [aA][sS][iI][nN]					return ASIN;
@@ -247,6 +255,9 @@
 [tT][aA][nN]						return TAN;
 [tT][aA][nN][hH]					return TANH;
 [sS][yY][sS][tT][eE][mM]			return SYSTEM;
+
+[dD][eE][cC][lL][aA][rR][eE][_][gG]		return DECLARE_G;	/* declare_g(...); */
+
 [ \t] 				;
 [\n]					{ lineno++; }
 .	{

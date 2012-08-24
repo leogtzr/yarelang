@@ -50,12 +50,16 @@
 	unsigned int lineno;
 	size_t argsInFunction = 0;
 	double val_temp;
+	/* Gigantes: */
+	struct gigante *gigantes = NULL;
 %} 
 
 %union { 
 	double iValue; 		/* integer value */
 	char sIndex;		/* symbol table index */ 
 	char cadena[1000];
+	char cadena_gigante[1000];
+
 	/* Id: */
 	char identificador[100];
 	/* El string que guarda el array */
@@ -73,6 +77,7 @@
 %token <identificador> ID
 %token <idgigante> ID_GIGANTE
 %token <idArray> ID_ARRAY
+%token <cadena_gigante> GIGANTE		/* 12863678128368717623.877812387967912936716723123 */
 /********** TIPOS DE DATOS ************** */
 %token <type_int> INT_TYPE 
 %token <type_int> DECIMAL_TYPE 
@@ -274,6 +279,7 @@ program:
 			liberar(&identificadores); 
 			liberar_stack(&pila);
 			liberar_array(&arreglos);
+			liberar_gigantes(&gigantes);
 	}
 	;
 
@@ -338,7 +344,6 @@ cuerpo:
 
 stmt:
 	';'									{ $$ = opr(';', 2, NULL, NULL); }
-	| ID_GIGANTE ';'					{ $$ = NULL; }
 	| expr ';' 							{ $$ = $1; }
 	| ARRAY ID '[' expr ']'';'			{ printf("Array detected...\n"); $$ = NULL;}
 	| PRINT	'(' expr ')'';' 			{ $$ = opr(PRINT, 1, $3); }
@@ -474,6 +479,10 @@ stmt:
 		/*printf("Tipo para esta shit %d\n", $5);*/
 		$$ = NULL;
 	}
+	/* Trabajo con gigantes */
+	| DECLARE_G '(' ID_GIGANTE ',' GIGANTE ')'';' 	{ printf("[declare_g(%s, %s);]\n", $3, $5); 
+		$$ = NULL;
+	} 
 	;
 	
 stmt_list:
