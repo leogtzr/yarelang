@@ -83,8 +83,19 @@
 }
 
 [gG][.][0-9]+([.][0-9]+)?[.][gG] {
-	/* Detección de gigantes */
-	printf("Gigante detectado '%s'\n", yytext);
+	/* Detección de gigantes: */
+	/* Cortando los caracteres sobrantes: */
+	*yytext++;
+	*yytext++;
+	yytext[strlen(yytext) - 1] = '\0';
+	yytext[strlen(yytext) - 1] = '\0';
+	unsigned _i_;
+	strcpy(yylval.idgigante, yytext);
+	for(_i_ = 0; _i_ < strlen(yylval.idgigante); _i_++)
+		if(isalpha(yylval.idgigante[_i_]) && isupper(yylval.idgigante[_i_]))
+			yylval.idgigante[_i_] = tolower(yylval.idgigante[_i_]);
+	printf("Gigante detectado '%s'-'%d'\n", yylval.idgigante, strlen(yylval.idgigante));
+	return ID_GIGANTE;
 }
 
 \"					{ BEGIN	STRING; s = buf; }

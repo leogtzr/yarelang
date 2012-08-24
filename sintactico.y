@@ -61,6 +61,7 @@
 	char identificador[100];
 	/* El string que guarda el array */
 	char idArray[100];
+	char idgigante[100];
 	char nameFunction[100];
 	nodeType *nPtr; 	/* node pointer */
 	short type_int;
@@ -71,6 +72,7 @@
 %token <nameFunction> FUNCNAME;
 %token <cadena> CADENA 
 %token <identificador> ID
+%token <idgigante> ID_GIGANTE
 %token <idArray> ID_ARRAY
 /********** TIPOS DE DATOS ************** */
 %token <type_int> INT_TYPE 
@@ -335,6 +337,7 @@ cuerpo:
 
 stmt:
 	';'									{ $$ = opr(';', 2, NULL, NULL); }
+	| ID_GIGANTE ';'					{ $$ = NULL; }
 	| expr ';' 							{ $$ = $1; }
 	| ARRAY ID '[' expr ']'';'			{ printf("Array detected...\n"); $$ = NULL;}
 	| PRINT	'(' expr ')'';' 			{ $$ = opr(PRINT, 1, $3); }
