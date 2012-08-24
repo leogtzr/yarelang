@@ -1,16 +1,15 @@
 /* Leo Gutiérrez Ramírez, leorocko13@hotmail.com */
 
 /* PENDIENTES:
-	Códigos de errores (Quizás ... )
+	Códigos de errores (Quizás ... ).
+	Otras bases.
+	Ver que funcione las sentencias de resetear y eliminar variables 
+	Variables de entorno? (Viabilidad)
+	Trabajo con archivo.
+	Opcionalidad de paréntesis en sentencias.
+	Función cmp.
 */
 
-/* Añadir números decimales */
-/* Variables de entorno */
-/* Función para resetear/eliminar una variable */
-/* Operadores de archivos */
-/* Variables de entorno */
-/* Enunciados modificados */
-/* Constantes */
 /* Que los paréntesis en los push y pops no sean forzosos. 
 	Realizar una función cmp var|id,var|id,varResult(-1|0|1)	
 */
@@ -157,7 +156,7 @@
 %token INITIALIZE_IDENTIFIER
 
 /* Tokens relacionados con la gramática */ 
-%token PRINCIPIO FUNCION PROC 
+%token FUNCION PROC 
 
 /* Asignaciones para identificadores */
 %token _ASIGNACION_	_READ_ _INITRAND_ CONCATENATE_DIGITS CONCATENATE_DIGITS_ID CONCATENATE_DIGITS_VAR
@@ -218,7 +217,6 @@
 %token TANH
 
 %token VOID
-/* SO */
 %token SYSTEM	/* system("command") */
 
 /* Array shits */
@@ -245,6 +243,9 @@
 %token EXPR_MAYOR
 %token EXPR_MENORQUE
 %token EXPR_MAYORQUE
+
+/* Trabajo con gigantes: */
+%token DECLARE_G	/* declare_g(g.example.g, 1.32462387234867); */
 
 %nonassoc IFX
 %nonassoc ELSE

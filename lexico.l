@@ -140,6 +140,7 @@
 ([lL][eE][tT])|([sS][eE][tT])		return LETSET;
 [tT][hH][eE][nN]					return IFTHEN;
 ([eE][nN][Dd])|([dD][oO][nN][eE])	return IFEND;
+
 "-lt"								return _LT_;
 "-gt"								return _GT_;
 ">=" 								return GE;
@@ -155,6 +156,7 @@
 "||"								return OR;
 "<<"								return SHIFTLEFT;
 ">>" 								return SHIFTRIGHT; 
+
 [mM][aA][sS]						return EXPR_MAS;
 [mM][eE][nN][oO][sS]				return EXPR_MENOS;
 [eE][nN][tT][rR][eE]				return EXPR_DIV;
@@ -166,7 +168,9 @@
 [mM][aA][yY][oO][rR]				return EXPR_MAYOR;
 [mM][eE][nN][oO][rR][qQ][uU][eE]	return EXPR_MENORQUE;
 [mM][aA][yY][oO][rR][qQ][uU][eE]	return EXPR_MAYORQUE;
+
 [xX][oO][rR]						return XOROP;
+
 "+="								return ASIGN_ADD;
 "-="								return ASIGN_SUB;
 "*="								return ASIGN_MUL;
@@ -181,7 +185,7 @@
 ":)"								return FACE_HAPPY;
 ":("								return FACE_SAD;
 ":|"								return FACE_NO;
-"beginProgram"						return PRINCIPIO;
+
 [pP][rR][oO][cC]					return PROC;
 [eE][xX][iI][tT]					return EXIT;
 [fF][oO][rR]						return FOR;
