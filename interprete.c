@@ -54,7 +54,7 @@ double ex(nodeType *p) {
 		case typeId:
 			return sym[p->id.i];
 
-		case typeId2:
+		case typeVar:
 			if(buscar(identificadores, p->id.identificador))	
 				return getValue(identificadores, p->id.identificador);
 			else
@@ -1414,7 +1414,7 @@ double ex(nodeType *p) {
 							case typeId:
 								putchar(getAscii(sym[p->opr.op[0]->id.i]));
 								return 0.0f;
-							case typeId2:
+							case typeVar:
 								if(buscar(identificadores, p->opr.op[0]->id.identificador))	
 									putchar(getAscii(getValue(identificadores, p->opr.op[0]->id.identificador)));
 								else

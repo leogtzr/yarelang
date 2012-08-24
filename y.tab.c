@@ -5758,7 +5758,7 @@ nodeType *idS(char *s) {
 	if ((p = malloc(sizeof(idNodeType))) == NULL)
 		yyerror("Memoria insuficiente para este programa.");
 	/* copy information */
-	p->type = typeId2;
+	p->type = typeVar;
 	/* Copiar el id: */
 	strcpy(p->id.identificador, s);
 	return p;
@@ -5770,7 +5770,7 @@ nodeType *idWithType(char *s, short data_type) {
 	if((p = malloc(sizeof(nodeType))) == NULL)
 		yyerror("Memoria insuficiente para este programa.");
 	/* copy information */
-	p->type = typeId2;	
+	p->type = typeVar;	
 	/* Copiar el id: */
 	strcpy(p->id.identificador, s);
 	/* Ponerle el tipo de dato */

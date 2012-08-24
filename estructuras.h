@@ -7,7 +7,7 @@
 typedef enum { 
 	typeCon, 
 	typeId,
-	typeId2, 
+	typeVar, 		/* Variable definida por el usuario :id: */
 	typeArray,			/* Tipo arreglo */
 	typeOpr, 
 	typeCadena,
