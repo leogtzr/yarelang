@@ -5214,7 +5214,7 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 542 "./sintactico.y"
-    { (yyval.nPtr) = opr(STRLEN, 1, conStr((yyvsp[(3) - (4)].cadena), typeStrlen)); }
+    { (yyval.nPtr) = opr(STRLEN, 1, conStr((yyvsp[(3) - (4)].cadena), typeCadena)); }
     break;
 
   case 174:

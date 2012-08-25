@@ -11,21 +11,20 @@ typedef enum {
 	typeArray,			/* Tipo arreglo */
 	typeOpr, 
 	typeCadena,
-	typeStrlen,			/* Regresa la longitud de una cadena */
 	typeCall,
 	typeSystem 			/* system("command"); */
-} nodeEnum;
+} nodeEnumType;
 
 /* constants */
 typedef struct {
-	nodeEnum type;		/* type of node */
+	nodeEnumType type;		/* type of node */
 	double value;			/* value of constant */
 	char cadena[1000];			/* value of constat string */
 } conNodeType;
 
 /* identifiers */
 typedef struct {
-	nodeEnum type;		/* type of node */
+	nodeEnumType type;		/* type of node */
 	/* La variable i puede ser de cualquier otro tipo, lo ponemos char para
 		ahorrar espacio */
 	char i;				/* subscript to ident array */
@@ -36,14 +35,14 @@ typedef struct {
 
 /* operators */
 typedef struct {
-	nodeEnum type;		/* type of node */
+	nodeEnumType type;		/* type of node */
 	int oper;			/* operator */
 	short nops;			/* number of operands */
 	union nodeTypeTag *op[5];	/* operands (expandable) */
 } oprNodeType;
 
 typedef union nodeTypeTag {
-	nodeEnum type;			/* type of node */
+	nodeEnumType type;			/* type of node */
 	conNodeType con;		/* constants */
 	idNodeType id;			/* identifiers */
 	oprNodeType opr;		/* operators */

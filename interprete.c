@@ -60,8 +60,8 @@ double run(nodeType *p) {
 			else
 				return 0.0f;
 		
-		case typeStrlen:
-			return (double)strlen(p->con.cadena);
+		/*case typeStrlen:
+			return (double)strlen(p->con.cadena);*/
 
 		case typeSystem:
 			if((spLoop < 0) || pilaLoop[spLoop])
@@ -171,8 +171,12 @@ double run(nodeType *p) {
 					return 0.0f;
 
 				case STRLEN:
-					if((spLoop < 0) || pilaLoop[spLoop]) 
+					if((spLoop < 0) || pilaLoop[spLoop]) {
+						/*printf("Pasa sobre [%s]\n", p->opr.op[0]->con.cadena);*/
+	
+						return strlen(p->opr.op[0]->con.cadena);
 						return run(p->opr.op[0]);
+					}
 					 else 
 						return 0.0f;
 

@@ -539,7 +539,7 @@ expr:
 	| expr XOROP expr					{ $$ = opr(XOROP, 2, $1, $3); }
 	| expr SHIFTLEFT expr				{ $$ = opr(SHIFTLEFT, 2, $1, $3); }
 	| expr SHIFTRIGHT expr				{ $$ = opr(SHIFTRIGHT, 2, $1, $3); }	/* OPVARS */
-	| STRLEN '(' CADENA ')'				{ $$ = opr(STRLEN, 1, conStr($3, typeStrlen)); }
+	| STRLEN '(' CADENA ')'				{ $$ = opr(STRLEN, 1, conStr($3, typeCadena)); }
 	| ABS '(' expr ')'					{ $$ = opr(ABS, 1, $3); }
 	| FACTORIAL '(' expr ')'			{ $$ = opr(FACTORIAL, 1, $3); }
 	| SUMATORIA '(' expr ',' expr ')'	{ $$ = opr(SUMATORIA, 2, $3, $5); }
