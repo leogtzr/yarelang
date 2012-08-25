@@ -37,7 +37,7 @@ long double check(char *s, char **end) {
     return temp;
 }
 
-double ex(nodeType *p) {
+double run(nodeType *p) {
 	if (!p) 
 		return 0.0f;
 	switch(p->type) {
@@ -76,12 +76,12 @@ double ex(nodeType *p) {
 						pilaLoop[spLoop] = 1;
 
 						if(spLoop == 0) {	
-							while(ex(p->opr.op[0]) && pilaLoop[spLoop]) {
-								ex(p->opr.op[1]);
+							while(run(p->opr.op[0]) && pilaLoop[spLoop]) {
+								run(p->opr.op[1]);
 							}
 						} else if(spLoop > 0) {
-							while((pilaLoop[spLoop - 1] && pilaLoop[spLoop]) && ex(p->opr.op[0])) {
-								ex(p->opr.op[1]);
+							while((pilaLoop[spLoop - 1] && pilaLoop[spLoop]) && run(p->opr.op[0])) {
+								run(p->opr.op[1]);
 							}
 						}
 						pilaLoop[spLoop] = 0;
@@ -94,12 +94,12 @@ double ex(nodeType *p) {
 					pilaLoop[spLoop] = 1;
 
 					if(spLoop == 0) {
-						 while(ex(p->opr.op[1]) && pilaLoop[spLoop]) {
-							ex(p->opr.op[0]);
+						 while(run(p->opr.op[1]) && pilaLoop[spLoop]) {
+							run(p->opr.op[0]);
 						}
 					} else if(spLoop > 0) {
-						while((pilaLoop[spLoop - 1] && pilaLoop[spLoop]) && ex(p->opr.op[1])) {
-							ex(p->opr.op[0]);
+						while((pilaLoop[spLoop - 1] && pilaLoop[spLoop]) && run(p->opr.op[1])) {
+							run(p->opr.op[0]);
 						}
 					}
 					pilaLoop[spLoop] = 0;
@@ -108,31 +108,31 @@ double ex(nodeType *p) {
 
 				case IF:
 					if(spLoop < 0) {
-						if(ex(p->opr.op[0]))
-							ex(p->opr.op[1]);
+						if(run(p->opr.op[0]))
+							run(p->opr.op[1]);
 						else if (p->opr.nops > 2)
-							ex(p->opr.op[2]);
+							run(p->opr.op[2]);
 					} else if(pilaLoop[spLoop]) {
-						if(ex(p->opr.op[0]))
-							ex(p->opr.op[1]);
+						if(run(p->opr.op[0]))
+							run(p->opr.op[1]);
 						else if (p->opr.nops > 2)
-							ex(p->opr.op[2]);
+							run(p->opr.op[2]);
 					}
 					return 0.0f;
 
 				case PRINT: 
 					if((spLoop < 0) || pilaLoop[spLoop])
-						printf("%lf", ex(p->opr.op[0]));
+						printf("%lf", run(p->opr.op[0]));
 					return 0.0f;
 
 				case PRINTN:
 					if((spLoop < 0) || pilaLoop[spLoop])
-						printf("%lf\n", ex(p->opr.op[0]));
+						printf("%lf\n", run(p->opr.op[0]));
 					return 0.0f;
 
 				case PUTS:
 					if((spLoop < 0) || pilaLoop[spLoop])
-						ex(p->opr.op[0]);
+						run(p->opr.op[0]);
 					return 0.0f;
 
 				case RAND:
@@ -172,21 +172,21 @@ double ex(nodeType *p) {
 
 				case STRLEN:
 					if((spLoop < 0) || pilaLoop[spLoop]) 
-						return ex(p->opr.op[0]);
+						return run(p->opr.op[0]);
 					 else 
 						return 0.0f;
 
 				case ';':
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						ex(p->opr.op[0]);
-						return ex(p->opr.op[1]);
+						run(p->opr.op[0]);
+						return run(p->opr.op[1]);
 					} else 
 						return 0.0f;
 
 				case '=':
 					/* TODO PENDIENTE */
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]);	/* PEDOS */
+						return sym[p->opr.op[0]->id.i] = run(p->opr.op[1]);	/* PEDOS */
 					}
 					return 0.0f;
 
@@ -199,39 +199,39 @@ double ex(nodeType *p) {
 				case LETSET:
 					/* TODO PENDIENTE */
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]);
+						return sym[p->opr.op[0]->id.i] = run(p->opr.op[1]);
 					} else {
 						return 0.0f;
 					}
 
 				case ASIGNACION_PASCAL:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]);
+						return sym[p->opr.op[0]->id.i] = run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case MOVE:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return sym[p->opr.op[1]->id.i] = ex(p->opr.op[0]);
+						return sym[p->opr.op[1]->id.i] = run(p->opr.op[0]);
 					}
 					return 0.0f;
 
 				case MOVASM:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]);
+						return sym[p->opr.op[0]->id.i] = run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case ADDASM:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						sym[p->opr.op[0]->id.i] += ex(p->opr.op[1]);
+						sym[p->opr.op[0]->id.i] += run(p->opr.op[1]);
 						return sym[p->opr.op[0]->id.i];
 					}
 					return 0.0f;
 				
 				case SUBASM:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						sym[p->opr.op[0]->id.i] -= ex(p->opr.op[1]);
+						sym[p->opr.op[0]->id.i] -= run(p->opr.op[1]);
 						return sym[p->opr.op[0]->id.i];
 					}
 					return 0.0f;
@@ -274,188 +274,188 @@ double ex(nodeType *p) {
 
 				case UMINUS:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return -ex(p->opr.op[0]);
+						return -run(p->opr.op[0]);
 					}
 					return 0.0f;
 
 				case NEGACION:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return !ex(p->opr.op[0]);
+						return !run(p->opr.op[0]);
 					}
 					return 0.0f;
 
 				case '+':
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return ex(p->opr.op[0]) + ex(p->opr.op[1]);
+						return run(p->opr.op[0]) + run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case '-':
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return ex(p->opr.op[0]) - ex(p->opr.op[1]);
+						return run(p->opr.op[0]) - run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case '*':
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return ex(p->opr.op[0]) * ex(p->opr.op[1]);
+						return run(p->opr.op[0]) * run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case '/':
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return ex(p->opr.op[0]) / ex(p->opr.op[1]);
+						return run(p->opr.op[0]) / run(p->opr.op[1]);
 					}
 					return 0.0f;
 				
 				case '^':
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return pow(ex(p->opr.op[0]), ex(p->opr.op[1]));
+						return pow(run(p->opr.op[0]), run(p->opr.op[1]));
 					}
 					return 0.0f;
 
 				case '%':
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return (long)ex(p->opr.op[0]) % (long)ex(p->opr.op[1]);
+						return (long)run(p->opr.op[0]) % (long)run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case '<':
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return ex(p->opr.op[0]) < ex(p->opr.op[1]);
+						return run(p->opr.op[0]) < run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case '>':
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return ex(p->opr.op[0]) > ex(p->opr.op[1]);
+						return run(p->opr.op[0]) > run(p->opr.op[1]);
 					}
 					return 0.0f;
 				
 				case XOROP:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return (long)ex(p->opr.op[0]) ^ (long)ex(p->opr.op[1]);
+						return (long)run(p->opr.op[0]) ^ (long)run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case GE:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return ex(p->opr.op[0]) >= ex(p->opr.op[1]);
+						return run(p->opr.op[0]) >= run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case LE:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return ex(p->opr.op[0]) <= ex(p->opr.op[1]);
+						return run(p->opr.op[0]) <= run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case NE:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return ex(p->opr.op[0]) != ex(p->opr.op[1]);
+						return run(p->opr.op[0]) != run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case EQ:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return ex(p->opr.op[0]) == ex(p->opr.op[1]);
+						return run(p->opr.op[0]) == run(p->opr.op[1]);
 					}
 					return 0.0f;
 				
 				case AND:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return ex(p->opr.op[0]) && ex(p->opr.op[1]);
+						return run(p->opr.op[0]) && run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case ANDBITS:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return (long)ex(p->opr.op[0]) & (long)ex(p->opr.op[1]);
+						return (long)run(p->opr.op[0]) & (long)run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case OR:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return ex(p->opr.op[0]) || ex(p->opr.op[1]);
+						return run(p->opr.op[0]) || run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case ORBITS:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return (long)ex(p->opr.op[0]) | (long)ex(p->opr.op[1]);
+						return (long)run(p->opr.op[0]) | (long)run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case SHIFTLEFT:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return (long)ex(p->opr.op[0]) << (long)ex(p->opr.op[1]);
+						return (long)run(p->opr.op[0]) << (long)run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case SHIFTRIGHT:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return (long)ex(p->opr.op[0]) >> (long)ex(p->opr.op[1]);
+						return (long)run(p->opr.op[0]) >> (long)run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				/* Operadores de asignación */
 				case ASIGN_ADD:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return sym[p->opr.op[0]->id.i] += ex(p->opr.op[1]);
+						return sym[p->opr.op[0]->id.i] += run(p->opr.op[1]);
 					}
 					return 0.0f;
 			
 				case ASIGN_SUB:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return sym[p->opr.op[0]->id.i] -= ex(p->opr.op[1]);
+						return sym[p->opr.op[0]->id.i] -= run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case ASIGN_MUL:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return sym[p->opr.op[0]->id.i] *= ex(p->opr.op[1]);
+						return sym[p->opr.op[0]->id.i] *= run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case ASIGN_DIV:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return sym[p->opr.op[0]->id.i] /= ex(p->opr.op[1]);
+						return sym[p->opr.op[0]->id.i] /= run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case ASIGN_MOD:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] % (long)ex(p->opr.op[1]);
+						return sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] % (long)run(p->opr.op[1]);
 					}
 					return 0.0f;
 				
 				case ASIGN_POW:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return sym[p->opr.op[0]->id.i] = pow(sym[p->opr.op[0]->id.i], ex(p->opr.op[1]));
+						return sym[p->opr.op[0]->id.i] = pow(sym[p->opr.op[0]->id.i], run(p->opr.op[1]));
 					}
 					return 0.0f;
 
 				case ASIGN_SHIFTLEFT:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] << (long)ex(p->opr.op[1]);
+						return sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] << (long)run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case ASIGN_SHIFTRIGHT:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] >> (long)ex(p->opr.op[1]);
+						return sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] >> (long)run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case ASIGN_AND:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] & (long)ex(p->opr.op[1]);
+						return sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] & (long)run(p->opr.op[1]);
 					}
 					return 0.0f;
 
 				case ASIGN_OR:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] | (long)ex(p->opr.op[1]);
+						return sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] | (long)run(p->opr.op[1]);
 					}
 					return 0.0f;
 
@@ -495,12 +495,12 @@ double ex(nodeType *p) {
 						basado en el string id */
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						if(buscar(identificadores, p->opr.op[0]->id.identificador)) {
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 	
 						} else {
 							/* Sino está hay que crear la variable en la tabla de símbolos y ponerle un valor */
 							push_r(&identificadores, p->opr.op[0]->id.identificador);
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 						}
 					}
 					return 0.0f;
@@ -585,11 +585,11 @@ double ex(nodeType *p) {
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 							push_r(&identificadores, p->opr.op[0]->id.identificador); 
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 						} else {
 							/* Solo modificar el valor */
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, 
-								getValue(identificadores, p->opr.op[0]->id.identificador) + ex(p->opr.op[1]));
+								getValue(identificadores, p->opr.op[0]->id.identificador) + run(p->opr.op[1]));
 						}
 					}
 					return 0.0f;
@@ -599,11 +599,11 @@ double ex(nodeType *p) {
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 							push_r(&identificadores, p->opr.op[0]->id.identificador); 
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 						} else {
 							/* Solo modificar el valor */
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, 
-								getValue(identificadores, p->opr.op[0]->id.identificador) - ex(p->opr.op[1]));
+								getValue(identificadores, p->opr.op[0]->id.identificador) - run(p->opr.op[1]));
 						}
 					}
 					return 0.0f;
@@ -613,11 +613,11 @@ double ex(nodeType *p) {
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 							push_r(&identificadores, p->opr.op[0]->id.identificador); 
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 						} else {
 							/* Solo modificar el valor */
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, 
-								getValue(identificadores, p->opr.op[0]->id.identificador) * ex(p->opr.op[1]));
+								getValue(identificadores, p->opr.op[0]->id.identificador) * run(p->opr.op[1]));
 						}
 					}
 					return 0.0f;
@@ -627,11 +627,11 @@ double ex(nodeType *p) {
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 							push_r(&identificadores, p->opr.op[0]->id.identificador); 
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 						} else {
 							/* Solo modificar el valor */
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, 
-								getValue(identificadores, p->opr.op[0]->id.identificador) / ex(p->opr.op[1]));
+								getValue(identificadores, p->opr.op[0]->id.identificador) / run(p->opr.op[1]));
 						}
 					}
 					return 0.0f;
@@ -641,11 +641,11 @@ double ex(nodeType *p) {
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 							push_r(&identificadores, p->opr.op[0]->id.identificador); 
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 						} else {
 							/* Solo modificar el valor */
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, 
-								(long)getValue(identificadores, p->opr.op[0]->id.identificador) % (long)ex(p->opr.op[1]));
+								(long)getValue(identificadores, p->opr.op[0]->id.identificador) % (long)run(p->opr.op[1]));
 						}
 					}
 					return 0.0f;
@@ -655,11 +655,11 @@ double ex(nodeType *p) {
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 							push_r(&identificadores, p->opr.op[0]->id.identificador); 
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 						} else {
 							/* Solo modificar el valor */
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, 
-								(long)getValue(identificadores, p->opr.op[0]->id.identificador) << (long)ex(p->opr.op[1]));
+								(long)getValue(identificadores, p->opr.op[0]->id.identificador) << (long)run(p->opr.op[1]));
 						}
 					}
 					return 0.0f;
@@ -669,11 +669,11 @@ double ex(nodeType *p) {
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 							push_r(&identificadores, p->opr.op[0]->id.identificador); 
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 						} else {
 							/* Solo modificar el valor */
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, 
-								(long)getValue(identificadores, p->opr.op[0]->id.identificador) >> (long)ex(p->opr.op[1]));
+								(long)getValue(identificadores, p->opr.op[0]->id.identificador) >> (long)run(p->opr.op[1]));
 						}
 					}
 					return 0.0f;
@@ -683,11 +683,11 @@ double ex(nodeType *p) {
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 							push_r(&identificadores, p->opr.op[0]->id.identificador); 
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 						} else {
 							/* Solo modificar el valor */
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, 
-								(long)getValue(identificadores, p->opr.op[0]->id.identificador) & (long)ex(p->opr.op[1]));
+								(long)getValue(identificadores, p->opr.op[0]->id.identificador) & (long)run(p->opr.op[1]));
 						}
 					}
 					return 0.0f;
@@ -697,11 +697,11 @@ double ex(nodeType *p) {
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 							push_r(&identificadores, p->opr.op[0]->id.identificador); 
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 						} else {
 							/* Solo modificar el valor */
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, 
-								(long)getValue(identificadores, p->opr.op[0]->id.identificador) | (long)ex(p->opr.op[1]));
+								(long)getValue(identificadores, p->opr.op[0]->id.identificador) | (long)run(p->opr.op[1]));
 						}
 					}
 					return 0.0f;
@@ -711,12 +711,12 @@ double ex(nodeType *p) {
 						basado en el string id */
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						if(buscar(identificadores, p->opr.op[0]->id.identificador)) {
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 	
 						} else {
 							/* Sino está hay que crear la variable en la tabla de símbolos y ponerle un valor */
 							push_r(&identificadores, p->opr.op[0]->id.identificador);
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 						}
 					}
 					return 0.0f;
@@ -725,9 +725,9 @@ double ex(nodeType *p) {
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 							push_r(&identificadores, p->opr.op[0]->id.identificador); 
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 						} else {
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 						}
 					}
 					return 0.0f;
@@ -736,9 +736,9 @@ double ex(nodeType *p) {
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						if(buscar(identificadores, p->opr.op[1]->id.identificador) == 0) {
 							push_r(&identificadores, p->opr.op[1]->id.identificador); 
-							return asignar(&identificadores, p->opr.op[1]->id.identificador, ex(p->opr.op[0]));
+							return asignar(&identificadores, p->opr.op[1]->id.identificador, run(p->opr.op[0]));
 						} else {
-							return asignar(&identificadores, p->opr.op[1]->id.identificador, ex(p->opr.op[0]));
+							return asignar(&identificadores, p->opr.op[1]->id.identificador, run(p->opr.op[0]));
 						}
 					}
 					return 0.0f;
@@ -747,9 +747,9 @@ double ex(nodeType *p) {
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 							push_r(&identificadores, p->opr.op[0]->id.identificador); 
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 						} else {
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 						}
 					}
 					return 0.0f;
@@ -759,11 +759,11 @@ double ex(nodeType *p) {
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 							push_r(&identificadores, p->opr.op[0]->id.identificador); 
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 						} else {
 							/* Solo modificar el valor */
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, 
-								getValue(identificadores, p->opr.op[0]->id.identificador) + ex(p->opr.op[1]));
+								getValue(identificadores, p->opr.op[0]->id.identificador) + run(p->opr.op[1]));
 						}
 					}
 					return 0.0f;
@@ -773,11 +773,11 @@ double ex(nodeType *p) {
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 							push_r(&identificadores, p->opr.op[0]->id.identificador); 
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 						} else {
 							/* Solo modificar el valor */
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, 
-								getValue(identificadores, p->opr.op[0]->id.identificador) - ex(p->opr.op[1]));
+								getValue(identificadores, p->opr.op[0]->id.identificador) - run(p->opr.op[1]));
 						}
 					}
 					return 0.0f;
@@ -820,11 +820,11 @@ double ex(nodeType *p) {
 						if((spLoop < 0) || pilaLoop[spLoop]) {
 							if(buscar(identificadores, p->opr.op[0]->id.identificador) == 0) {
 								push_r(&identificadores, p->opr.op[0]->id.identificador); 
-								return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+								return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 							} else {
 								/* Solo modificar el valor */
 								return asignar(&identificadores, p->opr.op[0]->id.identificador, 
-									pow(getValue(identificadores, p->opr.op[0]->id.identificador), ex(p->opr.op[1])));
+									pow(getValue(identificadores, p->opr.op[0]->id.identificador), run(p->opr.op[1])));
 							}
 						}
 						return 0.0f;
@@ -848,7 +848,7 @@ double ex(nodeType *p) {
 					case CONCATENATE_DIGITS_ID:
 						if((spLoop < 0) || pilaLoop[spLoop]) {
 							sprintf(str_concatena_, "%lf%lf", 
-								getValue(identificadores, p->opr.op[0]->id.identificador), ex(p->opr.op[1]));
+								getValue(identificadores, p->opr.op[0]->id.identificador), run(p->opr.op[1]));
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, atoi(str_concatena_));
 						}
 						return 0.0f;
@@ -867,14 +867,14 @@ double ex(nodeType *p) {
 						pilaLoop[spLoop] = 1;
 
 						if(spLoop == 0) {
-							for(sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]); ex(p->opr.op[2]); 
-								sym[p->opr.op[0]->id.i] -= ex(p->opr.op[3])) {
-								ex(p->opr.op[4]);
+							for(sym[p->opr.op[0]->id.i] = run(p->opr.op[1]); run(p->opr.op[2]); 
+								sym[p->opr.op[0]->id.i] -= run(p->opr.op[3])) {
+								run(p->opr.op[4]);
 							}
 						} else if(spLoop > 0) {
-						for(sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]); (pilaLoop[spLoop - 1] && pilaLoop[spLoop]) && ex(p->opr.op[2]); 
-								sym[p->opr.op[0]->id.i] -= ex(p->opr.op[3])) {
-								ex(p->opr.op[4]);
+						for(sym[p->opr.op[0]->id.i] = run(p->opr.op[1]); (pilaLoop[spLoop - 1] && pilaLoop[spLoop]) && run(p->opr.op[2]); 
+								sym[p->opr.op[0]->id.i] -= run(p->opr.op[3])) {
+								run(p->opr.op[4]);
 							}
 						}
 						pilaLoop[spLoop] = 0;
@@ -886,14 +886,14 @@ double ex(nodeType *p) {
 						pilaLoop[spLoop] = 1;
 	
 						if(spLoop == 0) {
-							for(sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]); ex(p->opr.op[2]); 
-								sym[p->opr.op[0]->id.i] += ex(p->opr.op[3])) {
-								ex(p->opr.op[4]);
+							for(sym[p->opr.op[0]->id.i] = run(p->opr.op[1]); run(p->opr.op[2]); 
+								sym[p->opr.op[0]->id.i] += run(p->opr.op[3])) {
+								run(p->opr.op[4]);
 							}
 						} else if(spLoop > 0) {
-						for(sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]); (pilaLoop[spLoop - 1] && pilaLoop[spLoop]) && ex(p->opr.op[2]); 
-								sym[p->opr.op[0]->id.i] += ex(p->opr.op[3])) {
-								ex(p->opr.op[4]);
+						for(sym[p->opr.op[0]->id.i] = run(p->opr.op[1]); (pilaLoop[spLoop - 1] && pilaLoop[spLoop]) && run(p->opr.op[2]); 
+								sym[p->opr.op[0]->id.i] += run(p->opr.op[3])) {
+								run(p->opr.op[4]);
 							}
 						}
 						pilaLoop[spLoop] = 0;
@@ -905,14 +905,14 @@ double ex(nodeType *p) {
 						pilaLoop[spLoop] = 1;
 
 						if(spLoop == 0) {
-							for(sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]); ex(p->opr.op[2]); 
-								sym[p->opr.op[0]->id.i] *= ex(p->opr.op[3])) {
-								ex(p->opr.op[4]);
+							for(sym[p->opr.op[0]->id.i] = run(p->opr.op[1]); run(p->opr.op[2]); 
+								sym[p->opr.op[0]->id.i] *= run(p->opr.op[3])) {
+								run(p->opr.op[4]);
 							}
 						} else if(spLoop > 0) {
-						for(sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]); (pilaLoop[spLoop - 1] && pilaLoop[spLoop]) && ex(p->opr.op[2]); 
-								sym[p->opr.op[0]->id.i] *= ex(p->opr.op[3])) {
-								ex(p->opr.op[4]);
+						for(sym[p->opr.op[0]->id.i] = run(p->opr.op[1]); (pilaLoop[spLoop - 1] && pilaLoop[spLoop]) && run(p->opr.op[2]); 
+								sym[p->opr.op[0]->id.i] *= run(p->opr.op[3])) {
+								run(p->opr.op[4]);
 							}
 						}
 						pilaLoop[spLoop] = 0;
@@ -924,14 +924,14 @@ double ex(nodeType *p) {
 						pilaLoop[spLoop] = 1;
 
 						if(spLoop == 0) {
-							for(sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]); ex(p->opr.op[2]); 
-								sym[p->opr.op[0]->id.i] /= ex(p->opr.op[3])) {
-								ex(p->opr.op[4]);
+							for(sym[p->opr.op[0]->id.i] = run(p->opr.op[1]); run(p->opr.op[2]); 
+								sym[p->opr.op[0]->id.i] /= run(p->opr.op[3])) {
+								run(p->opr.op[4]);
 							}
 						} else if(spLoop > 0) {
-						for(sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]); (pilaLoop[spLoop - 1] && pilaLoop[spLoop]) && ex(p->opr.op[2]); 
-								sym[p->opr.op[0]->id.i] /= ex(p->opr.op[3])) {
-								ex(p->opr.op[4]);
+						for(sym[p->opr.op[0]->id.i] = run(p->opr.op[1]); (pilaLoop[spLoop - 1] && pilaLoop[spLoop]) && run(p->opr.op[2]); 
+								sym[p->opr.op[0]->id.i] /= run(p->opr.op[3])) {
+								run(p->opr.op[4]);
 							}
 						}
 						pilaLoop[spLoop] = 0;
@@ -943,14 +943,14 @@ double ex(nodeType *p) {
 						pilaLoop[spLoop] = 1;
 
 						if(spLoop == 0) {
-							for(sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]); ex(p->opr.op[2]); 
-								sym[p->opr.op[0]->id.i] = pow(sym[p->opr.op[0]->id.i], ex(p->opr.op[3]))) {
-								ex(p->opr.op[4]);
+							for(sym[p->opr.op[0]->id.i] = run(p->opr.op[1]); run(p->opr.op[2]); 
+								sym[p->opr.op[0]->id.i] = pow(sym[p->opr.op[0]->id.i], run(p->opr.op[3]))) {
+								run(p->opr.op[4]);
 							}
 						} else if(spLoop > 0) {
-						for(sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]); (pilaLoop[spLoop-1] && pilaLoop[spLoop]) && ex(p->opr.op[2]); 
-								sym[p->opr.op[0]->id.i] = pow(sym[p->opr.op[0]->id.i], ex(p->opr.op[3]))) {
-								ex(p->opr.op[4]);
+						for(sym[p->opr.op[0]->id.i] = run(p->opr.op[1]); (pilaLoop[spLoop-1] && pilaLoop[spLoop]) && run(p->opr.op[2]); 
+								sym[p->opr.op[0]->id.i] = pow(sym[p->opr.op[0]->id.i], run(p->opr.op[3]))) {
+								run(p->opr.op[4]);
 							}
 						}
 
@@ -963,14 +963,14 @@ double ex(nodeType *p) {
 						pilaLoop[spLoop] = 1;
 
 						if(spLoop == 0) {
-							for(sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]); ex(p->opr.op[2]); 
-								sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] % (long)ex(p->opr.op[3])) {
-								ex(p->opr.op[4]);
+							for(sym[p->opr.op[0]->id.i] = run(p->opr.op[1]); run(p->opr.op[2]); 
+								sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] % (long)run(p->opr.op[3])) {
+								run(p->opr.op[4]);
 							}
 						} else if(spLoop > 0) {
-						for(sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]); (pilaLoop[spLoop-1] && pilaLoop[spLoop]) && ex(p->opr.op[2]); 
-								sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] % (long)ex(p->opr.op[3])) {
-								ex(p->opr.op[4]);
+						for(sym[p->opr.op[0]->id.i] = run(p->opr.op[1]); (pilaLoop[spLoop-1] && pilaLoop[spLoop]) && run(p->opr.op[2]); 
+								sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] % (long)run(p->opr.op[3])) {
+								run(p->opr.op[4]);
 							}
 						}
 						pilaLoop[spLoop] = 0;
@@ -982,14 +982,14 @@ double ex(nodeType *p) {
 						pilaLoop[spLoop] = 1;
 
 						if(spLoop == 0) {
-							for(sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]); ex(p->opr.op[2]); 
-								sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] << (long)ex(p->opr.op[3])) {
-								ex(p->opr.op[4]);
+							for(sym[p->opr.op[0]->id.i] = run(p->opr.op[1]); run(p->opr.op[2]); 
+								sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] << (long)run(p->opr.op[3])) {
+								run(p->opr.op[4]);
 							}
 						} else if(spLoop > 0) {
-						for(sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]); (pilaLoop[spLoop-1] && pilaLoop[spLoop]) && ex(p->opr.op[2]); 
-								sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] << (long)ex(p->opr.op[3])) {
-								ex(p->opr.op[4]);
+						for(sym[p->opr.op[0]->id.i] = run(p->opr.op[1]); (pilaLoop[spLoop-1] && pilaLoop[spLoop]) && run(p->opr.op[2]); 
+								sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] << (long)run(p->opr.op[3])) {
+								run(p->opr.op[4]);
 							}
 						}
 						pilaLoop[spLoop] = 0;
@@ -1001,14 +1001,14 @@ double ex(nodeType *p) {
 						pilaLoop[spLoop] = 1;
 
 						if(spLoop == 0) {
-							for(sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]); ex(p->opr.op[2]); 
-								sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] >> (long)ex(p->opr.op[3])) {
-								ex(p->opr.op[4]);
+							for(sym[p->opr.op[0]->id.i] = run(p->opr.op[1]); run(p->opr.op[2]); 
+								sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] >> (long)run(p->opr.op[3])) {
+								run(p->opr.op[4]);
 							}
 						} else if(spLoop > 0) {
-						for(sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]); (pilaLoop[spLoop-1] && pilaLoop[spLoop]) && ex(p->opr.op[2]); 
-								sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] >> (long)ex(p->opr.op[3])) {
-								ex(p->opr.op[4]);
+						for(sym[p->opr.op[0]->id.i] = run(p->opr.op[1]); (pilaLoop[spLoop-1] && pilaLoop[spLoop]) && run(p->opr.op[2]); 
+								sym[p->opr.op[0]->id.i] = (long)sym[p->opr.op[0]->id.i] >> (long)run(p->opr.op[3])) {
+								run(p->opr.op[4]);
 							}
 						}
 						pilaLoop[spLoop] = 0;
@@ -1017,19 +1017,19 @@ double ex(nodeType *p) {
 
 					case ABS:
 						if((spLoop < 0) || pilaLoop[spLoop]) {
-							return (long long)abs(ex(p->opr.op[0]));
+							return (long long)abs(run(p->opr.op[0]));
 						}
 						return 0.0f;
 
 					case FACTORIAL:
 						if((spLoop < 0) || pilaLoop[spLoop]) {
-							return (long long)factorial(ex(p->opr.op[0]));
+							return (long long)factorial(run(p->opr.op[0]));
 						}
 						return 0.0f;
 
 					case SUMATORIA:
 						if((spLoop < 0) || pilaLoop[spLoop]) {
-							return (long long)sumatoria(ex(p->opr.op[0]), ex(p->opr.op[1]));
+							return (long long)sumatoria(run(p->opr.op[0]), run(p->opr.op[1]));
 						}
 						return 0.0f;
 
@@ -1037,7 +1037,7 @@ double ex(nodeType *p) {
 						/* Comprobar que exista yylval.nameFunction */
 						if((spLoop < 0) || pilaLoop[spLoop]) {
 							if(buscarFuncion(idFunciones, yylval.nameFunction)) {
-								return ex(getValueFunction(idFunciones, yylval.nameFunction));
+								return run(getValueFunction(idFunciones, yylval.nameFunction));
 							} else {
 								fprintf(stderr, "Error, no existe una función [%s]\n", yylval.nameFunction);
 							}	
@@ -1049,7 +1049,7 @@ double ex(nodeType *p) {
 						if((spLoop < 0) || pilaLoop[spLoop]) {
 							liberarFunciones(&idFunciones);
 							liberar(&identificadores);
-							_exit_return_ = ex(p->opr.op[0]);
+							_exit_return_ = run(p->opr.op[0]);
 							freeNode(p);
 							exit(_exit_return_);
 						}
@@ -1060,16 +1060,16 @@ double ex(nodeType *p) {
 						pilaLoop[spLoop] = 1;
 
 						if(spLoop == 0) {
-							for(sym[p->opr.op[2]->id.i] = ex(p->opr.op[0]);
-								(sym[p->opr.op[2]->id.i] <= ex(p->opr.op[1]));
+							for(sym[p->opr.op[2]->id.i] = run(p->opr.op[0]);
+								(sym[p->opr.op[2]->id.i] <= run(p->opr.op[1]));
 								sym[p->opr.op[2]->id.i]++) {
-									ex(p->opr.op[3]);
+									run(p->opr.op[3]);
 							}
 						} else if(spLoop > 0) {
-							for(sym[p->opr.op[2]->id.i] = ex(p->opr.op[0]);
-								(pilaLoop[spLoop - 1] && pilaLoop[spLoop]) && (sym[p->opr.op[2]->id.i] <= ex(p->opr.op[1]));
+							for(sym[p->opr.op[2]->id.i] = run(p->opr.op[0]);
+								(pilaLoop[spLoop - 1] && pilaLoop[spLoop]) && (sym[p->opr.op[2]->id.i] <= run(p->opr.op[1]));
 								sym[p->opr.op[2]->id.i]++) {
-									ex(p->opr.op[3]);
+									run(p->opr.op[3]);
 							}
 						}
 						pilaLoop[spLoop] = 0;
@@ -1086,11 +1086,11 @@ double ex(nodeType *p) {
 							return 0.0f;
 						} else {
 							/* Solo modificar el valor */
-							asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
-							for(; ex(p->opr.op[2]); 
+							asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
+							for(; run(p->opr.op[2]); 
 									asignar(&identificadores, p->opr.op[0]->id.identificador, 
-										getValue(identificadores, p->opr.op[0]->id.identificador) - ex(p->opr.op[3]))) {
-								ex(p->opr.op[4]);
+										getValue(identificadores, p->opr.op[0]->id.identificador) - run(p->opr.op[3]))) {
+								run(p->opr.op[4]);
 							}
 						}
 						pilaLoop[spLoop] = 0;
@@ -1107,11 +1107,11 @@ double ex(nodeType *p) {
 							return 0.0f;
 						} else {
 							/* Solo modificar el valor */
-							asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
-							for(; ex(p->opr.op[2]); 
+							asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
+							for(; run(p->opr.op[2]); 
 									asignar(&identificadores, p->opr.op[0]->id.identificador, 
-										getValue(identificadores, p->opr.op[0]->id.identificador) + ex(p->opr.op[3]))) {
-								ex(p->opr.op[4]);
+										getValue(identificadores, p->opr.op[0]->id.identificador) + run(p->opr.op[3]))) {
+								run(p->opr.op[4]);
 							}
 						}
 						pilaLoop[spLoop] = 0;
@@ -1127,11 +1127,11 @@ double ex(nodeType *p) {
 							return 0.0f;
 						} else {
 							/* Solo modificar el valor */
-							asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
-							for(; ex(p->opr.op[2]); 
+							asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
+							for(; run(p->opr.op[2]); 
 									asignar(&identificadores, p->opr.op[0]->id.identificador, 
-										getValue(identificadores, p->opr.op[0]->id.identificador) * ex(p->opr.op[3]))) {
-								ex(p->opr.op[4]);
+										getValue(identificadores, p->opr.op[0]->id.identificador) * run(p->opr.op[3]))) {
+								run(p->opr.op[4]);
 							}
 						}
 						pilaLoop[spLoop] = 0;
@@ -1147,11 +1147,11 @@ double ex(nodeType *p) {
 							return 0.0f;
 						} else {
 							/* Solo modificar el valor */
-							asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
-							for(; ex(p->opr.op[2]); 
+							asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
+							for(; run(p->opr.op[2]); 
 									asignar(&identificadores, p->opr.op[0]->id.identificador, 
-										getValue(identificadores, p->opr.op[0]->id.identificador) / ex(p->opr.op[3]))) {
-								ex(p->opr.op[4]);
+										getValue(identificadores, p->opr.op[0]->id.identificador) / run(p->opr.op[3]))) {
+								run(p->opr.op[4]);
 							}
 						}
 						pilaLoop[spLoop] = 0;
@@ -1167,11 +1167,11 @@ double ex(nodeType *p) {
 							return 0.0f;
 						} else {
 							/* Solo modificar el valor */
-							asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
-							for(; ex(p->opr.op[2]); 
+							asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
+							for(; run(p->opr.op[2]); 
 									asignar(&identificadores, p->opr.op[0]->id.identificador, 
-										pow(getValue(identificadores, p->opr.op[0]->id.identificador), ex(p->opr.op[3])) )) {
-								ex(p->opr.op[4]);
+										pow(getValue(identificadores, p->opr.op[0]->id.identificador), run(p->opr.op[3])) )) {
+								run(p->opr.op[4]);
 							}
 						}
 						pilaLoop[spLoop] = 0;
@@ -1187,11 +1187,11 @@ double ex(nodeType *p) {
 							return 0.0f;
 						} else {
 							/* Solo modificar el valor */
-							asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
-							for(; ex(p->opr.op[2]); 
+							asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
+							for(; run(p->opr.op[2]); 
 									asignar(&identificadores, p->opr.op[0]->id.identificador, 
-										(long)getValue(identificadores, p->opr.op[0]->id.identificador) % (long)ex(p->opr.op[3]) )) {
-								ex(p->opr.op[4]);
+										(long)getValue(identificadores, p->opr.op[0]->id.identificador) % (long)run(p->opr.op[3]) )) {
+								run(p->opr.op[4]);
 							}
 						}
 						pilaLoop[spLoop] = 0;
@@ -1208,11 +1208,11 @@ double ex(nodeType *p) {
 							return 0.0f;
 						} else {
 							/* Solo modificar el valor */
-							asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
-							for(; ex(p->opr.op[2]); 
+							asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
+							for(; run(p->opr.op[2]); 
 									asignar(&identificadores, p->opr.op[0]->id.identificador, 
-										(long)getValue(identificadores, p->opr.op[0]->id.identificador) << (long)ex(p->opr.op[3]))) {
-								ex(p->opr.op[4]);
+										(long)getValue(identificadores, p->opr.op[0]->id.identificador) << (long)run(p->opr.op[3]))) {
+								run(p->opr.op[4]);
 							}
 						}
 						pilaLoop[spLoop] = 0;
@@ -1228,11 +1228,11 @@ double ex(nodeType *p) {
 							return 0.0f;
 						} else {
 							/* Solo modificar el valor */
-							asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
-							for(; ex(p->opr.op[2]); 
+							asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
+							for(; run(p->opr.op[2]); 
 									asignar(&identificadores, p->opr.op[0]->id.identificador, 
-										(long)getValue(identificadores, p->opr.op[0]->id.identificador) >> (long)ex(p->opr.op[3]))) {
-								ex(p->opr.op[4]);
+										(long)getValue(identificadores, p->opr.op[0]->id.identificador) >> (long)run(p->opr.op[3]))) {
+								run(p->opr.op[4]);
 							}
 						}
 						pilaLoop[spLoop] = 0;
@@ -1281,21 +1281,21 @@ double ex(nodeType *p) {
 
 				case UNLESS:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						if (!ex(p->opr.op[0]))
-							ex(p->opr.op[1]);
+						if (!run(p->opr.op[0]))
+							run(p->opr.op[1]);
 						return 0.0f;
 					}
 					return 0.0f;
 
 				case SQRT:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return sqrt(ex(p->opr.op[0]));
+						return sqrt(run(p->opr.op[0]));
 					}
 					return 0.0f;
 
 				case SYSTEM:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
-						return ex(p->opr.op[0]);
+						return run(p->opr.op[0]);
 					}
 					return 0.0f;
 
@@ -1324,7 +1324,7 @@ double ex(nodeType *p) {
 						} else {
 							/* Sino está hay que crear la variable en la tabla de símbolos y ponerle un valor */
 							push_r(&identificadores, p->opr.op[0]->id.identificador);
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 						}
 					}
 
@@ -1339,7 +1339,7 @@ double ex(nodeType *p) {
 							/* FIXME Si el tipo de dato es booleano, solo permitir que */
 				
 							asignarTipo(&identificadores, p->opr.op[0]->id.identificador, p->opr.op[0]->tipoDato); 
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, ex(p->opr.op[1]));
+							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 						}
 					}
 					return 0.0f;
@@ -1424,7 +1424,7 @@ double ex(nodeType *p) {
 									}
 
 							case typeOpr:
-								putchar(getAscii(ex(p->opr.op[0])));
+								putchar(getAscii(run(p->opr.op[0])));
 								return 0.0f;
 							case typeCadena:
 								putchar(getAscii(strlen(p->opr.op[0]->con.cadena)));
@@ -1461,47 +1461,47 @@ double ex(nodeType *p) {
 					return 0.0f;
 
 				case ACOS:
-					return acos(ex(p->opr.op[0]));
+					return acos(run(p->opr.op[0]));
 				
 				case ASIN:
-					return asin(ex(p->opr.op[0]));
+					return asin(run(p->opr.op[0]));
 				
 				case ATAN:
-					return atan(ex(p->opr.op[0]));
+					return atan(run(p->opr.op[0]));
 				
 				case CEIL:
-					return ceil(ex(p->opr.op[0]));
+					return ceil(run(p->opr.op[0]));
 				
 				case COS:
-					return cos(ex(p->opr.op[0]));
+					return cos(run(p->opr.op[0]));
 				
 				case COSH:
-					return cosh(ex(p->opr.op[0]));
+					return cosh(run(p->opr.op[0]));
 				
 				case EXP:
-					return exp(ex(p->opr.op[0]));
+					return exp(run(p->opr.op[0]));
 				
 				case FLOOR:
-					return floor(ex(p->opr.op[0]));
+					return floor(run(p->opr.op[0]));
 				
 				case LN:
-					if(ex(p->opr.op[0]) <= 0.0) {
+					if(run(p->opr.op[0]) <= 0.0) {
 						fprintf(stderr, "Aviso: cuando x tiende a 0 se vuelve infinito ...\n");
 						return 0.0f;
 					}
-					return log(ex(p->opr.op[0]));
+					return log(run(p->opr.op[0]));
 				
 				case SIN:
-					return sin(ex(p->opr.op[0]));
+					return sin(run(p->opr.op[0]));
 				
 				case SINH:
-					return sinh(ex(p->opr.op[0]));
+					return sinh(run(p->opr.op[0]));
 				
 				case TAN:
-					return tan(ex(p->opr.op[0]));
+					return tan(run(p->opr.op[0]));
 				
 				case TANH:
-					return tanh(ex(p->opr.op[0]));
+					return tanh(run(p->opr.op[0]));
 
 				/* Arrays: */
 
@@ -1510,7 +1510,7 @@ double ex(nodeType *p) {
 						p->opr.op[0]->id.idArray, (int)ex(p->opr.op[1]));*/
 					/*	create_array(&arreglos, p->opr.op[0]->id.idArray, (int)ex(p->opr.op[1]));*/
 					/*printf("array(%s,%ld)\n", p->opr.op[0]->id.idArray, (long)ex(p->opr.op[1]));*/
-					create_array(&arreglos, p->opr.op[0]->id.idArray, (long)ex(p->opr.op[1]));
+					create_array(&arreglos, p->opr.op[0]->id.idArray, (long)run(p->opr.op[1]));
 					/*ver_arreglos(arreglos);*/
 					return 0.0f;
 
@@ -1523,15 +1523,15 @@ double ex(nodeType *p) {
 						return 0.0f;
 					}					
 					
-					if((int)ex(p->opr.op[1]) >= getMaxSize(arreglos, p->opr.op[0]->id.idArray)) {
+					if((int)run(p->opr.op[1]) >= getMaxSize(arreglos, p->opr.op[0]->id.idArray)) {
 						fprintf(stderr, "Error, %d sobrepasa el tamaño del array '%s'\n",
-							(int)ex(p->opr.op[1]), p->opr.op[0]->id.idArray); 
+							(int)run(p->opr.op[1]), p->opr.op[0]->id.idArray); 
 						return -1.0f;
 								
 					}				
 
-					double *_mierda = (double *)getElement(arreglos, p->opr.op[0]->id.idArray, (long)ex(p->opr.op[1]));
-					return _mierda[(int)ex(p->opr.op[1])];
+					double *_mierda = (double *)getElement(arreglos, p->opr.op[0]->id.idArray, (long)run(p->opr.op[1]));
+					return _mierda[(int)run(p->opr.op[1])];
 
 				case ARRAY_SIMPLE_ASIGN:
 					/*printf("'%s'[%d] = %lf\n", p->opr.op[0]->id.idArray, (int)ex(p->opr.op[1]), 
@@ -1543,9 +1543,9 @@ double ex(nodeType *p) {
 						return 0.0f;
 					}					
 					
-					double *_mierda_2 = (double *)asign_array(&arreglos, p->opr.op[0]->id.idArray, (unsigned)ex(p->opr.op[1]), 123);	
-					((double *)asign_array(&arreglos, p->opr.op[0]->id.idArray, (unsigned)ex(p->opr.op[1]), 123))[0] = 13;
-					_mierda_2[(unsigned)ex(p->opr.op[1])] = ex(p->opr.op[2]);
+					double *_mierda_2 = (double *)asign_array(&arreglos, p->opr.op[0]->id.idArray, (unsigned)run(p->opr.op[1]), 123);	
+					((double *)asign_array(&arreglos, p->opr.op[0]->id.idArray, (unsigned)run(p->opr.op[1]), 123))[0] = 13;
+					_mierda_2[(unsigned)run(p->opr.op[1])] = run(p->opr.op[2]);
 
 					return 0.0f;
 			}

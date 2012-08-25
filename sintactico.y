@@ -336,7 +336,7 @@ param:
 cuerpo:
 	/* FIXME Hay que liberar también la lista de funciones */
 	cuerpo stmt		{ 
-		ex($2);			/* Ejecutar los nodos */ 
+		run($2);			/* Ejecutar los nodos */ 
 		freeNode($2); 	/* Liberar los nodos */
 	}
 	| /* NULL */

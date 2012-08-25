@@ -2,17 +2,13 @@
 #define MY_MATH_H
 
 /* mymath.h 
-
 	Contiene algunas funciones matemáticas importantes que se utilizarán
-en el intérprete 
-
+	en el intérprete 
 */
 
-/* SHIT */
 unsigned long long factorial(short n) {
     if(n <= 1)
         return 1;
-	/* SHIT */
     unsigned long long r = 1;
     unsigned short i;
     for(i = 1; i <= n; i++)
@@ -20,7 +16,6 @@ unsigned long long factorial(short n) {
     return r;
 }
 
-/* SHIT */
 unsigned long long sumatoria(int start, int end) {
 	unsigned long r = 0;
 	unsigned i;

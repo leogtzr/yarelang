@@ -4102,7 +4102,7 @@ yyreduce:
 /* Line 1806 of yacc.c  */
 #line 338 "./sintactico.y"
     { 
-		ex((yyvsp[(2) - (2)].nPtr));			/* Ejecutar los nodos */ 
+		run((yyvsp[(2) - (2)].nPtr));			/* Ejecutar los nodos */ 
 		freeNode((yyvsp[(2) - (2)].nPtr)); 	/* Liberar los nodos */
 	}
     break;
