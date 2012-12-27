@@ -114,113 +114,110 @@
      _FACE_HAPPY_ = 332,
      _FACE_SAD_ = 333,
      _FACE_NO_ = 334,
-     INITIALIZE_IDENTIFIER = 335,
-     FUNCION = 336,
-     PROC = 337,
-     _ASIGNACION_ = 338,
-     _READ_ = 339,
-     _INITRAND_ = 340,
-     CONCATENATE_DIGITS = 341,
-     CONCATENATE_DIGITS_ID = 342,
-     CONCATENATE_DIGITS_VAR = 343,
-     _MOVE_ = 344,
-     _MOVASM_ = 345,
-     _ADDASM_ = 346,
-     _SUBASM_ = 347,
-     _SWAP_ = 348,
-     _INCR_ = 349,
-     _DECR_ = 350,
-     _GT_ = 351,
-     _LT_ = 352,
-     BREAK = 353,
-     CALL = 354,
-     EXIT = 355,
-     INCR_FUNC_ID = 356,
-     INCR_FUNC_VAR = 357,
-     DECR_FUNC_ID = 358,
-     DECR_FUNC_VAR = 359,
-     INCREMENTAR = 360,
-     DECREMENTAR = 361,
-     UNLESS = 362,
-     FOR = 363,
-     FOREACH = 364,
-     FOREACH_ID = 365,
-     FOR_MENOS = 366,
-     FOR_MENOS_ID = 367,
-     FOR_MAS = 368,
-     FOR_MAS_ID = 369,
-     FOR_MUL = 370,
-     FOR_MUL_ID = 371,
-     FOR_DIV = 372,
-     FOR_DIV_ID = 373,
-     FOR_POW = 374,
-     FOR_POW_ID = 375,
-     FOR_MOD = 376,
-     FOR_MOD_ID = 377,
-     FOR_SHIFTLEFTF = 378,
-     FOR_SHIFTLEFTF_ID = 379,
-     FOR_SHIFTRIGHT = 380,
-     FOR_SHIFTRIGHT_ID = 381,
-     FOR_OR = 382,
-     FOR_OR_ID = 383,
-     FOR_AND = 384,
-     FOR_AND_ID = 385,
-     ABS = 386,
-     FACTORIAL = 387,
-     SUMATORIA = 388,
-     SQRT = 389,
-     ACOS = 390,
-     ASIN = 391,
-     ATAN = 392,
-     CEIL = 393,
-     COS = 394,
-     COSH = 395,
-     EXP = 396,
-     FLOOR = 397,
-     LN = 398,
-     SIN = 399,
-     SINH = 400,
-     TAN = 401,
-     TANH = 402,
-     VOID = 403,
-     SYSTEM = 404,
-     ARRAY = 405,
-     DECLARE_ARRAY = 406,
-     ARRAY_POS = 407,
-     ARRAY_SIMPLE_ASIGN = 408,
-     PUSH = 409,
-     PUSH_VAR = 410,
-     PUSH_ID = 411,
-     PUSH_CONST = 412,
-     POP = 413,
-     POP_VAR = 414,
-     POP_ID = 415,
-     CLEAR_STACK = 416,
-     PUSH_VARS = 417,
-     POP_VARS = 418,
-     EXPR_MAS = 419,
-     EXPR_MENOS = 420,
-     EXPR_DIV = 421,
-     EXPR_MUL = 422,
-     EXPR_NOT = 423,
-     EXPR_ELEVADO = 424,
-     EXPR_MENOR = 425,
-     EXPR_MAYOR = 426,
-     EXPR_MENORQUE = 427,
-     EXPR_MAYORQUE = 428,
-     DECLARE_G = 429,
-     IFX = 430,
-     ELSE = 431,
-     OR = 432,
-     AND = 433,
-     ORBITS = 434,
-     ANDBITS = 435,
-     NE = 436,
-     EQ = 437,
-     LE = 438,
-     GE = 439,
-     NEGACION = 440,
-     UMINUS = 441
+     ELIPSIS = 335,
+     PUSH = 336,
+     VER_PILA = 337,
+     POP = 338,
+     POP_EMPTY = 339,
+     POP_ID = 340,
+     POP_VAR = 341,
+     INITIALIZE_IDENTIFIER = 342,
+     FUNCION = 343,
+     PROC = 344,
+     _ASIGNACION_ = 345,
+     _READ_ = 346,
+     _INITRAND_ = 347,
+     CONCATENATE_DIGITS = 348,
+     CONCATENATE_DIGITS_ID = 349,
+     CONCATENATE_DIGITS_VAR = 350,
+     _MOVE_ = 351,
+     _MOVASM_ = 352,
+     _ADDASM_ = 353,
+     _SUBASM_ = 354,
+     _SWAP_ = 355,
+     _INCR_ = 356,
+     _DECR_ = 357,
+     _GT_ = 358,
+     _LT_ = 359,
+     BREAK = 360,
+     CALL = 361,
+     EXIT = 362,
+     INCR_FUNC_ID = 363,
+     INCR_FUNC_VAR = 364,
+     DECR_FUNC_ID = 365,
+     DECR_FUNC_VAR = 366,
+     INCREMENTAR = 367,
+     DECREMENTAR = 368,
+     UNLESS = 369,
+     FOR = 370,
+     FOREACH = 371,
+     FOREACH_ID = 372,
+     FOR_MENOS = 373,
+     FOR_MENOS_ID = 374,
+     FOR_MAS = 375,
+     FOR_MAS_ID = 376,
+     FOR_MUL = 377,
+     FOR_MUL_ID = 378,
+     FOR_DIV = 379,
+     FOR_DIV_ID = 380,
+     FOR_POW = 381,
+     FOR_POW_ID = 382,
+     FOR_MOD = 383,
+     FOR_MOD_ID = 384,
+     FOR_SHIFTLEFTF = 385,
+     FOR_SHIFTLEFTF_ID = 386,
+     FOR_SHIFTRIGHT = 387,
+     FOR_SHIFTRIGHT_ID = 388,
+     FOR_OR = 389,
+     FOR_OR_ID = 390,
+     FOR_AND = 391,
+     FOR_AND_ID = 392,
+     ABS = 393,
+     FACTORIAL = 394,
+     SUMATORIA = 395,
+     SQRT = 396,
+     ACOS = 397,
+     ASIN = 398,
+     ATAN = 399,
+     CEIL = 400,
+     COS = 401,
+     COSH = 402,
+     EXP = 403,
+     FLOOR = 404,
+     LN = 405,
+     SIN = 406,
+     SINH = 407,
+     TAN = 408,
+     TANH = 409,
+     VOID = 410,
+     SYSTEM = 411,
+     ARRAY = 412,
+     DECLARE_ARRAY = 413,
+     ARRAY_POS = 414,
+     ARRAY_SIMPLE_ASIGN = 415,
+     EXPR_MAS = 416,
+     EXPR_MENOS = 417,
+     EXPR_DIV = 418,
+     EXPR_MUL = 419,
+     EXPR_NOT = 420,
+     EXPR_ELEVADO = 421,
+     EXPR_MENOR = 422,
+     EXPR_MAYOR = 423,
+     EXPR_MENORQUE = 424,
+     EXPR_MAYORQUE = 425,
+     DECLARE_G = 426,
+     IFX = 427,
+     ELSE = 428,
+     OR = 429,
+     AND = 430,
+     ORBITS = 431,
+     ANDBITS = 432,
+     NE = 433,
+     EQ = 434,
+     LE = 435,
+     GE = 436,
+     NEGACION = 437,
+     UMINUS = 438
    };
 #endif
 /* Tokens.  */
@@ -301,113 +298,110 @@
 #define _FACE_HAPPY_ 332
 #define _FACE_SAD_ 333
 #define _FACE_NO_ 334
-#define INITIALIZE_IDENTIFIER 335
-#define FUNCION 336
-#define PROC 337
-#define _ASIGNACION_ 338
-#define _READ_ 339
-#define _INITRAND_ 340
-#define CONCATENATE_DIGITS 341
-#define CONCATENATE_DIGITS_ID 342
-#define CONCATENATE_DIGITS_VAR 343
-#define _MOVE_ 344
-#define _MOVASM_ 345
-#define _ADDASM_ 346
-#define _SUBASM_ 347
-#define _SWAP_ 348
-#define _INCR_ 349
-#define _DECR_ 350
-#define _GT_ 351
-#define _LT_ 352
-#define BREAK 353
-#define CALL 354
-#define EXIT 355
-#define INCR_FUNC_ID 356
-#define INCR_FUNC_VAR 357
-#define DECR_FUNC_ID 358
-#define DECR_FUNC_VAR 359
-#define INCREMENTAR 360
-#define DECREMENTAR 361
-#define UNLESS 362
-#define FOR 363
-#define FOREACH 364
-#define FOREACH_ID 365
-#define FOR_MENOS 366
-#define FOR_MENOS_ID 367
-#define FOR_MAS 368
-#define FOR_MAS_ID 369
-#define FOR_MUL 370
-#define FOR_MUL_ID 371
-#define FOR_DIV 372
-#define FOR_DIV_ID 373
-#define FOR_POW 374
-#define FOR_POW_ID 375
-#define FOR_MOD 376
-#define FOR_MOD_ID 377
-#define FOR_SHIFTLEFTF 378
-#define FOR_SHIFTLEFTF_ID 379
-#define FOR_SHIFTRIGHT 380
-#define FOR_SHIFTRIGHT_ID 381
-#define FOR_OR 382
-#define FOR_OR_ID 383
-#define FOR_AND 384
-#define FOR_AND_ID 385
-#define ABS 386
-#define FACTORIAL 387
-#define SUMATORIA 388
-#define SQRT 389
-#define ACOS 390
-#define ASIN 391
-#define ATAN 392
-#define CEIL 393
-#define COS 394
-#define COSH 395
-#define EXP 396
-#define FLOOR 397
-#define LN 398
-#define SIN 399
-#define SINH 400
-#define TAN 401
-#define TANH 402
-#define VOID 403
-#define SYSTEM 404
-#define ARRAY 405
-#define DECLARE_ARRAY 406
-#define ARRAY_POS 407
-#define ARRAY_SIMPLE_ASIGN 408
-#define PUSH 409
-#define PUSH_VAR 410
-#define PUSH_ID 411
-#define PUSH_CONST 412
-#define POP 413
-#define POP_VAR 414
-#define POP_ID 415
-#define CLEAR_STACK 416
-#define PUSH_VARS 417
-#define POP_VARS 418
-#define EXPR_MAS 419
-#define EXPR_MENOS 420
-#define EXPR_DIV 421
-#define EXPR_MUL 422
-#define EXPR_NOT 423
-#define EXPR_ELEVADO 424
-#define EXPR_MENOR 425
-#define EXPR_MAYOR 426
-#define EXPR_MENORQUE 427
-#define EXPR_MAYORQUE 428
-#define DECLARE_G 429
-#define IFX 430
-#define ELSE 431
-#define OR 432
-#define AND 433
-#define ORBITS 434
-#define ANDBITS 435
-#define NE 436
-#define EQ 437
-#define LE 438
-#define GE 439
-#define NEGACION 440
-#define UMINUS 441
+#define ELIPSIS 335
+#define PUSH 336
+#define VER_PILA 337
+#define POP 338
+#define POP_EMPTY 339
+#define POP_ID 340
+#define POP_VAR 341
+#define INITIALIZE_IDENTIFIER 342
+#define FUNCION 343
+#define PROC 344
+#define _ASIGNACION_ 345
+#define _READ_ 346
+#define _INITRAND_ 347
+#define CONCATENATE_DIGITS 348
+#define CONCATENATE_DIGITS_ID 349
+#define CONCATENATE_DIGITS_VAR 350
+#define _MOVE_ 351
+#define _MOVASM_ 352
+#define _ADDASM_ 353
+#define _SUBASM_ 354
+#define _SWAP_ 355
+#define _INCR_ 356
+#define _DECR_ 357
+#define _GT_ 358
+#define _LT_ 359
+#define BREAK 360
+#define CALL 361
+#define EXIT 362
+#define INCR_FUNC_ID 363
+#define INCR_FUNC_VAR 364
+#define DECR_FUNC_ID 365
+#define DECR_FUNC_VAR 366
+#define INCREMENTAR 367
+#define DECREMENTAR 368
+#define UNLESS 369
+#define FOR 370
+#define FOREACH 371
+#define FOREACH_ID 372
+#define FOR_MENOS 373
+#define FOR_MENOS_ID 374
+#define FOR_MAS 375
+#define FOR_MAS_ID 376
+#define FOR_MUL 377
+#define FOR_MUL_ID 378
+#define FOR_DIV 379
+#define FOR_DIV_ID 380
+#define FOR_POW 381
+#define FOR_POW_ID 382
+#define FOR_MOD 383
+#define FOR_MOD_ID 384
+#define FOR_SHIFTLEFTF 385
+#define FOR_SHIFTLEFTF_ID 386
+#define FOR_SHIFTRIGHT 387
+#define FOR_SHIFTRIGHT_ID 388
+#define FOR_OR 389
+#define FOR_OR_ID 390
+#define FOR_AND 391
+#define FOR_AND_ID 392
+#define ABS 393
+#define FACTORIAL 394
+#define SUMATORIA 395
+#define SQRT 396
+#define ACOS 397
+#define ASIN 398
+#define ATAN 399
+#define CEIL 400
+#define COS 401
+#define COSH 402
+#define EXP 403
+#define FLOOR 404
+#define LN 405
+#define SIN 406
+#define SINH 407
+#define TAN 408
+#define TANH 409
+#define VOID 410
+#define SYSTEM 411
+#define ARRAY 412
+#define DECLARE_ARRAY 413
+#define ARRAY_POS 414
+#define ARRAY_SIMPLE_ASIGN 415
+#define EXPR_MAS 416
+#define EXPR_MENOS 417
+#define EXPR_DIV 418
+#define EXPR_MUL 419
+#define EXPR_NOT 420
+#define EXPR_ELEVADO 421
+#define EXPR_MENOR 422
+#define EXPR_MAYOR 423
+#define EXPR_MENORQUE 424
+#define EXPR_MAYORQUE 425
+#define DECLARE_G 426
+#define IFX 427
+#define ELSE 428
+#define OR 429
+#define AND 430
+#define ORBITS 431
+#define ANDBITS 432
+#define NE 433
+#define EQ 434
+#define LE 435
+#define GE 436
+#define NEGACION 437
+#define UMINUS 438
 
 
 
@@ -436,7 +430,7 @@ typedef union YYSTYPE
 
 
 /* Line 2068 of yacc.c  */
-#line 440 "y.tab.h"
+#line 434 "y.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

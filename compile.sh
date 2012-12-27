@@ -4,7 +4,7 @@ _reset=$(tput sgr0);
 txtbld=$(tput bold)             # Bold
 _red=${txtbld}$(tput setaf 1) #  red
 _blue=${txtbld}$(tput setaf 4); #  blue
-yacc -d ./sintactico.y &> /dev/null || {
+yacc -d ./sintactico.y || {
 	echo -e "\n${_red}yacc Error${_reset}";
 	exit 1;
 }

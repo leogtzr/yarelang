@@ -6,7 +6,7 @@
 
 typedef enum { 
 	typeCon, 
-	typeId,
+	typeId,			/* Variable virtual */
 	typeVar, 		/* Variable definida por el usuario :id: */
 	typeArray,			/* Tipo arreglo */
 	typeOpr, 
@@ -54,9 +54,9 @@ extern char opVar[4];
 extern struct palabras *identificadores;
 extern struct funciones *idFunciones;
 extern struct cadenas *writeStrings;
-extern struct stack *pila;
 extern struct _arrays *arreglos;
 extern double val_temp;
+extern double pila[100];
 /* Gigantes: */
 extern struct gigante *gigantes;
 

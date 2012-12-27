@@ -10,11 +10,9 @@ struct palabras {
     double longValue;
 
     struct palabras *sig;
-	enum data_type tipoDato;
 	/* FIXME:
 		Se tiene que saber si la variable está definida dentro de
 		una función */
-	_Bool inFunction;
 
 };
 
@@ -106,27 +104,12 @@ int asignar(struct palabras **inicio, char *s, double value) {
     return -1;
 }
 
-/*	La siguiente función asigna el tipo de dato indicado al 
-	enumerador "tipoDato" 
-*/
-int asignarTipo(struct palabras **inicio, const char *s, short tipo) {
-	struct palabras *aux = *inicio;
-	while(aux != NULL) {
-		/* Si los identificadores coinciden */
-        if(strcmp(aux->id, s) == 0) {
-			aux->tipoDato = tipo;
-            return tipo;
-        }
-		aux = aux->sig;
-	}
-	return 0;
-}
-
 double getValue(struct palabras *inicio, char *s) {
     struct palabras *aux = inicio;
     while(aux != NULL) {
-        if(strcmp(aux->id, s) == 0)
+        if(strcmp(aux->id, s) == 0) {
             return aux->longValue;
+		}
         aux = aux->sig;
     }
     return -1.0;

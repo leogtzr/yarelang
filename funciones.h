@@ -24,7 +24,7 @@ void push_l_funcion(struct funciones **inicio, char *nombreFuncion, nodeType *pF
 	nuevo->nombreFuncion = malloc(strlen(nombreFuncion) + 1);
     strcpy(nuevo->nombreFuncion, nombreFuncion);
 	
-	nuevo->pNodos = malloc(sizeof(*pFun));
+	/* nuevo->pNodos = malloc(sizeof(*pFun)); */
 	nuevo->pNodos = pFun;
 
     nuevo->sig = *inicio;

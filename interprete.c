@@ -13,8 +13,12 @@
 #include "giantslist.h"
 #include "gigantesops.h"
 
+#define STACK_SIZE 		100
+
 void swap(nodeType *p);
 unsigned short int getAscii(long long);
+int i_pila = 0;
+void ver_pila(short);
 short __i__stack__;
 double _temp_swap;
 double recibido;
@@ -47,7 +51,7 @@ double run(nodeType *p) {
 
 		case typeCadena:
 			if((spLoop < 0) || pilaLoop[spLoop]) {
-				printf("%s", p->con.cadena);
+				/*printf("%s", p->con.cadena);*/
 			}
 			return (double)strlen(p->con.cadena);
 
@@ -127,12 +131,18 @@ double run(nodeType *p) {
 
 				case PRINTN:
 					if((spLoop < 0) || pilaLoop[spLoop])
-						printf("%lf\n", run(p->opr.op[0]));
+						/*printf("%lf\n", run(p->opr.op[0]));*/
+						if(p->opr.op[0]->type == typeId) {
+							printf("[%lf]\n", sym[p->opr.op[0]->id.i]);
+						} else {
+							printf("%lf\n", run(p->opr.op[0]));
+						}
+
 					return 0.0f;
 
 				case PUTS:
 					if((spLoop < 0) || pilaLoop[spLoop])
-						run(p->opr.op[0]);
+						printf("%s", p->opr.op[0]->con.cadena);
 					return 0.0f;
 
 				case RAND:
@@ -1342,7 +1352,7 @@ double run(nodeType *p) {
 
 							/* FIXME Si el tipo de dato es booleano, solo permitir que */
 				
-							asignarTipo(&identificadores, p->opr.op[0]->id.identificador, p->opr.op[0]->tipoDato); 
+							/*asignarTipo(&identificadores, p->opr.op[0]->id.identificador, p->opr.op[0]->tipoDato); */
 							return asignar(&identificadores, p->opr.op[0]->id.identificador, run(p->opr.op[1]));
 						}
 					}
@@ -1350,65 +1360,12 @@ double run(nodeType *p) {
 
 				case PAR:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
+						/* PENDIENTE: Paridad */
 						/*return !(ex(p->opr.op[0]) & 1);*/
 						return 0.0f;
 					}
 					return 0.0f;
 				
-				case PUSH_VAR:
-					if((spLoop < 0) || pilaLoop[spLoop]) {
-						/*push_r_element(&pila, sym[p->opr.op[0]->id.i]);
-						return sym[p->opr.op[0]->id.i];*/
-						return 0.0f;
-					}
-					return 0.0f;
-
-				case PUSH_CONST:
-					if((spLoop < 0) || pilaLoop[spLoop]) {
-						/*push_r_element(&pila, ex(p->opr.op[0]));
-						return ex(p->opr.op[0]);*/
-						return 0.0f;
-					}
-					return 0.0f;
-	
-				case PUSH_ID:
-					if((spLoop < 0) || pilaLoop[spLoop]) {
-						/*if(buscar(identificadores, p->opr.op[0]->id.identificador)) {	
-							push_r_element(&pila, getValue(identificadores, p->opr.op[0]->id.identificador));
-						} else {
-							fprintf(stdout, "\tError, Variable '%s' no existente\n", p->opr.op[0]->id.identificador);
-								return 0;
-						}*/
-						return 0.0f;
-					}
-					return 0.0f;
-				
-				case POP_VAR:
-					if((spLoop < 0) || pilaLoop[spLoop]) {
-						/*sym[p->opr.op[0]->id.i] = pop_r_element(&pila);
-						return sym[p->opr.op[0]->id.i];*/
-					}
-					return 0.0f;
-
-				case POP_ID:
-					if((spLoop < 0) || pilaLoop[spLoop]) {
-						/*if(buscar(identificadores, p->opr.op[0]->id.identificador)) {
-							return asignar(&identificadores, p->opr.op[0]->id.identificador, pop_r_element(&pila));
-						} else {
-							fprintf(stdout, "\tError, Variable '%s' no existente\n", p->opr.op[0]->id.identificador);
-							return 0;
-						}	*/
-						return 0.0f;
-					}
-					return 0.0f;
-
-				case POP:	
-					if((spLoop < 0) || pilaLoop[spLoop]) {
-						/*return pop_r_element(&pila);*/
-						return 0.0f;
-					}
-					return 0.0f;
-
 				case PRASCII:
 					if((spLoop < 0) || pilaLoop[spLoop]) {
 						switch(p->opr.op[0]->type) {
@@ -1437,78 +1394,195 @@ double run(nodeType *p) {
 					}
 					return 0.0f;
 
-				case CLEAR_STACK:
-					if((spLoop < 0) || pilaLoop[spLoop]) {
-					/*	liberar_stack(&pila);*/
-						return 0.0f;
-					}
-					return 0.0f;
-
-				case PUSH_VARS:
-					if((spLoop < 0) || pilaLoop[spLoop]) {
-						/*
-						__i__stack__ = 0;
-						for(; __i__stack__ < 26; __i__stack__++)
-							push_r_element(&pila, sym[__i__stack__]);
-						*/
-					}
-					return 0.0f;
-
-				case POP_VARS:
-					if((spLoop < 0) || pilaLoop[spLoop]) {
-						/*__i__stack__ = 25;	
-						for(; __i__stack__ >= 0; __i__stack__--)
-							sym[__i__stack__] = pop_r_element(&pila);*/
-						return 0.0f;
-	
-					}
-					return 0.0f;
-
 				case ACOS:
-					return acos(run(p->opr.op[0]));
+					if((spLoop < 0) || pilaLoop[spLoop]) 
+						return acos(run(p->opr.op[0]));
+					else
+						return 0.0f;
 				
 				case ASIN:
-					return asin(run(p->opr.op[0]));
+					if((spLoop < 0) || pilaLoop[spLoop]) 
+						return asin(run(p->opr.op[0]));
+					else
+						return 0.0f;
 				
 				case ATAN:
-					return atan(run(p->opr.op[0]));
+					if((spLoop < 0) || pilaLoop[spLoop]) 
+						return atan(run(p->opr.op[0]));
+					else
+						return 0.0f;
 				
 				case CEIL:
-					return ceil(run(p->opr.op[0]));
+					if((spLoop < 0) || pilaLoop[spLoop]) 
+						return ceil(run(p->opr.op[0]));
+					else
+						return 0.0f;
 				
 				case COS:
-					return cos(run(p->opr.op[0]));
+					if((spLoop < 0) || pilaLoop[spLoop]) 
+						return cos(run(p->opr.op[0]));
+					else
+						return 0.0f;
 				
 				case COSH:
-					return cosh(run(p->opr.op[0]));
+					if((spLoop < 0) || pilaLoop[spLoop]) 
+						return cosh(run(p->opr.op[0]));
+					else
+						return 0.0f;
 				
 				case EXP:
-					return exp(run(p->opr.op[0]));
+					if((spLoop < 0) || pilaLoop[spLoop]) 
+						return exp(run(p->opr.op[0]));
+					else
+						return 0.0f;
 				
 				case FLOOR:
-					return floor(run(p->opr.op[0]));
+					if((spLoop < 0) || pilaLoop[spLoop]) 
+						return floor(run(p->opr.op[0]));
+					else
+						return 0.0f;
 				
 				case LN:
-					if(run(p->opr.op[0]) <= 0.0) {
-						fprintf(stderr, "Aviso: cuando x tiende a 0 se vuelve infinito ...\n");
+					if((spLoop < 0) || pilaLoop[spLoop]) {
+						if(run(p->opr.op[0]) <= 0.0) {
+							fprintf(stderr, "Aviso: cuando x tiende a 0 se vuelve infinito ...\n");
+							return 0.0f;
+						}
+						return log(run(p->opr.op[0]));
+					} else
 						return 0.0f;
-					}
-					return log(run(p->opr.op[0]));
 				
 				case SIN:
-					return sin(run(p->opr.op[0]));
+					if((spLoop < 0) || pilaLoop[spLoop]) 
+						return sin(run(p->opr.op[0]));
+					else
+						return 0.0f;
 				
 				case SINH:
-					return sinh(run(p->opr.op[0]));
+					if((spLoop < 0) || pilaLoop[spLoop]) 
+						return sinh(run(p->opr.op[0]));
+					else
+						return 0.0f;
 				
 				case TAN:
-					return tan(run(p->opr.op[0]));
+					if((spLoop < 0) || pilaLoop[spLoop]) 
+						return tan(run(p->opr.op[0]));
+					else
+						return 0.0f;
 				
 				case TANH:
-					return tanh(run(p->opr.op[0]));
+					if((spLoop < 0) || pilaLoop[spLoop]) 
+						return tanh(run(p->opr.op[0]));
+					else
+						return 0.0f;
+
+				/* Pila virtual */
+				case PUSH:
+					if((spLoop < 0) || pilaLoop[spLoop]) {
+						switch(p->opr.op[0]->type) {
+							case typeCon:
+								if(i_pila < STACK_SIZE) {
+									pila[++i_pila] = run(p->opr.op[0]);
+								} else {
+									fprintf(stderr, "Error, pila llena.\n");
+									return -1.0f;
+								}
+								/*printf("%lf\n", run(p->opr.op[0]));*/
+								break;
+							case typeId:
+								if(i_pila < STACK_SIZE) {
+									pila[++i_pila] = sym[p->opr.op[0]->id.i];
+									return 0.0f;
+								} else {
+									fprintf(stderr, "Error, pila llena.\n");
+									return -1.0f;
+								}
+							case typeCadena:
+								if(i_pila < STACK_SIZE) {
+									pila[++i_pila] = strlen(p->opr.op[0]->con.cadena);
+									return 0.0f;
+								} else {
+									fprintf(stderr, "Error, pila llena.\n");
+									return -1.0f;
+								}
+	
+							case typeVar:
+								if(i_pila < STACK_SIZE) {
+									if(buscar(identificadores, p->opr.op[0]->id.identificador))	{
+										pila[i_pila++] = getValue(identificadores, p->opr.op[0]->id.identificador);
+										return 0.0f;
+									} else {
+										fprintf(stderr, "Error, variable '%s' no encontrada.\n", p->opr.op[0]->id.identificador); 
+										return 0.0f;
+									}
+								} else {
+									fprintf(stderr, "Error, pila llena.\n");
+									return -1.0f;
+								}
+							default:			/* Cualquier otra expresión */
+								if(i_pila < STACK_SIZE) {
+									pila[i_pila++] = run(p->opr.op[0]);
+								} else {
+									fprintf(stderr, "Error, pila llena.\n");
+									return -1.0f;
+								}	
+						}
+					}
+					return 0.0f;
+				
+				case VER_PILA:
+					if((spLoop < 0) || pilaLoop[spLoop]) {
+						if(i_pila > 0) {
+							ver_pila(i_pila);
+						}
+					}
+						return 0.0f;
+				
+				case POP_EMPTY:
+					if((spLoop < 0) || pilaLoop[spLoop]) {
+						if(i_pila > 0) {
+							i_pila--;
+							return pila[i_pila];
+						} else {
+							fprintf(stderr, "Error, pila vacía.\n");
+							return -1.0f;
+						}
+					}
+					return 0.0;
+
+				case POP_VAR:
+					if((spLoop < 0) || pilaLoop[spLoop]) {
+						if(i_pila > 0) {
+							i_pila--;
+							printf("Se busca a la variable '%c'\n", 'a' + p->opr.op[0]->id.i);
+							sym[p->opr.op[0]->id.i] = pila[i_pila];
+							return sym[p->opr.op[0]->id.i];
+							
+						} else {
+							fprintf(stderr, "Error, pila vacía\n");
+							return -1.0f;
+						}
+					}
+					return 0.0f;
+				
+				case POP_ID:
+					if((spLoop < 0) || pilaLoop[spLoop]) {
+						if(i_pila > 0) {
+							i_pila--;
+							if(buscar(identificadores, p->opr.op[0]->id.identificador)) {
+								return asignar(&identificadores, p->opr.op[0]->id.identificador, pila[i_pila]);
+							} else {
+								fprintf(stderr, "Error, identificador '%s' no encontrado.\n", p->opr.op[0]->id.identificador);
+								return 0.0f;
+							}
+						} else {
+							fprintf(stderr, "Error, pila vacía\n");
+							return -1.0f;
+						}
+					}
+				
 
 				/* Arrays: */
-
 				case DECLARE_ARRAY:
 					/*printf("Se intenta declarar el array '%s', con %d elementos\n", 
 						p->opr.op[0]->id.idArray, (int)ex(p->opr.op[1]));*/
@@ -1568,4 +1642,15 @@ unsigned short int getAscii(long long valor) {
 		return valor;
 	else
 		return (valor % 255);
+}
+
+void ver_pila(short index) {
+	unsigned i = 0;
+	putchar('{');
+	putchar('\n');
+	for(i = 0; i < index; i++) {
+		printf("\t%5d: %lf\n", i + 1, pila[i]);
+	}
+	putchar('}');
+	putchar('\n');
 }

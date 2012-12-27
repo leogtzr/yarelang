@@ -45,8 +45,8 @@
 	struct palabras *identificadores = NULL;
 	struct funciones *idFunciones = NULL;
 	struct cadenas *writeStrings = NULL;
-	struct stack *pila = NULL;
 	struct _arrays *arreglos = NULL;
+	double pila[100];
 	unsigned int lineno;
 	size_t argsInFunction = 0;
 	double val_temp;
@@ -157,6 +157,17 @@
 %token _FACE_SAD_ 
 %token _FACE_NO_
 
+/* Elipsis: */
+%token ELIPSIS			/*  ....... */
+
+/* Pila virtual */
+%token PUSH			/* push(1.22324) | push(a) | push(:id:) | push(expr) */
+%token VER_PILA 	/* verpila(); */
+%token POP 			/* pop() | pop(a) | pop(ID) */
+%token POP_EMPTY	/* pop | pop() */
+%token POP_ID		/* pop(:z:) */
+%token POP_VAR		/* pop(x) */
+
 /* Tokens para trabajar con tipos de datos */
 %token INITIALIZE_IDENTIFIER
 
@@ -230,13 +241,6 @@
 %token ARRAY_POS
 %token ARRAY_SIMPLE_ASIGN	/* array[expr] = expr; */
 
-/* Tokens relacionados con las funciones push, pop y la pila */
-%token PUSH	PUSH_VAR PUSH_ID PUSH_CONST
-%token POP  POP_VAR  POP_ID
-%token CLEAR_STACK		/* Limpiar la pila */
-%token PUSH_VARS
-%token POP_VARS
-
 /* Expresiones aritméticas con palabras: */
 %token EXPR_MAS
 %token EXPR_MENOS
@@ -274,12 +278,11 @@
 
 program:
 	funciones fun_declaration cuerpo '.'	{ 
-			exit(EXIT_SUCCESS); 
 			liberar(&idFunciones); 
 			liberar(&identificadores); 
-			liberar_stack(&pila);
 			liberar_array(&arreglos);
 			liberar_gigantes(&gigantes);
+			exit(EXIT_SUCCESS); 
 	}
 	;
 
@@ -355,9 +358,6 @@ stmt:
 	| BREAK ';'							{ $$ = opr(BREAK, 0); }
 	| EXIT '(' expr ')' ';'				{ $$ = opr(EXIT, 1, $3); }
 	| PRASCII '(' expr ')'';'			{ $$ = opr(PRASCII, 1, $3); }
-	| CLEAR_STACK '('')'';'				{ $$ = opr(CLEAR_STACK, 0); }
-	| PUSH_VARS '('')'';'				{ $$ = opr(PUSH_VARS, 0); }
-	| POP_VARS '('')'';'				{ $$ = opr(POP_VARS, 0); }
 	| type_specifier ID '=' expr ';'	{ 
 		 			$$ = opr(INITIALIZE_IDENTIFIER, 2, idWithType($2, $1), $4); 
 										}
@@ -445,7 +445,7 @@ stmt:
 	| FOR VARIABLE '=' expr ',' expr ',''%'expr stmt { $$ = opr(FOR_MOD, 5, id($2), $4, $6, $9, $10); } 
 	| FOR VARIABLE '=' expr ',' expr ','SHIFTLEFT expr stmt { $$ = opr(FOR_SHIFTLEFTF, 5, id($2), $4, $6, $9, $10); } 
 	| FOR VARIABLE '=' expr ',' expr ','SHIFTRIGHT expr stmt { $$ = opr(FOR_SHIFTRIGHT, 5, id($2), $4, $6, $9, $10); }
-	| FOREACH '(' expr '.''.''.' expr ',' VARIABLE ')' stmt { $$ = opr(FOREACH, 4, $3, $7, id($9), $11); }
+	| FOREACH '(' expr ELIPSIS expr ',' VARIABLE ')' stmt { $$ = opr(FOREACH, 4, $3, $5, id($7), $9); }
 /* FOR Con identificadores */
 	| FOR ID '=' expr ',' expr ',''-'expr stmt { $$ = opr(FOR_MENOS_ID, 5, idS($2), $4, $6, $9, $10); } 
 	| FOR ID '=' expr ',' expr ',''+'expr stmt { $$ = opr(FOR_MAS_ID, 5, idS($2), $4, $6, $9, $10); } 
@@ -456,7 +456,7 @@ stmt:
 	| FOR ID '=' expr ',' expr ',''%'expr stmt { $$ = opr(FOR_MOD_ID, 5, idS($2), $4, $6, $9, $10); } 
 	| FOR ID '=' expr ',' expr ','SHIFTLEFT expr stmt { $$ = opr(FOR_SHIFTLEFTF_ID, 5, idS($2), $4, $6, $9, $10); } 
 	| FOR ID '=' expr ',' expr ','SHIFTRIGHT expr stmt { $$ = opr(FOR_SHIFTRIGHT_ID, 5, idS($2), $4, $6, $9, $10); } 
-	| FOREACH '(' expr '.''.''.' expr ',' ID ')' stmt { $$ = opr(FOREACH_ID, 4, $3, $7, idS($9), $11); }
+	| FOREACH '(' expr ELIPSIS expr ',' ID ')' stmt { $$ = opr(FOREACH_ID, 4, $3, $5, idS($7), $9); }
 	| IF '(' expr ')'	stmt %prec	IFX	{ $$ = opr(IF, 2, $3, $5); }
 	| UNLESS '(' expr ')'	stmt %prec	IFX	{ $$ = opr(UNLESS, 2, $3, $5); }
 	| IF '(' expr ')' stmt ELSE stmt	{ $$ = opr(IF, 3, $3, $5, $7); }
@@ -469,6 +469,8 @@ stmt:
 	| ID CONCATENATE_DIGITS expr ';'	{ $$ = opr(CONCATENATE_DIGITS_ID, 2, idS($1), $3); }
 	| VARIABLE CONCATENATE_DIGITS expr ';'	{ $$ = opr(CONCATENATE_DIGITS_VAR, 2, id($1), $3); }
 	| SYSTEM '(' CADENA ')'';'			{ $$ = opr(SYSTEM, 1, conStr($3, typeSystem)); }
+	| PUSH '(' expr ')'';'				{ $$ = opr(PUSH, 1, $3); }
+	| VER_PILA '('')'';'				{ $$ = opr(VER_PILA, 0); }
 	| DECLARE '(' ID ')'';'				{ $$ = opr(DECLARE, 1, idS($3)); }
 	| DECLARE '(' ID ',' expr ')'';'	{ $$ = opr(DECLARE_AND_ASSIGN, 2, idS($3), $5); }
 	| ARRAY '(' ID_ARRAY ',' expr ')'';' {	
@@ -483,6 +485,8 @@ stmt:
 	| DECLARE_G '(' ID_GIGANTE ',' GIGANTE ')'';' 	{ printf("[declare_g(%s, %s);]\n", $3, $5); 
 		$$ = NULL;
 	} 
+	| POP '(' ID ')'';'					{ $$ = opr(POP_ID, 1, idS($3)); } 
+	| POP '(' VARIABLE ')'';'			{ $$ = opr(POP_VAR, 1, id($3)); }
 	;
 	
 stmt_list:
@@ -562,16 +566,6 @@ expr:
 	| INCREMENTAR '(' ID ')'			{ $$ = opr(INCR_FUNC_ID, 1, idS($3)); } 
 	| DECREMENTAR '(' VARIABLE ')'		{ $$ = opr(DECR_FUNC_VAR, 1, id($3)); } 
 	| DECREMENTAR '(' ID ')'			{ $$ = opr(DECR_FUNC_ID, 1, idS($3)); } 
-	| PUSH '(' VARIABLE ')'				{ $$ = opr(PUSH_VAR, 1, id($3)); }
-	| PUSH VARIABLE 					{ $$ = opr(PUSH_VAR, 1, id($2)); }
-	| PUSH '(' expr ')'					{ $$ = opr(PUSH_CONST, 1, $3); }
-	| PUSH ID 							{ $$ = opr(PUSH_ID, 1, idS($2)); }
-	| POP '(' VARIABLE ')'				{ $$ = opr(POP_VAR, 1, id($3)); }	
-	| POP VARIABLE 						{ $$ = opr(POP_VAR, 1, id($2)); }	
-	| POP '(' ID ')'					{ $$ = opr(POP_ID, 1, idS($3)); }	
-	| POP ID 							{ $$ = opr(POP_ID, 1, idS($2)); }	
-	| POP '('')'						{ $$ = opr(POP, 0); }	
-	| POP 								{ $$ = opr(POP, 0); }	
 	| expr OPVAR expr 					{ 
 					/* Comparaciones de operadores */
 					if(strcmp(opVar, "+") == 0) {

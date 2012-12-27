@@ -4,8 +4,7 @@
 #include <stdbool.h>
 
 struct pila {
-    /* FIXME Hay que cambiar el tipo de dato */
-    long long x;
+    double x;
     struct pila *sig;
 };
 
@@ -13,14 +12,27 @@ struct pila *new_stack_element(void) {
     return malloc(sizeof(struct pila));
 }
 
-void push_l_element(struct pila **inicio, long long valor) {
+void ver_pila(struct pila *inicio) {
+    putchar('\n');
+    putchar('{');
+    struct pila *aux = inicio;
+    unsigned int n = 0;
+    while(aux != NULL) {
+        printf("\t%u: %lf\n", n++, aux->x);
+        aux = aux->sig;
+    }
+    putchar('}');
+    putchar('\n');
+}
+
+void push_l_element(struct pila **inicio, double valor) {
     struct pila *nuevo = new_stack_element();
     nuevo->x = valor;
     nuevo->sig = *inicio;
     *inicio = nuevo;
 }
 
-void push_r(struct pila **inicio, long long valor) {
+void push_r_element(struct pila **inicio, double valor) {
     /* Si la pila está vacía usamos el otro método que es más sencillo */
     if(*inicio == NULL) {
         push_l_element(&*inicio, valor);
@@ -37,6 +49,18 @@ void push_r(struct pila **inicio, long long valor) {
     aux->sig->x = valor;
 }
 
+double *getCima(struct pila **inicio) {
+    if(*inicio != NULL) {
+        struct pila *aux = *inicio;
+        while(aux->sig != NULL)
+            aux = aux->sig;
+
+        return &aux->x;
+
+    } else
+        return NULL;
+}
+
 void pop_l_element(struct pila **inicio) {
     struct pila *nuevo = new_stack_element();
     nuevo = *inicio;
@@ -44,7 +68,7 @@ void pop_l_element(struct pila **inicio) {
     free(nuevo);
 }
 
-long long pop_r_element(struct pila **inicio) {
+double pop_r_element(struct pila **inicio) {
 
     if((*inicio)->sig == NULL)
         return (*inicio)->x;
@@ -57,7 +81,7 @@ long long pop_r_element(struct pila **inicio) {
         aux = aux->sig;
     }
 
-    long long r = aux->x;
+    double r = aux->x;
 
     ultimo->sig = NULL;
     free(ultimo->sig);
@@ -69,7 +93,7 @@ _Bool isEmpty_stack(struct pila *inicio) {
     return (inicio == NULL) ? true : false;
 }
 
-void liberar_stack(struct pila **inicio) {
+void liberar_pila(struct pila **inicio) {
     /* Primero checar que la pila no esté vacía */
     if(isEmpty_stack(*inicio))
         return;

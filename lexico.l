@@ -25,7 +25,7 @@
 					}
 			
 [0-9]+([.][0-9]+)? 	{
-						yylval.iValue = atof(yytext);
+						yylval.iValue = strtod(yytext, NULL);
 						return INTEGER;
 					}
 
@@ -217,16 +217,11 @@
 [Ii][fF] 							return IF;
 [eE][lL][sS][eE] 					return ELSE;
 [rR][eE][aA][dD]					return READ;
-[pP][uU][sS][hH]					return PUSH;
-[pP][oO][pP]						return POP;
 ([pP][rR][iI][nN][tT])|([sS][aA][yY]) 	return PRINT;
 [pP][aA][rR]						return PAR;
 ([pP][rR][iI][nN][tT][Nn]) 			return PRINTN;
 [aA][bB][sS]						return ABS;
 [Pp][rR][aA][sS][cC][iI][iI]		return PRASCII;
-[cC][lL][eE][aA][rR][sS][tT][aA][cC][kK]	return CLEAR_STACK;
-[pP][uU][Ss][hH][vV][aA][rR][sS]	return PUSH_VARS;
-[Pp][oO][pP][vV][aA][rR][sS]		return POP_VARS;
 [fF][aA][cC][tT][oO][rR][iI][aA][lL]	return FACTORIAL;
 [sS][uU][mM][aA][tT][oO][rR][iI][aA]	return SUMATORIA;
 [rR][aA][nN][dD]					return RAND;
@@ -255,6 +250,12 @@
 [tT][aA][nN]						return TAN;
 [tT][aA][nN][hH]					return TANH;
 [sS][yY][sS][tT][eE][mM]			return SYSTEM;
+
+[pP][uU][sS][hH]					return PUSH;
+[vV][eE][rR][pP][iI][lL][aA]		return VER_PILA;
+[pP][oO][pP]						return POP;
+
+[.][.][.]([.]+)?					return ELIPSIS;
 
 [dD][eE][cC][lL][aA][rR][eE][_][gG]		return DECLARE_G;	/* declare_g(...); */
 
